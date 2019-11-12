@@ -41,7 +41,8 @@ namespace DorllyServiceManager.Controllers
                     return currentUser;
                 }
                 //Session过期 通过Cookies中的信息 重新获取用户对象 并存储于Session中
-                var account = userManage.GetAccountByCookie();
+                //var account = userManage.GetAccountByCookie();
+                var account = new Account();
                 HttpContext.Session.Set<Account>("CurrentUser",account);
                 return account;
             }

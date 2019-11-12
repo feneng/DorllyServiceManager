@@ -4,14 +4,14 @@
     "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj": {
+    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj",
-        "projectName": "DorllyServiceManager",
-        "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj",
+        "projectUniqueName": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj",
+        "projectName": "DorllyService.Domain",
+        "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj",
         "packagesPath": "C:\\Users\\feneng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\obj\\",
+        "outputPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\feneng\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,10 +43,80 @@
               "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj",
+        "projectName": "DorllyServiceManager",
+        "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\DorllyServiceManager.csproj",
+        "packagesPath": "C:\\Users\\feneng\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyServiceManager\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\feneng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj": {
+                "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools.DotNet": {
+              "target": "Package",
+              "version": "[2.0.3, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",

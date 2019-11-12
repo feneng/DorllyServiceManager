@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DorllyService.Domain;
+using System.Collections.Generic;
 
 namespace DorllyServiceManager.Models
 {

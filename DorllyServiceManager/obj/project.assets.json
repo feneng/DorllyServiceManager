@@ -365,7 +365,7 @@
           "Microsoft.EntityFrameworkCore.Relational": "3.0.0"
         },
         "compile": {
-          "lib/netstandard2.1/_._": {}
+          "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Design.dll": {}
         },
         "runtime": {
           "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Design.dll": {}
@@ -2495,6 +2495,20 @@
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "DorllyService.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0",
+          "Microsoft.EntityFrameworkCore.Tools": "3.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DorllyService.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DorllyService.Domain.dll": {}
         }
       }
     }
@@ -8113,10 +8127,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "DorllyService.Domain/1.0.0": {
+      "type": "project",
+      "path": "../DorllyService.Domain/DorllyService.Domain.csproj",
+      "msbuildProject": "../DorllyService.Domain/DorllyService.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+      "DorllyService.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 3.0.0",
       "Microsoft.Extensions.Logging.Debug >= 3.0.0",
@@ -8148,7 +8168,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj": {
+              "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Domain\\DorllyService.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

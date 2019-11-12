@@ -1,5 +1,4 @@
-using DorllyServiceManager.Data;
-using DorllyServiceManager.Models;
+using DorllyService.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

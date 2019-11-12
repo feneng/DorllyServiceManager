@@ -1,0 +1,10 @@
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\bin\Debug\netcoreapp3.0\DorllyService.Domain.deps.json
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\bin\Debug\netcoreapp3.0\DorllyService.Domain.runtimeconfig.json
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\bin\Debug\netcoreapp3.0\DorllyService.Domain.runtimeconfig.dev.json
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\bin\Debug\netcoreapp3.0\DorllyService.Domain.dll
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\bin\Debug\netcoreapp3.0\DorllyService.Domain.pdb
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\obj\Debug\netcoreapp3.0\DorllyService.Domain.AssemblyInfoInputs.cache
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\obj\Debug\netcoreapp3.0\DorllyService.Domain.AssemblyInfo.cs
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\obj\Debug\netcoreapp3.0\DorllyService.Domain.dll
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\obj\Debug\netcoreapp3.0\DorllyService.Domain.pdb
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Domain\obj\Debug\netcoreapp3.0\DorllyService.Domain.csprojAssemblyReference.cache
