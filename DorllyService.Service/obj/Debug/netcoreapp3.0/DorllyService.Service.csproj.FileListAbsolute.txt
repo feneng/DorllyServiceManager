@@ -1,0 +1,5 @@
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Service\bin\Debug\netcoreapp3.0\DorllyService.Service.deps.json
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Service\bin\Debug\netcoreapp3.0\DorllyService.Service.dll
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Service\obj\Debug\netcoreapp3.0\DorllyService.Service.csprojAssemblyReference.cache
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Service\obj\Debug\netcoreapp3.0\DorllyService.Service.AssemblyInfoInputs.cache
+C:\Users\feneng\source\repos\DorllyServiceManager\DorllyService.Service\obj\Debug\netcoreapp3.0\DorllyService.Service.AssemblyInfo.cs

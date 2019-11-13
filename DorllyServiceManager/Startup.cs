@@ -33,10 +33,6 @@ namespace DorllyServiceManager
                 options.Cookie.IsEssential = true;
             });
 
-
-            //services.AddDbContext<DorllyServiceManagerContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("DorllyServiceManagerContext")));
-
             services.AddDbContext<DorllyServiceManagerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DorllyServiceManagerContext")));
         }
