@@ -34,7 +34,7 @@ namespace DorllyServiceManager
             });
 
             services.AddDbContext<DorllyServiceManagerContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DorllyServiceManagerContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("SqlServiceConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

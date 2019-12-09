@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj": {}
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj": {
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj",
+        "projectUniqueName": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj",
         "projectName": "DorllyService.Common",
-        "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj",
-        "packagesPath": "C:\\Users\\feneng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\obj\\",
+        "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj",
+        "packagesPath": "/Users/feneng/.nuget/packages/",
+        "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\feneng\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,6 +35,32 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.DependencyModel": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -52,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

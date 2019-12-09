@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Service\\DorllyService.Service.csproj": {}
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj": {
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj",
+        "projectUniqueName": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj",
         "projectName": "DorllyService.Common",
-        "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj",
-        "packagesPath": "C:\\Users\\feneng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\obj\\",
+        "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj",
+        "packagesPath": "/Users/feneng/.nuget/packages/",
+        "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\feneng\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,6 +35,32 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.DependencyModel": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -52,35 +76,33 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Service\\DorllyService.Service.csproj": {
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Service\\DorllyService.Service.csproj",
-        "projectName": "DorllyService.Service",
-        "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Service\\DorllyService.Service.csproj",
-        "packagesPath": "C:\\Users\\feneng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Service\\obj\\",
+        "projectUniqueName": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj",
+        "projectName": "DorllyService.Domain",
+        "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj",
+        "packagesPath": "/Users/feneng/.nuget/packages/",
+        "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\feneng\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj": {
-                "projectPath": "C:\\Users\\feneng\\source\\repos\\DorllyServiceManager\\DorllyService.Common\\DorllyService.Common.csproj"
+              "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj": {
+                "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj"
               }
             }
           }
@@ -94,7 +116,11 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[3.0.0, )"
             }
@@ -114,7 +140,74 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj",
+        "projectName": "DorllyService.Service",
+        "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj",
+        "packagesPath": "/Users/feneng/.nuget/packages/",
+        "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/feneng/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj": {
+                "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj"
+              },
+              "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj": {
+                "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Z.EntityFramework.Plus.EFCore": {
+              "target": "Package",
+              "version": "[3.0.24, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

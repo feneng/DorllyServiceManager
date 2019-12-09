@@ -6,10 +6,20 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="3.0.24" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DorllyService.Common\DorllyService.Common.csproj" />
+    <ProjectReference Include="..\DorllyService.Domain\DorllyService.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="RepositoryBase.cs" />
+    <Compile Remove="IRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceModels\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>

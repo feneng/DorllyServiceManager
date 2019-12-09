@@ -1,7 +1,7 @@
 ﻿using DorllyService.Domain;
 using System.Collections.Generic;
 
-namespace DorllyServiceManager.Models
+namespace DorllyService.Service
 {
     /// <summary>
     /// 通用用户登录类，简单信息
@@ -24,11 +24,11 @@ namespace DorllyServiceManager.Models
         /// <summary>
         /// 登录密码
         /// </summary>
-        public string PassWord { get; set; }
+        public string Password { get; set; }
         /// <summary>
         /// 管理员标识
         /// </summary>
-        public string AdminIdentity { get; set; }
+        public bool AdminIdentity { get; set; }
         /// <summary>
         /// 用户头像
         /// </summary>
@@ -36,7 +36,7 @@ namespace DorllyServiceManager.Models
         /// <summary>
         /// 用户所属系统
         /// </summary>
-        public int SystemId { get; set; }
+        public Garden Garden { get; set; }
         /// <summary>
         /// 权限集合
         /// </summary>

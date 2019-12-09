@@ -2,7 +2,7 @@
 
 namespace DorllyService.Domain
 {
-    public class DorllyServiceManagerContext : DbContext
+    public class DorllyServiceManagerContext : DbContext,IContext
     {
         public DorllyServiceManagerContext(DbContextOptions<DorllyServiceManagerContext> options)
             : base(options)
@@ -25,9 +25,8 @@ namespace DorllyService.Domain
         public DbSet<ServiceSupplier> ServiceSupplier { get; set; }
         public DbSet<SupplierLevel> SupplierLevel { get; set; }
         public DbSet<SystemSetting> SystemSetting { get; set; }
-
-        public DbSet<DorllyService.Domain.RolePermission> RolePermission { get; set; }
-        public DbSet<DorllyService.Domain.UserRole> UserRole { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

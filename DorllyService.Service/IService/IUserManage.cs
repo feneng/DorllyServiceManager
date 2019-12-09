@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DorllyService.Domain;
 
-namespace DorllyService.Service.IService
+namespace DorllyService.Service
 {
-    interface IUserManage
+    public interface IUserManage:IRepository<User>
     {
+        User Login(string account, string password);
+        bool Remove(int userId);
+        Account GetAccountByUser(User user);
+        Account GetAccountByCookie();
+        bool IsAdmin(int userId);
     }
 }
