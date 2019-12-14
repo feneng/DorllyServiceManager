@@ -1,5 +1,6 @@
 ﻿using DorllyService.Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DorllyService.Service
 {
@@ -40,15 +41,15 @@ namespace DorllyService.Service
         /// <summary>
         /// 权限集合
         /// </summary>
-        public List<Permission> Permissions { get; set; }
+        public IQueryable<Permission> Permissions { get; set; }
         /// <summary>
         /// 角色的集合
         /// </summary>
-        public List<Role> Roles { get; set; }
+        public IEnumerable<Role> Roles { get; set; }
         /// <summary>
         /// 用户可操作的模块集合
         /// </summary>
-        public List<Module> Modules { get; set; }
+        public IQueryable<Module> Modules { get; set; }
         #endregion
     }
 }

@@ -1,16 +1,15 @@
+using System;
 using DorllyService.Domain;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace DorllyServiceManager
 {
-    //https://docs.microsoft.com/zh-cn/aspnet/core/data/ef-mvc/crud?view=aspnetcore-2.2
-    //https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -24,6 +23,17 @@ namespace DorllyServiceManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                //管理员用户的cookie服务
+                .AddCookie(UserAuthorizeAttribute.UserAuthenticationScheme, options =>
+                {
+                    options.LoginPath = "";//登录页面
+                    options.LogoutPath = "";//退出页面
+                    options.AccessDeniedPath = "";//拒绝访问页面
+                    options.Cookie.Path = "/";
+                });
+
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.

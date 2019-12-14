@@ -36,6 +36,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[3.1.0, )"
@@ -59,6 +63,10 @@
             "Microsoft.Extensions.Options.ConfigurationExtensions": {
               "target": "Package",
               "version": "[3.1.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             }
           },
           "imports": [
@@ -144,6 +152,73 @@
         }
       }
     },
+    "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj",
+        "projectName": "DorllyService.Service",
+        "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj",
+        "packagesPath": "/Users/feneng/.nuget/packages/",
+        "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/feneng/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj": {
+                "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/DorllyService.Common.csproj"
+              },
+              "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj": {
+                "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Z.EntityFramework.Plus.EFCore": {
+              "target": "Package",
+              "version": "[3.0.24, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/DorllyServiceManager.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -167,6 +242,9 @@
             "projectReferences": {
               "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj": {
                 "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj"
+              },
+              "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj": {
+                "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/DorllyService.Service.csproj"
               }
             }
           }

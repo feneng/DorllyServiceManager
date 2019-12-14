@@ -248,8 +248,6 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win-arm64/native/sni.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win-x64/native/sni.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win-x86/native/sni.dll
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/unix/lib/netcoreapp2.0/System.Runtime.Caching.dll
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp2.0/System.Runtime.Caching.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Common.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Domain.dll
@@ -284,3 +282,9 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csproj.CopyComplete
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/Z.EntityFramework.Extensions.EFCore.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/Z.EntityFramework.Plus.EFCore.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/Z.Expressions.Eval.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Service.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Service.pdb

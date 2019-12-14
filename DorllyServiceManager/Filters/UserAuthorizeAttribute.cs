@@ -1,32 +1,76 @@
 ﻿using DorllyServiceManager.Controllers;
 using DorllyServiceManager.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using System.Linq;
+using DorllyService.Common.Extensions;
+using DorllyService.Common.Enums;
+using DorllyService.Common;
 
-namespace DorllyServiceManager.Filters
+namespace DorllyServiceManager
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public class UserAuthorizeAttribute : AuthorizeAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true,Inherited =true)]
+    public class UserAuthorizeAttribute : AuthorizeAttribute,IAuthorizationFilter
     {
         #region 字段和属性
-        /// <summary>
-        /// 模块别名，可配置更改
-        /// </summary>
-        public string ModuleAlias { get; set; }
-        /// <summary>
-        /// 权限动作
-        /// </summary>
-        public string OperaAction { get; set; }
-        /// <summary>
-        /// 权限访问控制器参数
-        /// </summary>
-        private string Sign { get; set; }
-        /// <summary>
-        /// 基类实例化
-        /// </summary>
-        public BaseController baseController = new BaseController();
+        ///// <summary>
+        ///// 模块别名，可配置更改
+        ///// </summary>
+        //public string ModuleAlias { get; set; }
+        ///// <summary>
+        ///// 权限动作
+        ///// </summary>
+        //public string OperaAction { get; set; }
+        ///// <summary>
+        ///// 权限访问控制器参数
+        ///// </summary>
+        //private string Sign { get; set; }
+        ///// <summary>
+        ///// 基类实例化
+        ///// </summary>
+        //public BaseController baseController = new BaseController();
+
+        public const string UserAuthenticationScheme = "UserAuthenticationScheme";
+
+        public UserAuthorizeAttribute()
+        {
+            this.AuthenticationSchemes = UserAuthenticationScheme;
+        }
+
+        public virtual void OnAuthorization(AuthorizationFilterContext context)
+        {
+            var authenticate = context.HttpContext.AuthenticateAsync(UserAuthenticationScheme);
+            if (authenticate.Result.Succeeded || SkipUserAuthorize(context.ActionDescriptor)) return;
+            var request = context.HttpContext.Request;
+            if (request.IsAjaxRequest())
+            {
+                var msg = "未登录或登录超时，请重新登录";
+                var retResult = $"{{\"status\":{ResultStatus.NotLogin},\"msg\":\"{msg}\"}}";
+                var json = JsonHelper.ObjectToJSON(retResult);
+                var contentResult = new ContentResult { Content = json };
+                context.Result = contentResult;
+                return;
+            }
+            var url = context.HttpContext.Content("~/Login");
+            url = string.Concat(url,"?returnUrl=",request.Path);
+            var redirect = new RedirectResult(url);
+            context.Result = redirect;
+            return;
+        }
+
+        protected virtual bool SkipUserAuthorize(ActionDescriptor actionDescriptor)
+        {
+            return actionDescriptor.FilterDescriptors.Where(a => a.Filter is SkipUserAuthorizeAttribute).Any();
+        }
 
         #endregion
+
+
 
         /// <summary>
         /// 权限认证

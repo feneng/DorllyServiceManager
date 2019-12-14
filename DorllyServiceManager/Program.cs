@@ -17,8 +17,7 @@ namespace DorllyServiceManager
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DorllyServiceManagerContext>();
-                    DbInitializer.Initialize(context);
+                    DbInitializer.Initialize(services);
                 }
                 catch (Exception ex)
                 {
