@@ -1,9 +1,9 @@
 using DorllyService.Domain;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace DorllyServiceManager
 {
@@ -19,10 +19,10 @@ namespace DorllyServiceManager
                 {
                     DbInitializer.Initialize(services);
                 }
-                catch (Exception ex)
+                catch (DbUpdateException ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while seeding the database.");
+                    logger.LogError(ex, "数据库数据初始化时发生异常");
                 }
             }
             host.Run();

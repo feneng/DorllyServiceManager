@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace DorllyService.Domain
 {
@@ -8,6 +10,10 @@ namespace DorllyService.Domain
             : base(options)
         {
         }
+
+        public static readonly LoggerFactory LogFactory = new LoggerFactory(new[] {
+            new DebugLoggerProvider()
+        });
 
         public DbSet<User> User { get; set; }
         public DbSet<Service> Service { get; set; }

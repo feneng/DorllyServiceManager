@@ -30,12 +30,52 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Areas\" />
     <Folder Include="Areas\Admin\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\Login\" />
+    <Folder Include="wwwroot\admin\" />
+    <Folder Include="wwwroot\admin\css\" />
+    <Folder Include="wwwroot\admin\fonts\" />
+    <Folder Include="wwwroot\admin\img\" />
+    <Folder Include="wwwroot\admin\js\" />
+    <Folder Include="wwwroot\admin\css\skins\" />
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\admin\img\avatars\" />
+    <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\admin\js\bootbox\" />
+    <Folder Include="wwwroot\admin\js\charts\" />
+    <Folder Include="wwwroot\admin\js\colorpicker\" />
+    <Folder Include="wwwroot\admin\js\datatable\" />
+    <Folder Include="wwwroot\admin\js\datetime\" />
+    <Folder Include="wwwroot\admin\js\editors\" />
+    <Folder Include="wwwroot\admin\js\fuelux\" />
+    <Folder Include="wwwroot\admin\js\fullcalendar\" />
+    <Folder Include="wwwroot\admin\js\knob\" />
+    <Folder Include="wwwroot\admin\js\select2\" />
+    <Folder Include="wwwroot\admin\js\slider\" />
+    <Folder Include="wwwroot\admin\js\swf\" />
+    <Folder Include="wwwroot\admin\js\tagsinput\" />
+    <Folder Include="wwwroot\admin\js\textarea\" />
+    <Folder Include="wwwroot\admin\js\toastr\" />
+    <Folder Include="wwwroot\admin\js\validation\" />
+    <Folder Include="Areas\Admin\Views\Home\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\css\animate.min.css" />
+    <Content Remove="wwwroot\img\attach-red.png" />
+    <Content Remove="wwwroot\js\beyond.js" />
+    <Content Remove="wwwroot\js\nestable\jquery.nestable.min.js" />
+    <Content Remove="wwwroot\js\skins.js" />
+    <Content Remove="wwwroot\admin\css\skins\black.min.css" />
+    <Content Remove="wwwroot\admin\img\avatars\bing.png" />
+    <Content Remove="wwwroot\admin\img\avatars\divyia.jpg" />
+    <Content Remove="wwwroot\admin\js\charts\chartjs\chartjs-init.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="DorllyService.db" />
+  </ItemGroup>
 </Project>

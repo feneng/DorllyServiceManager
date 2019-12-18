@@ -1,5 +1,6 @@
 using System;
 using DorllyService.Domain;
+using DorllyService.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,12 +13,14 @@ namespace DorllyServiceManager
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -26,11 +29,18 @@ namespace DorllyServiceManager
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 //管理员用户的cookie服务
+                .AddCookie(AdminAuthorizeAttribute.AdminAuthenticationScheme, options => {
+                    options.LoginPath = "/Admin/Login/Index";
+                    options.LogoutPath = "";
+                    options.AccessDeniedPath = "";
+                    options.Cookie.Path = "/";
+                })
+                //普通用户的cookie服务
                 .AddCookie(UserAuthorizeAttribute.UserAuthenticationScheme, options =>
                 {
-                    options.LoginPath = "";//登录页面
-                    options.LogoutPath = "";//退出页面
-                    options.AccessDeniedPath = "";//拒绝访问页面
+                    options.LoginPath = "";
+                    options.LogoutPath = "";
+                    options.AccessDeniedPath = "";
                     options.Cookie.Path = "/";
                 });
 
@@ -43,8 +53,22 @@ namespace DorllyServiceManager
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddDbContext<DorllyServiceManagerContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("SqlServiceConnection")));
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IUserManager, UserManager>();
+            if (Environment.IsDevelopment())
+            {
+                services.AddDbContext<DorllyServiceManagerContext>(options =>
+                    options.UseLoggerFactory(DorllyServiceManagerContext.LogFactory)
+                    .UseSqlite(Configuration.GetConnectionString("TheOtherSqlServiceConnection"),
+                    b=>b.MigrationsAssembly("DorllyServiceManager")));
+            }
+            else
+            {
+                services.AddDbContext<DorllyServiceManagerContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SqlServiceConnection"),
+                    b => b.MigrationsAssembly("DorllyServiceManager")));
+            }
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +92,10 @@ namespace DorllyServiceManager
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "areaRoute",
+                    areaName:"Admin",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

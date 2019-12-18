@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DorllyService.Domain.Migrations
+namespace DorllyServiceManager.Migrations
 {
-    public partial class _20191112 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Address = table.Column<string>(maxLength: 512, nullable: true),
                     State = table.Column<byte>(nullable: false)
@@ -27,7 +27,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Status = table.Column<bool>(nullable: false)
@@ -42,7 +42,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Description = table.Column<string>(maxLength: 512, nullable: true),
@@ -58,7 +58,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     ParentId = table.Column<int>(nullable: true),
@@ -82,7 +82,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Type = table.Column<int>(nullable: false),
@@ -100,7 +100,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Description = table.Column<string>(maxLength: 512, nullable: true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
@@ -116,7 +116,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     MinScore = table.Column<int>(nullable: false),
@@ -133,7 +133,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     FullName = table.Column<string>(maxLength: 64, nullable: true),
                     Abbreviation = table.Column<string>(maxLength: 32, nullable: true),
@@ -190,7 +190,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Type = table.Column<byte>(nullable: false),
                     Path = table.Column<string>(maxLength: 128, nullable: true),
@@ -223,7 +223,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     Value = table.Column<byte>(maxLength: 512, nullable: false),
                     DataType = table.Column<string>(maxLength: 24, nullable: true),
@@ -246,7 +246,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 128, nullable: true),
                     ContractNo = table.Column<string>(maxLength: 48, nullable: true),
                     FirstParty = table.Column<string>(maxLength: 64, nullable: true),
@@ -280,7 +280,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 8, nullable: true),
                     Account = table.Column<string>(maxLength: 8, nullable: true),
                     Password = table.Column<string>(maxLength: 64, nullable: true),
@@ -294,7 +294,8 @@ namespace DorllyService.Domain.Migrations
                     WorkTel = table.Column<string>(maxLength: 64, nullable: true),
                     Avatar = table.Column<string>(maxLength: 128, nullable: true),
                     State = table.Column<byte>(nullable: false),
-                    SupplierId = table.Column<int>(nullable: true)
+                    SupplierId = table.Column<int>(nullable: true),
+                    Salt = table.Column<string>(maxLength: 8, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -318,7 +319,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 24, nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Type = table.Column<byte>(nullable: false),
@@ -345,7 +346,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(maxLength: 30, nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -424,7 +425,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OrderNo = table.Column<string>(maxLength: 48, nullable: true),
                     Buyer = table.Column<string>(maxLength: 48, nullable: true),
                     ContactUser = table.Column<string>(maxLength: 36, nullable: true),
@@ -466,7 +467,7 @@ namespace DorllyService.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<int>(nullable: false),
                     AppraiseTime = table.Column<DateTime>(nullable: false),
                     StarClass = table.Column<int>(nullable: false),

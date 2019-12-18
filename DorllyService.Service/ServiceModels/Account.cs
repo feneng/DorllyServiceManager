@@ -21,7 +21,7 @@ namespace DorllyService.Service
         /// <summary>
         /// 登录的用户名
         /// </summary>
-        public string LogName { get; set; }
+        public string UserAccount { get; set; }
         /// <summary>
         /// 登录密码
         /// </summary>
@@ -39,9 +39,13 @@ namespace DorllyService.Service
         /// </summary>
         public Garden Garden { get; set; }
         /// <summary>
+        /// 用户状态
+        /// </summary>
+        public byte State { get; set; }
+        /// <summary>
         /// 权限集合
         /// </summary>
-        public IQueryable<Permission> Permissions { get; set; }
+        public IEnumerable<Permission> Permissions { get; set; }
         /// <summary>
         /// 角色的集合
         /// </summary>
@@ -49,7 +53,7 @@ namespace DorllyService.Service
         /// <summary>
         /// 用户可操作的模块集合
         /// </summary>
-        public IQueryable<Module> Modules { get; set; }
+        public IEnumerable<Module> Modules { get; set; }
         #endregion
     }
 }

@@ -34,6 +34,8 @@ namespace DorllyService.Domain
         public string Avatar { get; set; }
         public byte State { get; set; }
         public int? SupplierId { get; set; }
+        [StringLength(8)]
+        public string Salt { get; set; }
         public ServiceSupplier Supplier { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }

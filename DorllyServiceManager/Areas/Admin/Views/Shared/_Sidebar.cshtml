@@ -1,0 +1,71 @@
+﻿@using DorllyService.Domain
+@model IEnumerable<Module>
+<div class="page-sidebar" id="sidebar">
+    <!-- Page Sidebar Header-->
+    <div class="sidebar-header-wrapper">
+        <input type="text" class="searchinput" />
+        <i class="searchicon fa fa-search"></i>
+        <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+    </div>
+    <!-- /Page Sidebar Header -->
+    <!-- Sidebar Menu -->
+    <ul class="nav sidebar-menu">
+        @foreach (var item in Model)
+        {
+            if (item.Children.Any())
+            {
+                <li>
+                    <a href="@item.Path" class="menu-dropdown">
+                        <i class="menu-icon  @item.Icon"></i>
+                        <span class="menu-text"> @item.Name </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                    <ul class="submenu">
+                        @foreach (var it in item.Children)
+                        {
+                            if (it.Children.Any())
+                            {
+                                <li>
+                                    <a href="@it.Path" class="menu-dropdown">
+                                        <i class="menu-icon @it.Icon"></i>
+                                        <span class="menu-text"> @it.Name </span>
+                                        <i class="menu-expand"></i>
+                                    </a>
+                                    <ul class="submenu">
+                                        @foreach (var i in it.Children)
+                                        {
+                                            <li>
+                                                <a href="@i.Path">
+                                                    <i class="menu-icon @i.Icon"></i>
+                                                    <span class="menu-text">@i.Name</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@it.Path">
+                                        <span class="menu-text">@it.Name</span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@item.Path">
+                        <i class="menu-icon  @item.Icon"></i>
+                        <span class="menu-text"> @item.Name </span>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+    <!-- /Sidebar Menu -->
+</div>

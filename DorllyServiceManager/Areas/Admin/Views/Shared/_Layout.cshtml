@@ -1,48 +1,52 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
+<!--Head-->
 <head>
     <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="login page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DorllyServiceManager</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DorllyServiceManager</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="~/admin/img/favicon.png" type="image/x-icon">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - DorllyServiceManager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--Basic Styles-->
+    <link href="~/admin/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--Extend styles-->
+    <link id="beyond-link" href="~/admin/css/beyond.min.css" rel="stylesheet" />
+    <link href="~/admin/css/demo.min.css" rel="stylesheet" />
+    <link href="~/admin/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <environment include="Development">
+        <script src="~/admin/js/skins.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/admin/js/skins.min.js"></script>
+    </environment>
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;url=ie.html" />
+    <![endif]-->
+</head>
+<!--Head Ends-->
+<!--Body-->
+<body>
+    @RenderBody()
+   
+    <!--Basic Scripts-->
+    <script src="~/admin/js/jquery-2.0.3.min.js"></script>
+    <script src="~/admin/js/bootstrap.min.js"></script>
+
+    <!--Extend Scripts-->
+    <environment include="Development">
+        <script src="~/admin/js/beyond.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/admin/js/beyond.min.js"></script>
+    </environment>
     @RenderSection("Scripts", required: false)
 </body>
+<!--Body Ends-->
 </html>
