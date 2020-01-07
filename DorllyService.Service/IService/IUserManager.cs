@@ -6,9 +6,9 @@ namespace DorllyService.Service
 {
     public interface IUserManager
     {
-        Task<Account> Login(string account, string password);
+        Account Login(string account, string password);
         bool Remove(int userId);
-        Task<Account> GetAccountByUser(User user);
+        Account GetAccountByUser(User user);
         Account GetAccountByCookie();
         bool IsAdmin(int userId);
         string GetUserSalt(string account);

@@ -3,23 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DorllyService.Common;
+using DorllyService.Common.Extensions;
 using DorllyService.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace DorllyService.Service
 {
     public class UserManager : IUserManager
     {
+        private readonly DorllyServiceManagerContext _context;
         private readonly ILogger<UserManager> _logger;
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
+        private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<RolePermission> _rolePermissionReposity;
+        private readonly IRepository<Permission> _permissionRepository;
+        private readonly IRepository<Module> _moduleRepository;
+        
 
         public UserManager(IRepository<User> userRepository,
+            IRepository<UserRole> userRoleRepository,
+            IRepository<Role> roleRepository,
             IRepository<RolePermission> rolePermissionReposity,
+            IRepository<Permission> permissionRepository,
+            IRepository<Module> moduleRepository,
+            DorllyServiceManagerContext context,
             ILogger<UserManager> logger)
         {
             _userRepository = userRepository;
+            _userRoleRepository = userRoleRepository;
+            _roleRepository = roleRepository;
             _rolePermissionReposity = rolePermissionReposity;
+            _permissionRepository = permissionRepository;
+            _moduleRepository = moduleRepository;
+            _context = context;
             _logger = logger;
         }
 
@@ -29,19 +48,36 @@ namespace DorllyService.Service
         }
 
         /// <summary>
-        /// 获取用户账号信息
+        /// Get account info by user
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public async Task<Account> GetAccountByUser(User user)
+        public Account GetAccountByUser(User user)
         {
             if (user == null) return null;
             try
             {
-                var roles = from m in user.UserRoles select m.Role;
-                var rolePermissions = await _rolePermissionReposity.LoadEntityListAsNoTrackingAsync(rp => roles.Contains(rp.Role));
-                var permissions = rolePermissions.Select(e => e.Permission);
-                var modules = permissions.Select(e => e.BelongModule);
+                var queryUser = _context.User
+                    .Where(u => u.Id == user.Id)
+                    .Include(u => u.UserRoles)
+                        .ThenInclude(ur=>ur.Role)
+                            .ThenInclude(r=>r.RolePermissions)
+                                .ThenInclude(rp=>rp.Permission)
+                                    .ThenInclude(p=>p.BelongModule)
+                    .AsNoTracking()
+                    .Single();
+
+                var roles = queryUser.UserRoles.Select(ur => ur.Role);
+                var permissions=roles.SelectMany(r => r.RolePermissions)
+                    .Select(e => e.Permission).Distinct(new ModelDistinct<Permission>("Id"));
+
+                var modules = permissions.Select(p => p.BelongModule).Distinct(new ModelDistinct<Module>("Id"));
+                var parentModules = GetParentModules(modules);
+                 while (parentModules.Any())
+                {
+                    modules = modules.Concat(parentModules);
+                    parentModules = GetParentModules(parentModules);
+                }
 
                 var account = new Account
                 {
@@ -53,8 +89,8 @@ namespace DorllyService.Service
                     Avatar = user.Avatar,
                     Garden = user.BelongGarden,
                     Roles = roles,
-                    Modules = modules.Distinct(),
-                    Permissions = permissions.Distinct(),
+                    Modules = modules.ToTreeStruct(null),
+                    Permissions = permissions,
                     State = user.State
                 };
                 return account;
@@ -66,9 +102,22 @@ namespace DorllyService.Service
             }
         }
 
+        private IEnumerable<Module> GetParentModules(IEnumerable<Module> moduleList)
+        {
+            return _context.Module.Include(m => m.Parent)
+                .Where(m => moduleList.Contains(m)&&m.Parent!=null)
+               .AsNoTracking()
+               .Select(m => m.Parent);
+        }
+
+        /// <summary>
+        /// 是否管理员
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool IsAdmin(int userId)
         {
-            return _userRepository.LoadEntityEnumerable(e => e.Id == userId).Any(e => e.UserRoles.Any(p => p.RoleId == 1));
+            return _userRepository.LoadEntityEnumerable(e => e.UserType == 1).Any(e=>e.Id==userId);
         }
 
         /// <summary>
@@ -77,7 +126,7 @@ namespace DorllyService.Service
         /// <param name="account"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<Account> Login(string account, string password)
+        public Account Login(string account, string password)
         {
             try
             {
@@ -88,7 +137,7 @@ namespace DorllyService.Service
                 }
                 var newPassword = DesEncrypt.Encrypt(password, salt);
                 var user= _userRepository.LoadEntity(m => m.Account == account && m.Password == newPassword);
-                return await GetAccountByUser(user);
+                return GetAccountByUser(user);
             }
             catch (Exception ex)
             {

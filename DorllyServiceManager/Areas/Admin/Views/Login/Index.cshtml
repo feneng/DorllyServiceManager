@@ -46,7 +46,7 @@
     <form asp-area="Admin" asp-controller="Login" asp-action="login" method="post">
         <div class="login-container animated fadeInDown">
         <div class="loginbox bg-white">
-            <div class="loginbox-title">服务管理系统</div>
+            <div class="loginbox-title">服务商系统管理端</div>
             <div class="loginbox-social">
                 <div class="social-title ">使用社交账号登录</div>
                 <div class="social-buttons">
@@ -82,6 +82,7 @@
             </div>
         </div>
         <div class="logobox">
+            @TempData["SessionLoseError"]
         </div>
     </div>
     </form>

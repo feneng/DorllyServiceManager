@@ -55,6 +55,10 @@ namespace DorllyServiceManager
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserManager, UserManager>();
+            services.AddTransient<IModuleManager, ModuleManager>();
+            services.AddTransient<IPermissionManager, PermissionManager>();
+            services.AddTransient<IRoleManager, RoleManager>();
+
             if (Environment.IsDevelopment())
             {
                 services.AddDbContext<DorllyServiceManagerContext>(options =>

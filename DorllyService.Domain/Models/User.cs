@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DorllyService.Domain
 {
@@ -34,9 +35,10 @@ namespace DorllyService.Domain
         public string Avatar { get; set; }
         public byte State { get; set; }
         public int? SupplierId { get; set; }
+        public ServiceSupplier Supplier { get; set; }
         [StringLength(8)]
         public string Salt { get; set; }
-        public ServiceSupplier Supplier { get; set; }
+        public byte UserType { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

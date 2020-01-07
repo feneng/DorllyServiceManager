@@ -299,10 +299,16 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.RazorCoreGenerate.cache
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Home/Index.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Login/Index.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Module/Create.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Module/Edit.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Module/Index.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Permission/Create.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Permission/Edit.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Permission/Index.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Shared/Components/Menu/Default.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Shared/Error.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Shared/_Layout.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Shared/_Main.cshtml.g.cs
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Shared/_Sidebar.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/_ViewImports.cshtml.g.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/_ViewStart.cshtml.g.cs
@@ -324,3 +330,7 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csproj.CopyComplete
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Role/Create.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Role/Edit.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Role/Index.cshtml.g.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Role/Details.cshtml.g.cs

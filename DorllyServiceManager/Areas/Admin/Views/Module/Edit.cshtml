@@ -1,0 +1,59 @@
+﻿@model DorllyService.Domain.Module
+@{
+    ViewBag.Title = "修改菜单";
+}
+
+<div class="col-lg-6 col-sm-6 col-xs-12">
+    <div class="widget">
+        <div class="widget-header bordered-bottom bordered-blue">
+            <span class="widget-caption">@ViewBag.Title</span>
+        </div>
+        <div class="widget-body">
+            <div>
+                <form role="form" method="post" asp-area="admin" asp-controller="module" asp-action="edit">
+                    <input asp-for="Id" type="hidden"/>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="菜单名">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type"></label>
+                        <input type="text" class="form-control" asp-for="Type" placeholder="菜单类型">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ParentId"></label>
+                        <input type="text" class="form-control" asp-for="ParentId">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BelongSystemId"></label>
+                        <input type="text" class="form-control" asp-for="BelongSystemId">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Level"></label>
+                        <input type="text" class="form-control" asp-for="Level">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Order"></label>
+                        <input type="text" class="form-control" asp-for="Order">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Path"></label>
+                        <input type="text" class="form-control" asp-for="Path">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status"></label>
+                        <select asp-for="Status">
+                            <option value="True">启用</option>
+                            <option value="False">禁用</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-blue">提交</button>
+                </form>
+                <div>
+                    <a asp-action="Index">返回列表</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

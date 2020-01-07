@@ -1,4 +1,6 @@
-﻿namespace DorllyService.Domain
+﻿using System.Text.Json.Serialization;
+
+namespace DorllyService.Domain
 {
     public class RolePermission
     {

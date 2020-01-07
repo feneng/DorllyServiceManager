@@ -655,6 +655,9 @@ namespace DorllyServiceManager.Migrations
                     b.Property<int?>("SupplierId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<byte>("UserType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("WorkTel")
                         .HasColumnType("TEXT")
                         .HasMaxLength(64);

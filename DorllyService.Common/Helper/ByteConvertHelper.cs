@@ -15,7 +15,11 @@ namespace DorllyService.Common
         /// <returns>转换后byte数组</returns>
         public static byte[] Object2Bytes(object obj)
         {
-            byte[] serializedResult = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj));
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            var serializedResult = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj,Formatting.None,settings));
             return serializedResult;
         }
 

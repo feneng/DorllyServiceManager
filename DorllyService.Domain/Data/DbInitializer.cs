@@ -25,13 +25,14 @@ namespace DorllyService.Domain
             //初始化园区列表
             var gardens = new Garden[]
             {
-                new Garden { Name="福田园区", Address="深圳市福田区", State=1},
-                new Garden { Name="广州园区", Address="广州市天河区", State=1}
+                new Garden { Name = "福田园区", Address = "深圳市福田区", State = 1 },
+                new Garden { Name = "广州园区", Address = "广州市天河区", State = 1 }
             };
             context.Garden.AddRange(gardens);
             context.SaveChanges();
 
             //初始化用户列表
+            var salt = Utils.GetCheckCode(8);
             var users = new User[]
             {
                new User
@@ -39,16 +40,17 @@ namespace DorllyService.Domain
                    Name="Carson",
                    Account="Alexander",
                    CreateDate=DateTime.Parse("2005-09-01"),
-                   Password="D5AFCAAC602FE0A8",//888888
+                   Password=DesEncrypt.Encrypt("888888",salt),
                    Birthday=DateTime.Parse("1988-10-17"),
                    Sex=1,
-                   BelongGardenId=1,
+                   BelongGardenId=null,
                    ContactPhone="13751045901",
                    LastLoginTime=default,
                    Email="354658353@qq.com",
                    WorkTel="",
                    Avatar=null,
-                   Salt=Utils.GetCheckCode(8),
+                   Salt=salt,
+                   UserType=1,
                    State=1
                }
             };
@@ -65,12 +67,27 @@ namespace DorllyService.Domain
             context.SaveChanges();
 
             //初始化模块列表
-            var modules = new Module[]
+            context.Module.Add(new Module
             {
-                 new Module { Name="系统管理", BelongSystemId=1, Level =1, Status=true, Type=1,ParentId=null,Order=9 },
-                 new Module { Name="菜单管理", BelongSystemId=1, Level =1, Status=true, Type=2,ParentId=1,Order=4 }
-             };
-            context.Module.AddRange(modules);
+                Name = "系统管理",
+                BelongSystemId = context.SubSystem.Single(s => s.Code == "SSM").Id,
+                Level = 1,
+                Status = true,
+                Type = 1,
+                ParentId = null,
+                Order = 9
+            });
+            context.SaveChanges();
+            context.Module.Add(new Module
+            {
+                Name = "菜单管理",
+                BelongSystemId = context.SubSystem.Single(s => s.Code == "SSM").Id,
+                Level = 2,
+                Status = true,
+                Type = 2,
+                ParentId = context.Module.Single(m => m.Name == "系统管理").Id,
+                Order = 4
+            });
             context.SaveChanges();
 
             //初始化角色列表
@@ -81,14 +98,32 @@ namespace DorllyService.Domain
             context.Role.AddRange(roles);
             context.SaveChanges();
 
-            //初始化权限列表
-            var permissions = new Permission[]
+            //初始化用户角色
+            var userRoles = new UserRole[]
             {
-                new Permission { Name="菜单管理-主页", Code="Module-Index", BelongModuleId=2, Status=true, Type=1,Path="/Module/Index" },
-                new Permission { Name="菜单管理-详情", Code="Module-Details", BelongModuleId=2, Status=true, Type=1,Path="/Module/Details" },
-                new Permission { Name="菜单管理-编辑", Code="Module-Edit", BelongModuleId=2, Status=true, Type=1,Path="/Module/Edit" },
+                new UserRole{UserId=context.User.Single(u => u.Account == "Alexander").Id,RoleId=context.Role.Single(r => r.Code == "DorllyAdmin").Id }
+            };
+            context.UserRole.AddRange(userRoles);
+            context.SaveChanges();
+
+            //初始化权限列表
+            var permissions =new Permission[]
+            {
+                new Permission { Name = "菜单管理-主页", Code = "Module-Index", BelongModuleId = context.Module.Single(m => m.Name == "菜单管理").Id, Status = true, Type = 1, Path = "/Module/Index" },
+                new Permission { Name = "菜单管理-详情", Code = "Module-Details", BelongModuleId = context.Module.Single(m => m.Name == "菜单管理").Id, Status = true, Type = 1, Path = "/Module/Details" },
+                new Permission { Name = "菜单管理-编辑", Code = "Module-Edit", BelongModuleId = context.Module.Single(m => m.Name == "菜单管理").Id, Status = true, Type = 1, Path = "/Module/Edit" }
+
             };
             context.Permission.AddRange(permissions);
+            context.SaveChanges();
+
+            var rolePermissions = new RolePermission[]
+            {
+                new RolePermission { RoleId = context.Role.Single(r=>r.Code=="DorllyAdmin").Id, PermissionId = context.Permission.Single(p=>p.Code=="Module-Index").Id },
+                new RolePermission { RoleId = context.Role.Single(r=>r.Code=="DorllyAdmin").Id, PermissionId = context.Permission.Single(p=>p.Code=="Module-Details").Id },
+                new RolePermission { RoleId = context.Role.Single(r=>r.Code=="DorllyAdmin").Id, PermissionId = context.Permission.Single(p=>p.Code=="Module-Edit").Id }
+            };
+            context.RolePermission.AddRange(rolePermissions);
             context.SaveChanges();
         }
     }

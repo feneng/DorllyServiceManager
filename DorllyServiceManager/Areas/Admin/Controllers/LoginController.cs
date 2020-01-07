@@ -56,7 +56,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                 TempData["SessionLoseError"] = "用户名和密码不能为空!";
                 return RedirectToAction(nameof(Index));
             }
-            var currentUser = await _userManage.Login(account, password);
+            var currentUser = _userManage.Login(account, password);
             if (currentUser == null)
             {
                 TempData["SessionLoseError"] = "用户名或密码不正确!";
@@ -72,8 +72,8 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             var ssoServer = JsonConfigurationHelper.GetAppSettings<SiteSetting>("appsettings.json", "SiteConfig")?.SsoServer;
             if (string.IsNullOrEmpty(ssoServer))
             {
-                var claims = new[]{new Claim("Account", currentUser.UserAccount),new Claim("Password", currentUser.Password)};
-                var ssoUser = new ClaimsPrincipal( new ClaimsIdentity(claims, AdminAuthorizeAttribute.AdminAuthenticationScheme));
+                var claims = new[] { new Claim("Account", currentUser.UserAccount), new Claim("Password", currentUser.Password) };
+                var ssoUser = new ClaimsPrincipal(new ClaimsIdentity(claims, AdminAuthorizeAttribute.AdminAuthenticationScheme));
                 await HttpContext.SignInAsync(AdminAuthorizeAttribute.AdminAuthenticationScheme, ssoUser, new AuthenticationProperties
                 {
                     ExpiresUtc = DateTimeOffset.Now.Add(TimeSpan.FromHours(1)),

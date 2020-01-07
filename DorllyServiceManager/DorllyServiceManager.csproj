@@ -38,7 +38,6 @@
     <Folder Include="Areas\Admin\Views\Login\" />
     <Folder Include="wwwroot\admin\" />
     <Folder Include="wwwroot\admin\css\" />
-    <Folder Include="wwwroot\admin\fonts\" />
     <Folder Include="wwwroot\admin\img\" />
     <Folder Include="wwwroot\admin\js\" />
     <Folder Include="wwwroot\admin\css\skins\" />
@@ -62,6 +61,13 @@
     <Folder Include="wwwroot\admin\js\toastr\" />
     <Folder Include="wwwroot\admin\js\validation\" />
     <Folder Include="Areas\Admin\Views\Home\" />
+    <Folder Include="Areas\Admin\Components\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\Menu\" />
+    <Folder Include="Areas\Admin\Views\Module\" />
+    <Folder Include="wwwroot\admin\js\treetable\" />
+    <Folder Include="Areas\Admin\Views\Permission\" />
+    <Folder Include="Areas\Admin\Views\Role\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,6 +80,7 @@
     <Content Remove="wwwroot\admin\img\avatars\bing.png" />
     <Content Remove="wwwroot\admin\img\avatars\divyia.jpg" />
     <Content Remove="wwwroot\admin\js\charts\chartjs\chartjs-init.js" />
+    <Content Remove="Areas\Admin\Views\Shared\Components\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="DorllyService.db" />

@@ -116,6 +116,20 @@ namespace DorllyService.Domain
         T LoadEntity(Expression<Func<T, bool>> predicate);
 
         /// <summary>
+        /// 根据主键查询实体
+        /// </summary>
+        /// <param name="id">主键</param>
+        /// <returns></returns>
+        T FindEntity(int id);
+
+        /// <summary>
+        /// 根据主键异步查询实体
+        /// </summary>
+        /// <param name="id">主键</param>
+        /// <returns></returns>
+        Task<T> FindEntityAsync(int id);
+
+        /// <summary>
         /// 根据条件异步加载实体
         /// </summary>
         /// <param name="predicate">lamda表达式</param>

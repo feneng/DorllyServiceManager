@@ -1,6 +1,9 @@
 ﻿@{
     Layout = "_Layout";
 }
+@section styles{
+    @RenderSection("styles",required:false)
+}
 <!-- Loading Container -->
 <div class="loading-container">
     <div class="loading-progress">
@@ -32,7 +35,7 @@
             <div class="navbar-header pull-left">
                 <a href="#" class="navbar-brand">
                     <small>
-                        <img src="/img/logo.png" alt="" />
+                        <img src="/admin/img/logo.png" alt="" />
                     </small>
                 </a>
             </div>
@@ -137,7 +140,7 @@
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
                                 <li>
                                     <a href="#">
-                                        <img src="/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
+                                        <img src="/admin/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
                                         <div class="message">
                                             <span class="message-sender">
                                                 Divyia Austin
@@ -156,7 +159,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
+                                        <img src="/admin/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
                                         <div class="message">
                                             <span class="message-sender">
                                                 Bing.com
@@ -175,7 +178,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
+                                        <img src="/admin/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
                                         <div class="message">
                                             <span class="message-sender">
                                                 Nicolas
@@ -267,7 +270,7 @@
                         <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                 <div class="avatar" title="View your public profile">
-                                    <img src="/img/avatars/adam-jansen.jpg">
+                                    <img src="/admin/img/avatars/adam-jansen.jpg">
                                 </div>
                                 <section>
                                     <h2><span class="profile"><span>David Stevenson</span></span></h2>
@@ -280,7 +283,7 @@
                                 <!--Avatar Area-->
                                 <li>
                                     <div class="avatar-area">
-                                        <img src="/img/avatars/adam-jansen.jpg" class="avatar">
+                                        <img src="/admin/img/avatars/adam-jansen.jpg" class="avatar">
                                         <span class="caption">Change Photo</span>
                                     </div>
                                 </li>
@@ -292,18 +295,18 @@
                                 <!--Theme Selector Area-->
                                 <li class="theme-area">
                                     <ul class="colorpicker" id="skin-changer">
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="/Content/skins/blue.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="/Content/skins/azure.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="/Content/skins/teal.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="/Content/skins/green.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="/Content/skins/orange.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="/Content/skins/pink.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="/Content/skins/darkred.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="/Content/skins/purple.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="/Content/skins/darkblue.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="/Content/skins/gray.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="/Content/skins/black.min.css"></a></li>
-                                        <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="/Content/skins/deepblue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="/Admin/css/skins/blue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="/Admin/css/skins/azure.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="/Admin/css/skins/teal.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="/Admin/css/skins/green.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="/Admin/css/skins/orange.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="/Admin/css/skins/pink.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="/Admin/css/skins/darkred.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="/Admin/css/skins/purple.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="/Admin/css/skins/darkblue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="/Admin/css/skins/gray.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="/Admin/css/skins/black.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="/Admin/css/skins/deepblue.min.css"></a></li>
                                     </ul>
                                 </li>
                                 <!--/Theme Selector Area-->
@@ -354,9 +357,7 @@
     <!-- Page Container -->
     <div class="page-container">
         <!-- Page Sidebar -->
-        @{ //await Html.RenderPartialAsync("_Sidebar", ViewData["Modules"]);
-        }
-        @await Html.PartialAsync("Sidebar")
+        @await Component.InvokeAsync("Menu")
         <!-- /Page Sidebar -->
         <!-- Page Content -->
         <div class="page-content" id="page-content">
@@ -394,7 +395,9 @@
             </div>
             <!-- /Page Header -->
             <!-- Page Body -->
-            @RenderBody()
+            <div class="page-body">
+                @RenderBody()
+            </div>
             <!-- /Page Body -->
         </div>
         <!-- /Page Content -->

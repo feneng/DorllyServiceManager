@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DorllyServiceManager.Migrations
 {
     [DbContext(typeof(DorllyServiceManagerContext))]
-    [Migration("20191217122638_InitialCreate")]
+    [Migration("20191227031708_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -655,6 +655,9 @@ namespace DorllyServiceManager.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("SupplierId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte>("UserType")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("WorkTel")

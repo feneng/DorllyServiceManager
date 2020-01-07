@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model DorllyService.Domain.Permission
+@{
+    ViewBag.Title = "添加权限";
+}
+
+@section styles{ }
+
+<div class="col-lg-6 col-sm-6 col-xs-12">
+    <div class="widget">
+        <div class="widget-header bordered-bottom bordered-blue">
+            <span class="widget-caption">@ViewBag.Title</span>
+        </div>
+        <div class="widget-body">
+            <div>
+                <form role="form" method="post" asp-area="admin" asp-controller="permission" asp-action="create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Code"></label>
+                        <input type="text" class="form-control" asp-for="Code" placeholder="编码">
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon"></label>
+                        <input type="text" class="form-control" asp-for="Icon">
+                        <span asp-validation-for="Icon" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="权限名">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type"></label>
+                        <select asp-for="Type" class="form-control">
+                            <option value="1">实际权限</option>
+                            <option value="2">虚拟权限</option>
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status"></label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="True">启用</option>
+                            <option value="False">禁用</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BelongModuleId"></label>
+                        <input type="text" class="form-control" asp-for="BelongModuleId">
+                        <span asp-validation-for="BelongModuleId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Path"></label>
+                        <input type="text" class="form-control" asp-for="Path">
+                        <span asp-validation-for="Path" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Order"></label>
+                        <input type="text" class="form-control" asp-for="Order">
+                        <span asp-validation-for="Order" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <span class="input-icon icon-right">
+                            <textarea class="form-control" asp-for="Description" rows="10"></textarea>
+                            <i class="glyphicon glyphicon-briefcase darkorange"></i>
+                        </span>
+                        <p class="help-block">权限的简单描述，请不要超过500字。</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-blue">提交</button>
+                </form>
+                <div>
+                    <a asp-action="Index">返回列表</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{ }

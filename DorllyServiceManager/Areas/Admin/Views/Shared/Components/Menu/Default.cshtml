@@ -1,5 +1,4 @@
-﻿@using DorllyService.Domain
-@model IEnumerable<Module>
+﻿@model IEnumerable<DorllyService.Domain.Module> 
 <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
@@ -12,7 +11,7 @@
     <ul class="nav sidebar-menu">
         @foreach (var item in Model)
         {
-            if (item.Children.Any())
+            if (item.Children!=null)
             {
                 <li>
                     <a href="@item.Path" class="menu-dropdown">

@@ -1,0 +1,135 @@
+﻿@model IEnumerable<DorllyService.Domain.Module>
+@{
+    ViewBag.Title = "菜单列表";
+}
+
+@section styles{
+    <environment include="Development">
+        <link href="~/admin/css/jquery.treetable.css" rel="stylesheet" />
+        <link href="~/admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/admin/css/jquery.treetable.min.css" rel="stylesheet" />
+        <link href="~/admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">菜单列表</span>
+                <div class="widget-buttons">
+                    <a href="#" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="#" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="#" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="table-toolbar">
+                    <a asp-action="create" class="btn btn-success">
+                        添加根目录
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">Tools</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);">Action</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">Another action</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">Something else here</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);">Separated link</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <table id="treeTable" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr role="row">
+                            <th> @Html.DisplayNameFor(m => m.FirstOrDefault().Name) </th>
+                            <th> @Html.DisplayNameFor(m => m.FirstOrDefault().Type) </th>
+                            <th> @Html.DisplayNameFor(m => m.FirstOrDefault().Status)</th>
+                            <th> @Html.DisplayNameFor(m => m.FirstOrDefault().Order)</th>
+                            <th> @Html.DisplayNameFor(m => m.FirstOrDefault().Path)</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-tt-id="@item.Id" data-tt-parent-id="@item.ParentId">
+                                <td>@Html.DisplayFor(m => item.Name)</td>
+                                <td>@Html.DisplayFor(m => item.Type)</td>
+                                <td>@(item.Status ? "已启用" : "未启用")</td>
+                                <td>@Html.DisplayFor(m => item.Order)</td>
+                                <td>@Html.DisplayFor(m => item.Path)</td>
+                                <td>
+                                    @if (item.Type == 1)
+                                    {
+                                        <a class="btn btn-success btn-xs edit" asp-area="admin" asp-controller="module" asp-action="create" asp-route-pid="@item.Id">
+                                            <i class="fa fa-plus"></i>
+                                            添加子菜单
+                                        </a>
+                                    }
+                                    <a class="btn btn-info btn-xs edit" asp-area="admin" asp-controller="module" asp-action="edit" asp-route-id="@item.Id">
+                                        <i class="fa fa-edit"></i>
+                                        修改
+                                    </a>
+                                    <a class="btn btn-danger btn-xs delete" asp-area="admin" asp-controller="module" asp-action="delete" asp-route-id="@item.Id">
+                                        <i class="fa fa-trash-o"></i>
+                                        删除
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <environment include="Development">
+        <script src="~/admin/js/treetable/jquery.treetable.js"></script>
+
+        <script src="~/admin/js/datatable/jquery.dataTables.js"></script>
+        <script src="~/admin/js/datatable/ZeroClipboard.js"></script>
+        <script src="~/admin/js/datatable/dataTables.bootstrap.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/admin/js/treetable/jquery.treetable.min.js"></script>
+
+        <script src="~/admin/js/datatable/jquery.dataTables.min.js"></script>
+        <script src="~/admin/js/datatable/ZeroClipboard.js"></script>
+        <script src="~/admin/js/datatable/dataTables.bootstrap.min.js"></script>
+    </environment>
+    <script>$("#treeTable").treetable({
+            "column": 0,
+            "expandLevel": 1,
+            "expanderTemplate": "<a href='#'><i class='fa fa-plus-minus-o row-icon'></i>&nbsp;</a>",
+            "controller": true,
+            "initialState": "expanded",
+            "onNodeCollapse": function () {
+                var expandIcon = '<i class="fa fa-plus-square-o row-icon"></i>&nbsp;';
+                this.expander.html(expandIcon);
+            },
+            "onNodeExpand": function () {
+                var collapseIcon = '<i class="fa fa-minus-square-o row-icon">&nbsp;</i>&nbsp;';
+                this.expander.html(collapseIcon);
+            }
+        });</script>
+}

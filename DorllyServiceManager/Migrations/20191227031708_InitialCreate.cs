@@ -295,7 +295,8 @@ namespace DorllyServiceManager.Migrations
                     Avatar = table.Column<string>(maxLength: 128, nullable: true),
                     State = table.Column<byte>(nullable: false),
                     SupplierId = table.Column<int>(nullable: true),
-                    Salt = table.Column<string>(maxLength: 8, nullable: true)
+                    Salt = table.Column<string>(maxLength: 8, nullable: true),
+                    UserType = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
