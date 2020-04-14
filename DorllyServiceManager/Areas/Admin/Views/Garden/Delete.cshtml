@@ -1,0 +1,45 @@
+﻿@model DorllyService.Domain.Garden
+@{
+    Layout = null;
+    ViewBag.PageCode = "园区";
+    ViewBag.Title = $"删除{ViewBag.PageCode}";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form role="form" method="post" asp-area="Admin" asp-controller="Garden" asp-action="Delete" id="deleteform">
+            <input asp-for="Id" type="hidden" />
+            <div class="form-title">
+                @(ViewBag.PageCode)基本信息
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="@(ViewBag.PageCode)名">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Address"></label>
+                    <input type="text" class="form-control" asp-for="Address">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <label asp-for="State"></label>
+                    <select asp-for="State" class="form-control">
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

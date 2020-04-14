@@ -1,0 +1,209 @@
+﻿@model List<DorllyService.Domain.User>
+@{
+    ViewBag.Title = "用户列表";
+}
+
+@section styles{
+    <environment include="Development">
+        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@ViewBag.Title</span>
+                <div class="widget-buttons">
+                    <a href="#" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="#" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="#" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="table-toolbar">
+                    <a id="editabledatatable_new" class="btn btn-success create">
+                        添加用户
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">其他操作</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);">编辑用户角色</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="simpledatatable" @*id="editabledatatable"*@>
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                <div class="checker">
+                                    <span class="">
+                                        <input type="checkbox" class="group-checkable" data-set="#flip .checkboxes">
+                                    </span>
+                                </div>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().Account)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().BelongGarden)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().Email)
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model == null || !Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6">暂无数据</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @*<input type="checkbox" data-id="@item.Id" class="checkItem" />*@
+                                        <div class="checker">
+                                            <span class="">
+                                                <input type="checkbox" class="checkboxes" value="1">
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>@Html.DisplayFor(u => item.Name)</td>
+                                    <td>@Html.DisplayFor(u => item.Account)</td>
+                                    <td>@Html.DisplayFor(u => item.BelongGarden.Name)</td>
+                                    <td>@Html.DisplayFor(u => item.Email)</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-xs"><i class="fa fa-info"></i> 查看</a>
+                                        <a data-id="@item.Id" class="btn btn-primary btn-xs edit"><i class="fa fa-edit"></i> 编辑</a>
+                                        <a data-id="@item.Id" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 删除</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>var Index = (function ($) {
+            var config = {
+                checkItemId: [],
+            };
+
+            return {
+                init: function (setting) {
+                    //拓展配置
+
+                    if (!!setting) $.extend(config, setting);
+
+                    //创建
+                    $('.create').on('click', Index.Create);
+                    //编辑
+                    $('.edit').on('click', Index.Edit);
+                    //删除
+                    $('.delete').on('click', Index.Delete);
+                    //点选行
+                    $('.checkItem').on('check', function () {
+                        var currentId = $(this).data('id');
+                        if (config.checkItemId.indexOf(currentId) == -1)
+                            config.checkItemId.push($(this).data('id'));
+                    });
+                },
+                Create: function () {
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/User/Create",
+                        title: "新增用户",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#createform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Edit: function () {
+                    var id = $(this).data('id');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/User/Edit/" + id,
+                        title: "编辑用户",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#editform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Delete: function () {
+                    var id = $(this).data('id');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/User/Delete/" + id,
+                        title: "删除用户",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "确认删除",
+                                className: "btn-danger",
+                                callback: function () {
+                                    $('#deleteform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+                }
+            };
+
+        })(jQuery);
+
+        Index.init();</script>
+}

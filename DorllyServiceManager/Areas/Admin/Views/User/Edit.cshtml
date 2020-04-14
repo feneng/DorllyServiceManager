@@ -1,0 +1,119 @@
+﻿@model DorllyService.Domain.User
+@{
+    Layout = null;
+    ViewBag.PageCode = "用户";
+    ViewBag.Title = $"编辑{ViewBag.PageCode}";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form role="form" method="post" asp-area="Admin" asp-controller="User" asp-action="Edit" id="editform">
+            <input asp-for="Id" type="hidden" />
+            <div class="form-title">
+                @(ViewBag.PageCode)基本信息
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Account"></label>
+                    <input type="text" class="form-control" asp-for="Account" placeholder="账号">
+                    <span asp-validation-for="Account" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="@(ViewBag.PageCode)名">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Email"></label>
+                    <input type="text" class="form-control" asp-for="Email" placeholder="邮箱">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Sex"></label>
+                    <select class="form-control" asp-for="Sex">
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                        <option value="3">保密</option>
+                    </select>
+                    <span asp-validation-for="Sex" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="ContactPhone"></label>
+                    <input type="text" class="form-control" asp-for="ContactPhone">
+                    <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="BelongGardenId"></label>
+                    <select asp-for="BelongGardenId" class="form-control" asp-items="ViewBag.Gardens">
+                        <option value="">-- 选择所属园区 --</option>
+                    </select>
+                    <span asp-validation-for="BelongGardenId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <label asp-for="State"></label>
+                    <select asp-for="State" class="form-control">
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+            </div>
+
+            @if (Model.UserRoles.Count > 0)
+            {
+                <div class="form-title">
+                    拓展信息
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <label asp-for="UserRoles"></label>
+                        <div class="tickets-container">
+                            <ul class="tickets-list">
+                                @foreach (var item in Model.UserRoles)
+                                {
+                                    <li class="ticket-item">
+                                        <input type="hidden" name="userRoles" value="@item.Role.Id" />
+                                        <div class="row">
+                                            <div class="ticket-user col-lg-12 col-sm-12">
+                                                <img src="@Html.DisplayFor(m=>item.Role.Code)" class="user-avatar">
+                                                <span class="user-name">@Html.DisplayFor(m => item.Role.Name)</span>
+                                            </div>
+                                            <div class="ticket-state bg-darkorange" id="DeleteUserRole" data-roleid="@item.Role.Id">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+</div>
+<script>$('body').on('click', '#DeleteUserRole', function () {
+        var roles = $(this).parents('li.ticket-item').find('input[name="userRoles"]');
+        var currentUser = $(this).data('roleid');
+        roles.val('');
+        $(this).parents('li.ticket-item').hide();
+    });</script>

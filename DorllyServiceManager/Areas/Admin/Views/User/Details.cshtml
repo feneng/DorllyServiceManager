@@ -1,0 +1,68 @@
+﻿@model DorllyService.Domain.User
+
+@{
+    ViewBag.Title = "用户详情";
+}
+
+<h1>角色详情</h1>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt class="col-sm-12">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-12">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt class="col-sm-12">
+            @Html.DisplayNameFor(model => model.UserRoles)
+        </dt>
+        <dd class="col-sm-12">
+            <table class="table">
+                <tr>
+                    <th>角色编码</th>
+                    <th>角色名</th>
+                </tr>
+                @foreach (var item in Model.UserRoles)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.Name)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">编辑</a> |
+    <a asp-action="Index">返回列表</a>
+</div>
