@@ -1,0 +1,10 @@
+﻿@model DorllyServiceManager.Areas.Admin.ComponentModels.BreadcrumbsData
+<div class="page-breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a asp-area="Admin" asp-controller="@Model.FirstCrumbs" asp-action="Index">@Model.FirstCrumbs</a>
+        </li>
+        <li class="active">@Model.SecondCrumbs</li>
+    </ul>
+</div>

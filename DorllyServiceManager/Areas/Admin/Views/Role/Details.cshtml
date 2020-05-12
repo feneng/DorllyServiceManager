@@ -4,10 +4,10 @@
     ViewBag.Title= "角色详情";
 }
 
-<h1>Details</h1>
+<h1>角色详情</h1>
 
 <div>
-    <h4>Student</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -86,6 +86,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">编辑</a> |
+    <a asp-action="Index">返回列表</a>
 </div>

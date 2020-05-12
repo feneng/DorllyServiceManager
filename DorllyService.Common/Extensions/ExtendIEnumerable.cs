@@ -33,7 +33,7 @@ namespace DorllyService.Common.Extensions
         }
 
         /// <summary>
-        /// 转换为树形列表 Convert to tree struct
+        /// 转换为树形列表 Convert to tree list
         /// 子节点作为平级的列表元素紧跟在父节点之后
         /// 此转换符合jQuery.treetable.js要求的格式
         /// </summary>

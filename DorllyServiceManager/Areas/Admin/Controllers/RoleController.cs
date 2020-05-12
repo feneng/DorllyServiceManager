@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DorllyService.Common;
 using DorllyService.Domain;
 using DorllyService.Service;
+using DorllyServiceManager.Areas.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +17,15 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
     {
         private IRoleManager _roleManager;
         private DorllyServiceManagerContext _context;
-        public RoleController(IUserManager userManager,IRoleManager roleManager,DorllyServiceManagerContext context) : base(userManager) {
+
+        public RoleController(IUserManager userManager,
+            IRoleManager roleManager,
+            DorllyServiceManagerContext context) : base(userManager)
+        {
             _roleManager = roleManager;
             _context = context;
         }
-        // GET: /<controller>/
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -37,7 +43,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Code", "Name",  "Status",  "Description")] Role role)
+            [Bind("Code", "Name", "Status", "Description")] Role role)
         {
             try
             {
@@ -67,14 +73,38 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                     .ThenInclude(rp => rp.Permission)
                 .Include(r => r.UserRoles)
                     .ThenInclude(ur => ur.User)
-                        .ThenInclude(u=>u.BelongGarden)
-                //.AsNoTracking()
+                        .ThenInclude(u => u.BelongGarden)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(r => r.Id == id);
+
             if (role != null)
             {
+                ViewBag.Permissions = PopulateAssignedPermissionData(role);
                 return View(role);
             }
             return NotFound();
+        }
+
+        private List<RolePermissionData> PopulateAssignedPermissionData(Role role)
+        {
+            var allPerssions = _context.Permission;
+            var rolePermissions = new HashSet<int>(role.RolePermissions.Select(p => p.PermissionId));
+            var viewModel = new List<RolePermissionData>();
+            foreach (var item in allPerssions)
+            {
+                viewModel.Add(new RolePermissionData
+                {
+                    RoleId = role.Id,
+                    PermissionId = item.Id,
+                    PermissionName = item.Name,
+                    PermissionCode = item.Code,
+                    PermissionIcon = item.Icon,
+                    PermissionOrder = item.Order,
+                    Assigned = rolePermissions.Contains(item.Id),
+                    Status = item.Status
+                });
+            }
+            return viewModel;
         }
 
         [HttpPost, ActionName("Edit")]
@@ -85,7 +115,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                 return NotFound();
 
             var roleToUpdate = await _roleManager.FindEntityAsync(id.Value);
-            if (await TryUpdateModelAsync<Role>(roleToUpdate, "",
+            if (await TryUpdateModelAsync(roleToUpdate, "",
                 p => p.Code, p => p.Name, p => p.Status, p => p.Description))
             {
                 try
@@ -108,9 +138,9 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var role =await _context.Role
+            var role = await _context.Role
                 .Include(r => r.RolePermissions)
-                    .ThenInclude(rp=>rp.Permission)
+                    .ThenInclude(rp => rp.Permission)
                 .Include(r => r.UserRoles)
                     .ThenInclude(ur => ur.User)
                 .AsNoTracking()
@@ -120,6 +150,95 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                 return NotFound();
             }
             return View(role);
+        }
+
+        [HttpGet, ActionName("EditPermission")]
+        public async Task<IActionResult> EditRolePermission(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var role = await _context.Role
+                .Include(r => r.RolePermissions)
+                    .ThenInclude(rp => rp.Permission)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            var permissions = PopulateAssignedPermissionData(role);
+            return View(permissions);
+        }
+
+        [HttpPost, ActionName("EditPermission")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditRolePermissionCallBack(int roleId, string[] permissionCheck)
+        {
+            var role = await _context.Role
+                .Include(r => r.RolePermissions)
+                    .ThenInclude(rp => rp.Permission)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == roleId);
+
+            _context.RolePermission.RemoveRange(role.RolePermissions);
+
+            if (permissionCheck.Length > 0)
+            {
+                foreach (var item in permissionCheck)
+                {
+                    if (int.TryParse(item, out int result))
+                    {
+                        RolePermission entity = new RolePermission
+                        {
+                            RoleId = role.Id,
+                            PermissionId = result
+                        };
+                        await _context.RolePermission.AddAsync(entity);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var role = await _context.Role
+                .Include(r => r.RolePermissions)
+                    .ThenInclude(rp => rp.Permission)
+                .Include(r => r.UserRoles)
+                    .ThenInclude(ur => ur.User)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Permissions = PopulateAssignedPermissionData(role);
+            return View(role);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(int id)
+        {
+            var result = await _roleManager.DelEntityAsync(r => r.Id == id);
+            await _roleManager.CommitAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

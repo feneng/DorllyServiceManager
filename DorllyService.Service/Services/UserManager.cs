@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DorllyService.Common;
 using DorllyService.Common.Extensions;
@@ -8,10 +9,11 @@ using DorllyService.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
+using Z.EntityFramework.Plus;
 
 namespace DorllyService.Service
 {
-    public class UserManager : IUserManager
+    public class UserManager :Repository<User>, IUserManager
     {
         private readonly DorllyServiceManagerContext _context;
         private readonly ILogger<UserManager> _logger;
@@ -21,7 +23,7 @@ namespace DorllyService.Service
         private readonly IRepository<RolePermission> _rolePermissionReposity;
         private readonly IRepository<Permission> _permissionRepository;
         private readonly IRepository<Module> _moduleRepository;
-        
+
 
         public UserManager(IRepository<User> userRepository,
             IRepository<UserRole> userRoleRepository,
@@ -30,7 +32,7 @@ namespace DorllyService.Service
             IRepository<Permission> permissionRepository,
             IRepository<Module> moduleRepository,
             DorllyServiceManagerContext context,
-            ILogger<UserManager> logger)
+            ILogger<UserManager> logger) : base(context)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
@@ -88,8 +90,9 @@ namespace DorllyService.Service
                     AdminIdentity = IsAdmin(user.Id),
                     Avatar = user.Avatar,
                     Garden = user.BelongGarden,
+                    Email=user.Email,
                     Roles = roles,
-                    Modules = modules.ToTreeStruct(null),
+                    Modules = modules.ToTreeStruct(null).Distinct(new ModelDistinct<Module>("Id")),
                     Permissions = permissions,
                     State = user.State
                 };
@@ -146,9 +149,23 @@ namespace DorllyService.Service
             }
         }
 
-        public bool Remove(int userId)
+        public async Task<bool> Remove(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _context.User.Include(i => i.UserRoles).SingleAsync(u => u.Id == userId);
+                if (user.UserRoles.Count > 0)
+                {
+                    await _userRoleRepository.DelEntityAsync(ur => user.UserRoles.Contains(ur));
+                }
+                await _userRepository.DelEntityAsync(u => u.Id == userId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Class:UserManager;Method:Remove");
+                return false;
+            }
         }
 
         public string GetUserSalt(string userAccount)
@@ -167,6 +184,22 @@ namespace DorllyService.Service
             var rolePermissions = await _rolePermissionReposity.LoadEntityListAsNoTrackingAsync(rp => roles.Contains(rp.Role));
             var permissions = rolePermissions.Select(e => e.Permission);
             return permissions.Select(e => e.BelongModule).Distinct();
+        }
+
+        public IQueryable<User> GetIndexQuery()
+        {
+            return _context.User.Include(r => r.BelongGarden).Include(r => r.Supplier).AsNoTracking();
+        }
+
+        public override async Task<User> LoadEntityAsNoTrackingAsync(Expression<Func<User, bool>> predicate)
+        {
+            return await _context.User
+                .Include(u => u.BelongGarden)
+                .Include(r => r.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                .Where(predicate)
+                .AsNoTracking()
+                .SingleOrDefaultAsync();
         }
     }
 }

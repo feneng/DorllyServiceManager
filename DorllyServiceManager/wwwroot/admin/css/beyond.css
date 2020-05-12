@@ -2404,7 +2404,8 @@ a:focus, a:active {
                         }
 
                     .navbar .navbar-inner .navbar-header .navbar-account .account-area .login-area section {
-                        width: auto;
+                        /*width: auto;*/
+                        min-width: 65px;
                         display: block;
                         overflow: hidden;
                         line-height: 25px;
@@ -2494,175 +2495,198 @@ a:focus, a:active {
                 right: 0
             }
 
-                .navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox] {
-                    display: inline-block
-                }
+/*.navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox] {
+                    display: inline-block;
+                }*/
 
-                    .navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox] + .text {
+input[type=checkbox] {
+    display: inline-block;
+}
+
+    /*.navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox] + .text {
                         color: #fff;
                         margin-right: 8px;
                         font-weight: 300
-                    }
+                    }*/
 
-                        .navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox] + .text:before {
-                            border-color: #2dc3e8
-                        }
-
-                    .navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox]:checked + .text {
-                        color: #fff
-                    }
-
-                        .navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox]:checked + .text:before {
-                            border-color: #2dc3e8;
-                            color: #fb6e52
-                        }
-
-            .navbar .navbar-inner .navbar-header .navbar-account .account-area, .navbar .navbar-inner .navbar-header .navbar-account .setting-container, .navbar .navbar-inner .navbar-header .navbar-account .setting {
-                -webkit-transform-style: preserve-3d;
-                -moz-transform-style: preserve-3d;
-                -o-transform-style: preserve-3d;
-                -ms-transform-style: preserve-3d;
-                transform-style: preserve-3d;
-                -webkit-backface-visibility: hidden;
-                -moz-backface-visibility: hidden;
-                -o-backface-visibility: hidden;
-                -ms-backface-visibility: hidden;
-                backface-visibility: hidden;
-                -webkit-transition: .9s;
-                -moz-transition: .9s;
-                -o-transition: .9s;
-                transition: .9s
-            }
-
-            .navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting {
-                right: 505px;
-                background-color: #2dc3e8
-            }
-
-                .navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting a {
-                    -webkit-box-shadow: 0 -6px 40px rgba(0,0,0,.4);
-                    -moz-box-shadow: 0 -6px 40px rgba(0,0,0,.4);
-                    box-shadow: 0 -6px 40px rgba(0,0,0,.4)
-                }
-
-                    .navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting a:before {
-                        content: '';
-                        display: inline-block;
-                        right: 0;
-                        position: absolute;
-                        width: 50px;
-                        background-color: #fff;
-                        border: 0;
-                        top: 0;
-                        height: 3px
-                    }
-
-            .navbar .navbar-inner .navbar-header .navbar-account.setting-open .account-area {
-                -webkit-transform: rotateY(-90deg);
-                -moz-transform: rotateY(-90deg);
-                -o-transform: rotateY(-90deg);
-                -ms-transform: rotateY(-90deg);
-                transform: rotateY(-90deg);
-                -webkit-transform-origin: top right;
-                -moz-transform-origin: top right;
-                -o-transform-origin: top right;
-                -ms-transform-origin: top right;
-                transform-origin: top right;
-                zoom: 1;
-                filter: alpha(opacity=0);
-                -webkit-opacity: 0;
-                -moz-opacity: 0;
-                opacity: 0;
-                right: 450px
-            }
-
-            .navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting-container {
-                -webkit-transform: rotateY(0deg);
-                -moz-transform: rotateY(0deg);
-                -o-transform: rotateY(0deg);
-                -ms-transform: rotateY(0deg);
-                transform: rotateY(0deg);
-                zoom: 1;
-                filter: alpha(opacity=100);
-                -webkit-opacity: 1;
-                -moz-opacity: 1;
-                opacity: 1;
-                padding: 11px
-            }
-
-    .navbar .navbar-brand {
+    input[type=checkbox] + .text {
         color: #fff;
-        font-size: 24px;
-        -webkit-text-shadow: none;
-        text-shadow: none;
-        padding: 2px 0 2px 0;
-        font-weight: 200;
-        height: 45px
+        margin-right: 8px;
+        font-weight: 300
     }
 
-        .navbar .navbar-brand small img {
-            height: 40px;
-            width: 177px
+        /*.navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox] + .text:before {
+                            border-color: #2dc3e8
+                        }*/
+
+        input[type=checkbox] + .text:before {
+            border-color: #2dc3e8
         }
 
-    .navbar .sidebar-collapse {
-        text-align: center;
-        padding: 0;
-        position: absolute;
-        left: 189px;
-        top: 0;
-        z-index: 2;
-        width: 35px;
-        height: 45px
+    /*.navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox]:checked + .text {
+                        color: #fff
+                    }*/
+
+    input[type=checkbox]:checked + .text {
+        color: #fff
     }
 
-        .navbar .sidebar-collapse:hover {
-            -webkit-box-shadow: 0 0 20px rgba(0,0,0,.2);
-            -moz-box-shadow: 0 0 20px rgba(0,0,0,.2);
-            box-shadow: 0 0 20px rgba(0,0,0,.2)
-        }
+/*.navbar .navbar-inner .navbar-header .navbar-account .setting-container input[type=checkbox]:checked + .text:before {
+    border-color: #2dc3e8;
+    color: #fb6e52
+}*/
 
-        .navbar .sidebar-collapse .collapse-icon {
+input[type=checkbox]:checked + .text:before {
+    border-color: #2dc3e8;
+    color: #fb6e52
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area, .navbar .navbar-inner .navbar-header .navbar-account .setting-container, .navbar .navbar-inner .navbar-header .navbar-account .setting {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: .9s;
+    -moz-transition: .9s;
+    -o-transition: .9s;
+    transition: .9s
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting {
+    right: 505px;
+    background-color: #2dc3e8
+}
+
+    .navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting a {
+        -webkit-box-shadow: 0 -6px 40px rgba(0,0,0,.4);
+        -moz-box-shadow: 0 -6px 40px rgba(0,0,0,.4);
+        box-shadow: 0 -6px 40px rgba(0,0,0,.4)
+    }
+
+        .navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting a:before {
+            content: '';
             display: inline-block;
-            cursor: pointer;
-            font-size: 18px;
-            color: #fff;
-            padding: 11px 5px;
-            line-height: 22px;
-            position: relative;
-            -webkit-transition: background-color .218s ease;
-            -moz-transition: background-color .218s ease;
-            -o-transition: background-color .218s ease;
-            transition: background-color .218s ease;
-            -webkit-transition: -webkit-box-shadow .218s ease;
-            -moz-transition: -moz-box-shadow .218s ease;
-            -o-transition: box-shadow .218s ease;
-            transition: box-shadow .218s ease;
-            -webkit-transition: color .318s ease;
-            -moz-transition: color .318s ease;
-            -o-transition: color .318s ease;
-            transition: color .318s ease
+            right: 0;
+            position: absolute;
+            width: 50px;
+            background-color: #fff;
+            border: 0;
+            top: 0;
+            height: 3px
         }
 
-        .navbar .sidebar-collapse.active:hover {
-            box-shadow: none
-        }
+.navbar .navbar-inner .navbar-header .navbar-account.setting-open .account-area {
+    -webkit-transform: rotateY(-90deg);
+    -moz-transform: rotateY(-90deg);
+    -o-transform: rotateY(-90deg);
+    -ms-transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
+    -webkit-transform-origin: top right;
+    -moz-transform-origin: top right;
+    -o-transform-origin: top right;
+    -ms-transform-origin: top right;
+    transform-origin: top right;
+    zoom: 1;
+    filter: alpha(opacity=0);
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    opacity: 0;
+    right: 450px
+}
 
-        .navbar .sidebar-collapse.active .collapse-icon {
-            font-size: 14px;
-            -webkit-box-shadow: 0 0 20px rgba(0,0,0,.2);
-            -moz-box-shadow: 0 0 20px rgba(0,0,0,.2);
-            box-shadow: 0 0 20px rgba(0,0,0,.2);
-            padding: 11px
-        }
+.navbar .navbar-inner .navbar-header .navbar-account.setting-open .setting-container {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    zoom: 1;
+    filter: alpha(opacity=100);
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    opacity: 1;
+    padding: 11px
+}
 
-    .navbar.navbar-fixed-top {
-        z-index: 1003
+.navbar .navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+    padding: 2px 0 2px 0;
+    font-weight: 200;
+    height: 45px
+}
+
+    .navbar .navbar-brand small img {
+        height: 40px;
+        width: 177px
     }
 
-        .navbar.navbar-fixed-top + .main-container {
-            margin-top: 45px
-        }
+.navbar .sidebar-collapse {
+    text-align: center;
+    padding: 0;
+    position: absolute;
+    left: 189px;
+    top: 0;
+    z-index: 2;
+    width: 35px;
+    height: 45px
+}
+
+    .navbar .sidebar-collapse:hover {
+        -webkit-box-shadow: 0 0 20px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 0 20px rgba(0,0,0,.2);
+        box-shadow: 0 0 20px rgba(0,0,0,.2)
+    }
+
+    .navbar .sidebar-collapse .collapse-icon {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 18px;
+        color: #fff;
+        padding: 11px 5px;
+        line-height: 22px;
+        position: relative;
+        -webkit-transition: background-color .218s ease;
+        -moz-transition: background-color .218s ease;
+        -o-transition: background-color .218s ease;
+        transition: background-color .218s ease;
+        -webkit-transition: -webkit-box-shadow .218s ease;
+        -moz-transition: -moz-box-shadow .218s ease;
+        -o-transition: box-shadow .218s ease;
+        transition: box-shadow .218s ease;
+        -webkit-transition: color .318s ease;
+        -moz-transition: color .318s ease;
+        -o-transition: color .318s ease;
+        transition: color .318s ease
+    }
+
+    .navbar .sidebar-collapse.active:hover {
+        box-shadow: none
+    }
+
+    .navbar .sidebar-collapse.active .collapse-icon {
+        font-size: 14px;
+        -webkit-box-shadow: 0 0 20px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 0 20px rgba(0,0,0,.2);
+        box-shadow: 0 0 20px rgba(0,0,0,.2);
+        padding: 11px
+    }
+
+.navbar.navbar-fixed-top {
+    z-index: 1003
+}
+
+    .navbar.navbar-fixed-top + .main-container {
+        margin-top: 45px
+    }
 
 @media only screen and (max-width:767px) {
     .navbar-container {

@@ -68,6 +68,19 @@
     <Folder Include="wwwroot\admin\js\treetable\" />
     <Folder Include="Areas\Admin\Views\Permission\" />
     <Folder Include="Areas\Admin\Views\Role\" />
+    <Folder Include="Areas\Admin\ViewModels\" />
+    <Folder Include="Areas\Admin\Views\User\" />
+    <Folder Include="Areas\Admin\Views\Garden\" />
+    <Folder Include="Areas\Admin\Views\SubSystem\" />
+    <Folder Include="Areas\Admin\Views\ServiceProvider\" />
+    <Folder Include="Areas\Admin\Views\ServiceCategory\" />
+    <Folder Include="Areas\Admin\Views\Contract\" />
+    <Folder Include="Areas\Admin\Views\ServiceOrder\" />
+    <Folder Include="Areas\Admin\Views\ServiceInfo\" />
+    <Folder Include="Areas\Admin\Views\ServiceProperty\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\AccountSetting\" />
+    <Folder Include="Areas\Admin\ComponentModels\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\Breadcrumbs\" />
   </ItemGroup>
 
   <ItemGroup>

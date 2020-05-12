@@ -33,7 +33,7 @@
             </div>
             <div class="widget-body">
                 <div class="table-toolbar">
-                    <a asp-action="create" class="btn btn-success">
+                    <a class="btn btn-success create">
                         添加根目录
                     </a>
                     <div class="btn-group pull-right">
@@ -79,16 +79,16 @@
                                 <td>
                                     @if (item.Type == 1)
                                     {
-                                        <a class="btn btn-success btn-xs edit" asp-area="admin" asp-controller="module" asp-action="create" asp-route-pid="@item.Id">
+                                        <a class="btn btn-success btn-xs create" data-pid="@item.Id">
                                             <i class="fa fa-plus"></i>
                                             添加子菜单
                                         </a>
                                     }
-                                    <a class="btn btn-info btn-xs edit" asp-area="admin" asp-controller="module" asp-action="edit" asp-route-id="@item.Id">
+                                    <a class="btn btn-info btn-xs edit" data-id="@item.Id">
                                         <i class="fa fa-edit"></i>
                                         修改
                                     </a>
-                                    <a class="btn btn-danger btn-xs delete" asp-area="admin" asp-controller="module" asp-action="delete" asp-route-id="@item.Id">
+                                    <a class="btn btn-danger btn-xs delete" data-id="@item.Id">
                                         <i class="fa fa-trash-o"></i>
                                         删除
                                     </a>
@@ -105,31 +105,111 @@
 @section scripts{
     <environment include="Development">
         <script src="~/admin/js/treetable/jquery.treetable.js"></script>
-
-        <script src="~/admin/js/datatable/jquery.dataTables.js"></script>
-        <script src="~/admin/js/datatable/ZeroClipboard.js"></script>
-        <script src="~/admin/js/datatable/dataTables.bootstrap.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/admin/js/treetable/jquery.treetable.min.js"></script>
-
-        <script src="~/admin/js/datatable/jquery.dataTables.min.js"></script>
-        <script src="~/admin/js/datatable/ZeroClipboard.js"></script>
-        <script src="~/admin/js/datatable/dataTables.bootstrap.min.js"></script>
     </environment>
-    <script>$("#treeTable").treetable({
-            "column": 0,
-            "expandLevel": 1,
-            "expanderTemplate": "<a href='#'><i class='fa fa-plus-minus-o row-icon'></i>&nbsp;</a>",
-            "controller": true,
-            "initialState": "expanded",
-            "onNodeCollapse": function () {
-                var expandIcon = '<i class="fa fa-plus-square-o row-icon"></i>&nbsp;';
-                this.expander.html(expandIcon);
-            },
-            "onNodeExpand": function () {
-                var collapseIcon = '<i class="fa fa-minus-square-o row-icon">&nbsp;</i>&nbsp;';
-                this.expander.html(collapseIcon);
-            }
-        });</script>
+    <script>var Index = (function ($) {
+            var config = {
+                checkItemId: [],
+            };
+
+            return {
+                Init: function (setting) {
+                    //拓展配置
+                    if (!!setting) $.extend(config, setting);
+                    //添加
+                    $('.create').on('click', Index.Create);
+                    //编辑
+                    $('.edit').on('click', Index.Edit);
+                    //删除
+                    $('.delete').on('click', Index.Delete);
+
+                    $("#treeTable").treetable({
+                        "column": 0,
+                        "expandLevel": 1,
+                        "expanderTemplate": "<a href='#'><i class='fa fa-plus-minus-o row-icon'></i>&nbsp;</a>",
+                        "controller": true,
+                        "initialState": "expanded",
+                        "onNodeCollapse": function () {
+                            var expandIcon = '<i class="fa fa-plus-square-o row-icon"></i>&nbsp;';
+                            this.expander.html(expandIcon);
+                        },
+                        "onNodeExpand": function () {
+                            var collapseIcon = '<i class="fa fa-minus-square-o row-icon">&nbsp;</i>&nbsp;';
+                            this.expander.html(collapseIcon);
+                        }
+                    });
+                },
+                Create: function () {
+                    var pid = $(this).data('pid');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/Module/Create"+(!!pid?'/'+pid:''),
+                        title: "添加目录",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#createform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "返回列表",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Edit: function () {
+                    var id = $(this).data('id');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/Module/Edit/" + id,
+                        title: "编辑菜单",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#editform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Delete: function () {
+                    var id = $(this).data('id');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/Module/Delete/" + id,
+                        title: "删除菜单",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "确认删除",
+                                className: "btn-danger",
+                                callback: function () {
+                                    $('#deleteform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+                }
+            };
+
+        })(jQuery);
+
+        Index.Init();</script>
 }

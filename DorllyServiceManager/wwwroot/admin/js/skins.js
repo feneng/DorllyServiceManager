@@ -25,12 +25,21 @@ function getInternetExplorerVersion() {
             i = new RegExp("MSIE ([0-9]{1,}[.0-9]{0,})"),
             i.exec(t) != null && (n = parseFloat(RegExp.$1))), n
 }
+//var a;
+//readCookie("current-skin") && (
+//    a = document.createElement("link"),
+//    a.href = readCookie("current-skin"),
+//    a.rel = "stylesheet",
+//    document.getElementsByTagName("head")[0].appendChild(a));
+
 var a;
-readCookie("current-skin") && (
-    a = document.createElement("link"),
-    a.href = readCookie("current-skin"),
-    a.rel = "stylesheet",
-    document.getElementsByTagName("head")[0].appendChild(a));
+if (!!readCookie("current-skin")) {
+    a = document.createElement("link");
+    a.href = readCookie("current-skin");
+    a.rel = "stylesheet";
+    document.getElementsByTagName("head")[0].appendChild(a);
+}
+
 location.pathname != "/index-rtl-fa.html"
     && location.pathname != "/index-rtl-ar.html"
     && (readCookie("rtl-support") ?
@@ -44,7 +53,7 @@ location.pathname != "/index-rtl-fa.html"
                 a.rel = "stylesheet",
                 document.getElementsByTagName("head")[0].appendChild(a))) :
         (document.getElementById("beyond-link") != null
-            && document.getElementById("beyond-link").setAttribute("href", "/admin/css/beyond.min.css"),
+            && document.getElementById("beyond-link").setAttribute("href", "/admin/css/beyond.css"),
             document.getElementById("bootstrap-rtl-link") != null
             && document.getElementById("bootstrap-rtl-link").setAttribute("href", ""),
             getInternetExplorerVersion() <= 9 && getInternetExplorerVersion() > 0

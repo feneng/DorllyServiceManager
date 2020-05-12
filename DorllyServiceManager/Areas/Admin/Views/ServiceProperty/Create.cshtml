@@ -1,0 +1,78 @@
+﻿@model DorllyService.Domain.ServiceProperty
+@{
+    Layout = null;
+    ViewBag.PageCode = "服务属性";
+    ViewBag.Title = "添加" + ViewBag.PageCode;
+}
+
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <form role="form" method="post" asp-area="Admin" asp-controller="ServiceProperty" asp-action="Create" id="createform">
+            <div class="form-title">
+                基本信息
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Code"></label>
+                    <input type="text" class="form-control" asp-for="Code" placeholder="编号">
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="@(ViewBag.PageCode)名">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="Type"></label>
+                    <select asp-for="Type" class="form-control">
+                        <option value="@((int)DorllyService.Common.Enums.PropertyType.公共属性)">公共属性</option>
+                        <option value="@((int)DorllyService.Common.Enums.PropertyType.分类属性)">分类属性</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="InputType"></label>
+                    <select asp-for="InputType" class="form-control">
+                        <option value="@((int)DorllyService.Common.Enums.InputType.文本)">文本</option>
+                        <option value="@((int)DorllyService.Common.Enums.InputType.单选)">单选</option>
+                        <option value="@((int)DorllyService.Common.Enums.InputType.多选)">多选</option>
+                    </select>
+                    <span asp-validation-for="InputType" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <label asp-for="State"></label>
+                    <select asp-for="State" class="form-control">
+                        <option value="@((int)DorllyService.Common.Enums.StateStatus.启用)">启用</option>
+                        <option value="@((int)DorllyService.Common.Enums.StateStatus.禁用)">禁用</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                    <div>
+                        <label>
+                            <input type="checkbox" asp-for="NotNull">
+                            <span class="text">必填</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

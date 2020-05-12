@@ -4,7 +4,7 @@
     <div class="sidebar-header-wrapper">
         <input type="text" class="searchinput" />
         <i class="searchicon fa fa-search"></i>
-        <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+        <div class="searchhelper">检索报表，邮件，消息或通知</div>
     </div>
     <!-- /Page Sidebar Header -->
     <!-- Sidebar Menu -->
@@ -13,7 +13,7 @@
         {
             if (item.Children!=null)
             {
-                <li>
+                <li class="@(item.IsCheck?"open":"")">
                     <a href="@item.Path" class="menu-dropdown">
                         <i class="menu-icon  @item.Icon"></i>
                         <span class="menu-text"> @item.Name </span>
@@ -45,8 +45,8 @@
                             }
                             else
                             {
-                                <li>
-                                    <a href="@it.Path">
+                                <li class="@(it.IsCheck?"active":"")">
+                                    <a href="@it.Path" >
                                         <span class="menu-text">@it.Name</span>
                                     </a>
                                 </li>
@@ -57,7 +57,7 @@
             }
             else
             {
-                <li>
+                <li class="@(item.IsCheck?"active":"")">
                     <a href="@item.Path">
                         <i class="menu-icon  @item.Icon"></i>
                         <span class="menu-text"> @item.Name </span>

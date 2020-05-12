@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DorllyService.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DorllyService.Service
@@ -16,6 +19,13 @@ namespace DorllyService.Service
             _logger = logger;
         }
 
-
+        public override async Task<Permission> LoadEntityAsNoTrackingAsync(Expression<Func<Permission, bool>> predicate)
+        {
+            return await _context.Permission
+                .Include(p=>p.RolePermissions)
+                .ThenInclude(rp=>rp.Role)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(predicate);
+        }
     }
 }

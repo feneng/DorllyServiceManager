@@ -58,6 +58,15 @@ namespace DorllyServiceManager
             services.AddTransient<IModuleManager, ModuleManager>();
             services.AddTransient<IPermissionManager, PermissionManager>();
             services.AddTransient<IRoleManager, RoleManager>();
+            services.AddTransient<IGardenManager, GardenManager>();
+            services.AddTransient<ISubSystemManager, SubSystemManager>();
+            services.AddTransient<IServiceProviderManager, ServiceProviderManager>();
+            services.AddTransient<IServiceCategoryManager, ServiceCategoryManager>();
+            services.AddTransient<IContractManager, ContractManager>();
+            services.AddTransient<IServiceOrderManager, ServiceOrderManager>();
+            services.AddTransient<IServiceManager, ServiceManager>();
+            services.AddTransient<IServicePropertyManager, ServicePropertyManager>();
+
 
             if (Environment.IsDevelopment())
             {

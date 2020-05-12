@@ -1,0 +1,226 @@
+﻿@model IEnumerable<DorllyService.Domain.ServiceProperty>
+@{
+    ViewBag.Title = "服务属性列表";
+}
+
+@section styles{
+    <environment include="Development">
+        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@ViewBag.Title</span>
+                <div class="widget-buttons">
+                    <a href="#" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="#" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="#" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="table-toolbar">
+                    <a class="btn btn-success create">
+                        添加属性
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">其他操作</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);" onclick="Index.EditPropertyCategory(event)">编辑属性分类</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" onclick="Index.AllocatePropertyValue(event)">分配属性值</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <table class="table table-striped table-hover table-bordered" id="editabledatatable">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                序号
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().Code)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().TypeName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().InputTypeName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().NotNull)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().Categories)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.FirstOrDefault().StateName)
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model == null || !Model.Any())
+                        {
+                            <tr>
+                                <td colspan="9">暂无数据</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>1</td>
+                                    <td>@Html.DisplayFor(p => item.Code)</td>
+                                    <td>@Html.DisplayFor(p => item.Name)</td>
+                                    <td>@Html.DisplayFor(p => item.TypeName)</td>
+                                    <td>@Html.DisplayFor(p => item.InputTypeName)</td>
+                                    <td>@Html.DisplayFor(p => item.NotNull)</td>
+                                    <td>@Html.DisplayFor(p => item.Categories)</td>
+                                    <td>@Html.DisplayFor(p => item.StateName)</td>
+                                    <td>
+                                        <a data-id="@item.Id" class="btn btn-info btn-xs details"><i class="fa fa-edit"></i> 查看</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var Index = (function ($) {
+            var config = {
+                checkItemId: [],
+            };
+
+            return {
+                init: function (setting) {
+                    //拓展配置
+                    if (!!setting) $.extend(config, setting);
+                    //添加 
+                    $('.create').on('click', Index.Create); 
+                    //编辑
+                    $('.edit').on('click', Index.Edit);
+                    //删除
+                    $('.delete').on('click', Index.Delete);
+                    //点选行 
+                    $('td>label>.text').on('click', function () {
+                        $(this).siblings('.checkItem').trigger('check');
+                    });
+                    $('.checkItem').on('change', function () {
+                        var currentId = $(this).data('id');
+                        var index = config.checkItemId.indexOf(currentId);
+                        if ($(this).is(':checked')) {
+                            if (index == -1)
+                                config.checkItemId.push(currentId);
+                        }
+                        else {
+                            if (index != -1)
+                                config.checkItemId.splice(index, 1);
+                        }
+                    });
+                },
+                Create: function () {
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/ServiceProperty/Create",
+                        title: "添加服务属性",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#createform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "返回列表",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Edit: function () {
+                    var id = $(this).data('id');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/ServiceProperty/Edit/" + id,
+                        title: "编辑服务属性",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#editform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Delete: function () {
+                    var id = $(this).data('id');
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "/Admin/ServiceProperty/Delete/" + id,
+                        title: "删除服务属性",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "确认删除",
+                                className: "btn-danger",
+                                callback: function () {
+                                    $('#deleteform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+                },
+                EditPropertyCategory: function (e) {
+
+                },
+                AllocatePropertyValue: function (e) {
+
+                }
+            };
+        })(jQuery);
+        Index.init();
+    </script>
+}

@@ -35,9 +35,13 @@ namespace DorllyService.Service
         /// </summary>
         public string Avatar { get; set; }
         /// <summary>
-        /// 用户所属系统
+        /// 用户所属园区
         /// </summary>
         public Garden Garden { get; set; }
+        /// <summary>
+        /// 用户邮箱
+        /// </summary>
+        public string Email { get; set; }
         /// <summary>
         /// 用户状态
         /// </summary>

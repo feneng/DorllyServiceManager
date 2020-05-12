@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DorllyService.Domain;
 
 namespace DorllyService.Service
 {
-    public interface IUserManager
+    public interface IUserManager:IRepository<User>
     {
+        IQueryable<User> GetIndexQuery();
         Account Login(string account, string password);
-        bool Remove(int userId);
+        Task<bool> Remove(int userId);
         Account GetAccountByUser(User user);
         Account GetAccountByCookie();
         bool IsAdmin(int userId);

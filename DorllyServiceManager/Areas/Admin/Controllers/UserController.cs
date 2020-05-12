@@ -65,12 +65,8 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var user = await _context.User
-                .Include(u => u.BelongGarden)
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.Role)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
+
+            var user = await _userManager.LoadEntityAsNoTrackingAsync(u => u.Id == id.Value);
             ViewBag.Gardens = base.PopulateGardenDropDownList(user.BelongGardenId);
             if (user != null)
             {
@@ -86,7 +82,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             if (!id.HasValue)
                 return NotFound();
 
-            var userToUpdate = await _userManager.FindEntityAsync(id.Value);
+            var userToUpdate = await _userManager.LoadEntityAsNoTrackingAsync(u=>u.Id==id.Value);
             if (await TryUpdateModelAsync(userToUpdate, "",
                 u => u.Account, u => u.Name, u => u.Password, u => u.Email, u => u.Sex, u => u.ContactPhone, u => u.BelongGardenId, u => u.Avatar, u => u.State))
             {
@@ -112,12 +108,8 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var user = await _context.User
-                .Include(u => u.BelongGarden)
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.Role)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
+
+            var user = await _userManager.LoadEntityAsNoTrackingAsync(u => u.Id == id.Value);
             if (user == null)
             {
                 return NotFound();
@@ -131,12 +123,8 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var user = await _context.User
-                .Include(u => u.BelongGarden)
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.Role)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
+
+            var user = await _userManager.LoadEntityAsNoTrackingAsync(u => u.Id == id.Value);
             if (user == null)
             {
                 return NotFound();

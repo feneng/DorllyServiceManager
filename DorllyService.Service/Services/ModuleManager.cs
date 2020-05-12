@@ -24,5 +24,14 @@ namespace DorllyService.Service
             var enumer = from s in _context.Module orderby s.Order ascending select s;
             return enumer.AsEnumerable().ToTreeList(null);//.ToTreeStruct(null);
         }
+
+        public IQueryable<Module> GetSelectListQuery()
+        {
+            var query = from g in _context.Module
+                        orderby g.Order
+                        where g.Status
+                        select g;
+            return query;
+        }
     }
 }

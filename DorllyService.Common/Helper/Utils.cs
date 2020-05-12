@@ -112,8 +112,12 @@ namespace DorllyService.Common
         /// <param name="list">List</param>
         /// <param name="speater">分隔符</param>
         /// <returns>String</returns>
-        public static string GetArrayStr(List<string> list, string speater)
+        public static string GetArrayStr<T>(List<T> list, string speater)
         {
+            if (list==null)
+            {
+                return "";
+            }
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.Count; i++)
             {
@@ -1407,7 +1411,7 @@ namespace DorllyService.Common
 
 
             }
-            catch (Exception ex)
+            catch
             {
                 return "error";
             }

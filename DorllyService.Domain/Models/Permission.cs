@@ -32,6 +32,7 @@ namespace DorllyService.Domain
         public Module BelongModule { get; set; }
         [Display(Name = "状态")]
         public bool Status { get; set; }
+        [Display(Name = "拥有此权限的角色")]
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

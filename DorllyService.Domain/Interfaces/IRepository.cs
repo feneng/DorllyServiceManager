@@ -12,7 +12,7 @@ namespace DorllyService.Domain
 
         /// <summary>
         /// 新增实体
-        /// </summary>å
+        /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         void AddEntity(T entity);
