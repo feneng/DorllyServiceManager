@@ -608,7 +608,7 @@ namespace DorllyServiceManager.Migrations
 
                     b.Property<string>("Account")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(8);
+                        .HasMaxLength(12);
 
                     b.Property<string>("Avatar")
                         .HasColumnType("TEXT")
@@ -636,7 +636,7 @@ namespace DorllyServiceManager.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(8);
+                        .HasMaxLength(12);
 
                     b.Property<string>("Password")
                         .HasColumnType("TEXT")

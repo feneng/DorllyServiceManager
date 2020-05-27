@@ -5659,7 +5659,7 @@
       "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/feneng/.config/NuGet/NuGet.Config"
+        "/Users/feneng/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
@@ -5717,7 +5717,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.200/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
       }
     }
   }

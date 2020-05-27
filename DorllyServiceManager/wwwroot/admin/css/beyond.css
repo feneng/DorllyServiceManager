@@ -2250,18 +2250,18 @@ a:focus, a:active {
                                     cursor: pointer
                                 }
 
-                            .navbar .navbar-inner .navbar-header .navbar-account .account-area > li .dropdown-menu.dropdown-login-area > li.edit {
+                            .navbar .navbar-inner .navbar-header .navbar-account .account-area > li .dropdown-menu.dropdown-login-area > li.editor {
                                 min-height: 35px
                             }
 
-                                .navbar .navbar-inner .navbar-header .navbar-account .account-area > li .dropdown-menu.dropdown-login-area > li.edit a {
+                                .navbar .navbar-inner .navbar-header .navbar-account .account-area > li .dropdown-menu.dropdown-login-area > li.editor a {
                                     color: #999;
                                     display: inline-block;
                                     clear: none;
                                     font-size: 13px
                                 }
 
-                                    .navbar .navbar-inner .navbar-header .navbar-account .account-area > li .dropdown-menu.dropdown-login-area > li.edit a:hover {
+                                    .navbar .navbar-inner .navbar-header .navbar-account .account-area > li .dropdown-menu.dropdown-login-area > li.editor a:hover {
                                         color: #11a9cc
                                     }
 
@@ -2405,7 +2405,7 @@ a:focus, a:active {
 
                     .navbar .navbar-inner .navbar-header .navbar-account .account-area .login-area section {
                         /*width: auto;*/
-                        min-width: 65px;
+                        min-width: 104px;
                         display: block;
                         overflow: hidden;
                         line-height: 25px;

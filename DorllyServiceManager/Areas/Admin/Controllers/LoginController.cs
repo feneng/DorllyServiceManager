@@ -22,7 +22,6 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             _userManage = userManage;
         }
 
-        // GET: /<controller>/
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DorllyService.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,17 @@ namespace DorllyService.Service
         public IQueryable<Role> GetIndexQuery()
         {
              return _context.Role.Include(r => r.RolePermissions).Include(r => r.UserRoles).AsNoTracking();
+        }
+
+        public override async Task<Role> LoadEntityAsNoTrackingAsync(Expression<Func<Role, bool>> predicate)
+        {
+            return await _context.Role
+                .Include(r => r.RolePermissions)
+                    .ThenInclude(rp => rp.Permission)
+                .Include(r => r.UserRoles)
+                    .ThenInclude(ur => ur.User)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(predicate);
         }
     }
 }

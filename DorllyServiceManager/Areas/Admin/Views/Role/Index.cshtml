@@ -31,7 +31,7 @@
             </div>
             <div class="widget-body">
                 <div class="table-toolbar">
-                    <a class="btn btn-success create">
+                    <a class="btn btn-success" onclick="Index.Create()">
                         添加角色
                     </a>
                     <div class="btn-group pull-right">
@@ -98,8 +98,8 @@
                                     <td>@Html.DisplayFor(p => item.Description)</td>
                                     <td>
                                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-xs"><i class="fa fa-info"></i> 查看</a>
-                                        <a data-id="@item.Id" class="btn btn-primary btn-xs edit"><i class="fa fa-edit"></i> 编辑</a>
-                                        <a data-id="@item.Id" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 删除</a>
+                                        <a data-id="@item.Id" class="btn btn-primary btn-xs" onclick="Index.Edit(this)"><i class="fa fa-edit"></i> 编辑</a>
+                                        <a data-id="@item.Id" class="btn btn-danger btn-xs" onclick="Index.Delete(this)"><i class="fa fa-trash-o"></i> 删除</a>
                                     </td>
                                 </tr>
                             }
@@ -122,11 +122,11 @@
                     //拓展配置 
                     if (!!setting) $.extend(config, setting); 
                     //添加
-                    $('.create').on('click', Index.Create); 
+                    //$('.create').on('click', Index.Create); 
                     //编辑
-                    $('.edit').on('click', Index.Edit);
+                    //$('.edit').on('click', Index.Edit);
                     //删除
-                    $('.delete').on('click', Index.Delete);
+                    //$('.delete').on('click', Index.Delete);
                     //点选行
                     $('td>label>.text').on('click', function () {
                         $(this).siblings('.checkItem').trigger('check');
@@ -174,8 +174,8 @@
                         }
                     });
                 },
-                Edit: function () {
-                    var id = $(this).data('id');
+                Edit: function (obj) {
+                    var id = $(obj).data('id');
                     bootbox.dialog({
                         loadPage: true,
                         message: "/Admin/Role/Edit/" + id,
@@ -196,8 +196,8 @@
                         }
                     });
                 },
-                Delete: function () {
-                    var id = $(this).data('id');
+                Delete: function (obj) {
+                    var id = $(obj).data('id');
                     bootbox.dialog({
                         loadPage: true,
                         message: "/Admin/Role/Delete/" + id,

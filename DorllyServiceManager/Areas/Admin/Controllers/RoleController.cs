@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DorllyService.Common;
 using DorllyService.Domain;
 using DorllyService.Service;
 using DorllyServiceManager.Areas.Admin.ViewModels;
@@ -68,15 +67,8 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var role = await _context.Role
-                .Include(r => r.RolePermissions)
-                    .ThenInclude(rp => rp.Permission)
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.User)
-                        .ThenInclude(u => u.BelongGarden)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
 
+            var role = await _roleManager.LoadEntityAsNoTrackingAsync(r=>r.Id==id.Value);
             if (role != null)
             {
                 ViewBag.Permissions = PopulateAssignedPermissionData(role);
@@ -114,7 +106,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             if (!id.HasValue)
                 return NotFound();
 
-            var roleToUpdate = await _roleManager.FindEntityAsync(id.Value);
+            var roleToUpdate = await _roleManager.LoadEntityAsNoTrackingAsync(r=>r.Id==id.Value);
             if (await TryUpdateModelAsync(roleToUpdate, "",
                 p => p.Code, p => p.Name, p => p.Status, p => p.Description))
             {
@@ -138,13 +130,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var role = await _context.Role
-                .Include(r => r.RolePermissions)
-                    .ThenInclude(rp => rp.Permission)
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.User)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
+            var role = await _roleManager.LoadEntityAsNoTrackingAsync(r => r.Id == id.Value);
             if (role == null)
             {
                 return NotFound();
@@ -178,12 +164,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRolePermissionCallBack(int roleId, string[] permissionCheck)
         {
-            var role = await _context.Role
-                .Include(r => r.RolePermissions)
-                    .ThenInclude(rp => rp.Permission)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == roleId);
-
+            var role = await _roleManager.LoadEntityAsNoTrackingAsync(r => r.Id == roleId);
             _context.RolePermission.RemoveRange(role.RolePermissions);
 
             if (permissionCheck.Length > 0)
@@ -217,13 +198,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var role = await _context.Role
-                .Include(r => r.RolePermissions)
-                    .ThenInclude(rp => rp.Permission)
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.User)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Id == id);
+            var role = await _roleManager.LoadEntityAsNoTrackingAsync(r => r.Id == id.Value);
             if (role == null)
             {
                 return NotFound();
