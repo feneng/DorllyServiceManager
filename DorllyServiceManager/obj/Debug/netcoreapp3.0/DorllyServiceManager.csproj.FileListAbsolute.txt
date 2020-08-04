@@ -131,13 +131,6 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/bin/Debug
 C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Domain.pdb
 C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.Views.pdb
 C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csproj.CopyComplete
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csprojAssemblyReference.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.AssemblyInfoInputs.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.AssemblyInfo.cs
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csproj.CoreCompileInputs.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.MvcApplicationPartsAssemblyInfo.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.RazorAssemblyInfo.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.RazorAssemblyInfo.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/appsettings.Development.json
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/appsettings.json
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/Properties/launchSettings.json
@@ -292,6 +285,13 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Domain.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Common.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Service.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csprojAssemblyReference.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.AssemblyInfoInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.AssemblyInfo.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csproj.CoreCompileInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.MvcApplicationPartsAssemblyInfo.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.RazorAssemblyInfo.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.RazorAssemblyInfo.cs
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.TagHelpers.input.cache
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.TagHelpers.output.cache
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.RazorCoreGenerate.cache

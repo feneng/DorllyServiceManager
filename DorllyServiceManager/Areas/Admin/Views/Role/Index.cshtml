@@ -121,12 +121,6 @@
                 Init: function (setting) {
                     //拓展配置 
                     if (!!setting) $.extend(config, setting); 
-                    //添加
-                    //$('.create').on('click', Index.Create); 
-                    //编辑
-                    //$('.edit').on('click', Index.Edit);
-                    //删除
-                    //$('.delete').on('click', Index.Delete);
                     //点选行
                     $('td>label>.text').on('click', function () {
                         $(this).siblings('.checkItem').trigger('check');

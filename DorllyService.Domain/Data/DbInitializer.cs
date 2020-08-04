@@ -32,7 +32,7 @@ namespace DorllyService.Domain
             context.SaveChanges();
 
             //初始化用户列表
-            var salt = Utils.GetCheckCode(8);
+            var salt = "4Z8P8TP2";//Utils.GetCheckCode(8);
             var users = new User[]
             {
                new User
@@ -40,7 +40,7 @@ namespace DorllyService.Domain
                    Name="Carson",
                    Account="Alexander",
                    CreateDate=DateTime.Parse("2005-09-01"),
-                   Password=DesEncrypt.Encrypt("888888",salt),
+                   Password="CE81EE216D5E78D9",//DesEncrypt.Encrypt("888888",salt),
                    Birthday=DateTime.Parse("1988-10-17"),
                    Sex=1,
                    BelongGardenId=null,

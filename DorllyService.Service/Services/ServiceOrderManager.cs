@@ -47,5 +47,12 @@ namespace DorllyService.Service
                 _context.Set<Order>().Where(predicate).OrderBy(orderby).Skip(pageIndex * pageSize).Take(pageSize).Include(o => o.BelongGarden).AsNoTracking()
                 : _context.Set<Order>().Where(predicate).OrderByDescending(orderby).Skip(pageSize * pageIndex).Take(pageSize).Include(o => o.BelongGarden).AsNoTracking();
         }
+
+        public IEnumerable<Order> GetOrderSettlement()
+        {
+            return _context.Order.Include(o => o.BelongGarden)
+                .Include(o => o.Service)
+                .Include(o => o.Supplier).AsNoTracking();
+        }
     }
 }

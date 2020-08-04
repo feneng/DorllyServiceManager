@@ -8,6 +8,15 @@
     }
   },
   "profiles": {
+    "DorllyServiceManager": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:5001/Admin/Home/Index",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
@@ -16,15 +25,6 @@
       },
       "nativeDebugging": true,
       "ancmHostingModel": "OutOfProcess"
-    },
-    "DorllyServiceManager": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "https://localhost:5001/Admin/Home/Index",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }

@@ -63,17 +63,22 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (!id.HasValue)
+            if (id.HasValue)
             {
-                return NotFound();
+                var role = await _context.Role
+                    .Include(r => r.UserRoles)
+                        .ThenInclude(ur => ur.User)
+                            .ThenInclude(u => u.BelongGarden)
+                    .Include(r => r.RolePermissions)
+                        .ThenInclude(rp => rp.Permission)
+                    .FirstOrDefaultAsync(r => r.Id == id.Value);
+                if (role != null)
+                {
+                    ViewBag.Permissions = PopulateAssignedPermissionData(role);
+                    return View(role);
+                }
             }
 
-            var role = await _roleManager.LoadEntityAsNoTrackingAsync(r=>r.Id==id.Value);
-            if (role != null)
-            {
-                ViewBag.Permissions = PopulateAssignedPermissionData(role);
-                return View(role);
-            }
             return NotFound();
         }
 
@@ -81,10 +86,10 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
         {
             var allPerssions = _context.Permission;
             var rolePermissions = new HashSet<int>(role.RolePermissions.Select(p => p.PermissionId));
-            var viewModel = new List<RolePermissionData>();
+            var permissionDatas = new List<RolePermissionData>();
             foreach (var item in allPerssions)
             {
-                viewModel.Add(new RolePermissionData
+                permissionDatas.Add(new RolePermissionData
                 {
                     RoleId = role.Id,
                     PermissionId = item.Id,
@@ -96,7 +101,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                     Status = item.Status
                 });
             }
-            return viewModel;
+            return permissionDatas;
         }
 
         [HttpPost, ActionName("Edit")]
@@ -106,7 +111,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             if (!id.HasValue)
                 return NotFound();
 
-            var roleToUpdate = await _roleManager.LoadEntityAsNoTrackingAsync(r=>r.Id==id.Value);
+            var roleToUpdate = await _roleManager.LoadEntityAsNoTrackingAsync(r => r.Id == id.Value);
             if (await TryUpdateModelAsync(roleToUpdate, "",
                 p => p.Code, p => p.Name, p => p.Status, p => p.Description))
             {
