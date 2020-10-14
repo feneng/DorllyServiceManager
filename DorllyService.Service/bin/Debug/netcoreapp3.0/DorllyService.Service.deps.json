@@ -10,6 +10,7 @@
         "dependencies": {
           "DorllyService.Common": "1.0.0",
           "DorllyService.Domain": "1.0.0",
+          "DorllyService.IService": "1.0.0",
           "Microsoft.EntityFrameworkCore": "3.0.0",
           "Z.EntityFramework.Plus.EFCore": "3.0.24"
         },
@@ -1332,6 +1333,15 @@
         "runtime": {
           "DorllyService.Domain.dll": {}
         }
+      },
+      "DorllyService.IService/1.0.0": {
+        "dependencies": {
+          "DorllyService.Common": "1.0.0",
+          "DorllyService.Domain": "1.0.0"
+        },
+        "runtime": {
+          "DorllyService.IService.dll": {}
+        }
       }
     }
   },
@@ -2187,6 +2197,11 @@
       "sha512": ""
     },
     "DorllyService.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DorllyService.IService/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DorllyService.Common;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,10 +22,20 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             _gardenManager = gardenManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageIndex = 1,int? pageSize=10)
         {
-            var list = await _gardenManager.LoadEntityAllAsync();
-            return View(list);
+            var count = await _gardenManager.GetEntitiesCountAsync(g=>true);
+            var list = await _gardenManager.LoadEntityListAsync(g=>true, g => g.Id, "asc", pageIndex.Value, pageSize.Value);
+            var pageInfo = new PageInfo<Garden>(0,pageIndex.Value, pageSize.Value, count,list.Count(),list);
+            return View(pageInfo);
+        }
+
+        [SkipAdminAuthorize]
+        public async Task<IActionResult> Search(PageInfo<Garden> jsonData)
+        {
+            var list =await _gardenManager.GetPageListAsync(g => g, g => true, jsonData);
+            jsonData.data = list;
+            return Json(jsonData);
         }
 
         [HttpGet]
@@ -136,8 +146,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
-            var result = await _gardenManager.DelEntityAsync(g=>g.Id==id);
-            //TODO:这里要级联删除以园区为外键的数据
+            var result = await _gardenManager.DelEntityAsync(g => g.Id == id);
             await _gardenManager.CommitAsync();
             return RedirectToAction(nameof(Index));
         }

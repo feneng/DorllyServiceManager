@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DorllyService.Service", "Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DorllyService.Common", "DorllyService.Common\DorllyService.Common.csproj", "{95E1F87B-DA87-49CC-B881-86B758094BB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DorllyService.IService", "DorllyService.IService\DorllyService.IService.csproj", "{671ACF09-9214-4F6E-BD8E-FF6CFD1F68B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{95E1F87B-DA87-49CC-B881-86B758094BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95E1F87B-DA87-49CC-B881-86B758094BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95E1F87B-DA87-49CC-B881-86B758094BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{671ACF09-9214-4F6E-BD8E-FF6CFD1F68B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{671ACF09-9214-4F6E-BD8E-FF6CFD1F68B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{671ACF09-9214-4F6E-BD8E-FF6CFD1F68B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{671ACF09-9214-4F6E-BD8E-FF6CFD1F68B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

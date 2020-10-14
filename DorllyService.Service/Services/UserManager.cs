@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 using Z.EntityFramework.Plus;
+using DorllyService.IService;
 
 namespace DorllyService.Service
 {

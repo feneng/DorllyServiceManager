@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DorllyService.Domain;
+using DorllyService.IService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -24,6 +25,7 @@ namespace DorllyService.Service
             return await _context.Permission
                 .Include(p=>p.RolePermissions)
                 .ThenInclude(rp=>rp.Role)
+                .Include(p=>p.BelongModule)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(predicate);
         }

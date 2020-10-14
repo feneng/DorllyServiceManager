@@ -92,15 +92,16 @@
                                         @Html.DisplayFor(m => item.Status)
                                     </td>
                                     <td>
+                                        <input type="checkbox" value="@item.PermissionId" @(item.Assigned ? "checked=checked" : "") name="PermissionCheck" style="display:none" />
                                         @if (item.Assigned)
                                         {
-                                            <a href="#" class="btn btn-default btn-xs">
+                                            <a href="#" class="btn btn-default btn-xs alterRolePermissionItem">
                                                 <i class="fa fa-trash-o"></i> 删除
                                             </a>
                                         }
                                         else
                                         {
-                                            <a href="#" class="btn btn-default btn-xs blue">
+                                            <a href="#" class="btn btn-default btn-xs blue alterRolePermissionItem">
                                                 <i class="fa fa-plus-square-o"></i> 添加
                                             </a>
                                         }
@@ -129,7 +130,7 @@
                                                 <span class="user-at">隶属</span>
                                                 <span class="user-company">@Html.DisplayFor(m => item.User.BelongGarden.Name)</span>
                                             </div>
-                                            <div class="ticket-state bg-darkorange" id="DeleteRoleUser" data-userid="@item.User.Id">
+                                            <div class="ticket-state bg-darkorange DeleteRoleUser" data-userid="@item.User.Id">
                                                 <i class="fa fa-times"></i>
                                             </div>
                                         </div>
@@ -143,7 +144,7 @@
         </form>
     </div>
 </div>
-<script>$('body').on('click', '#DeleteRoleUser', function () {
+<script>$('body').on('click', '.DeleteRoleUser', function () {
         var users = $(this).parents('li.ticket-item').find('input[name="roleUsers"]');
         var currentUser = $(this).data('userid');
         users.val('');

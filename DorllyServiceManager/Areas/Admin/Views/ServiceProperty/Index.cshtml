@@ -1,14 +1,15 @@
-﻿@model IEnumerable<DorllyService.Domain.ServiceProperty>
-@{
-    ViewBag.Title = "服务属性列表";
-}
+﻿@using DorllyService.Common;
+@using DorllyService.Domain;
+@model PageInfo<ServiceProperty>
+@{ ViewBag.Title = "服务属性列表";
+    List<ServiceCategory> categories = ViewBag.Categories; }
 
 @section styles{
     <environment include="Development">
-        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
-        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
     </environment>
 }
 
@@ -32,22 +33,10 @@
             <div class="widget-body">
                 <div class="table-toolbar">
                     <a class="btn btn-success create">
-                        添加属性
+                        新增属性
                     </a>
-                    <div class="btn-group pull-right">
-                        <a class="btn btn-default" href="javascript:void(0);">其他操作</a>
-                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu dropdown-default">
-                            <li>
-                                <a href="javascript:void(0);" onclick="Index.EditPropertyCategory(event)">编辑属性分类</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" onclick="Index.AllocatePropertyValue(event)">分配属性值</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-                
+
                 <table class="table table-striped table-hover table-bordered" id="editabledatatable">
                     <thead>
                         <tr role="row">
@@ -55,25 +44,25 @@
                                 序号
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Code)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Code)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Name)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Name)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().TypeName)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().TypeName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().InputTypeName)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().InputTypeName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().NotNull)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().NotNull)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Categories)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Categories)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().StateName)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().StateName)
                             </th>
                             <th>
                                 操作
@@ -82,30 +71,31 @@
                     </thead>
 
                     <tbody>
-                        @if (Model == null || !Model.Any())
+                        @if (Model.data == null || !Model.data.Any())
                         {
-                            <tr>
-                                <td colspan="9">暂无数据</td>
-                            </tr>
-                        }
+            <tr>
+                <td colspan="9">暂无数据</td>
+            </tr> }
                         else
                         {
-                            foreach (var item in Model)
+                            for (var i = 0; i < Model.data.Count; i++)
                             {
-                                <tr>
-                                    <td>1</td>
-                                    <td>@Html.DisplayFor(p => item.Code)</td>
-                                    <td>@Html.DisplayFor(p => item.Name)</td>
-                                    <td>@Html.DisplayFor(p => item.TypeName)</td>
-                                    <td>@Html.DisplayFor(p => item.InputTypeName)</td>
-                                    <td>@Html.DisplayFor(p => item.NotNull)</td>
-                                    <td>@Html.DisplayFor(p => item.Categories)</td>
-                                    <td>@Html.DisplayFor(p => item.StateName)</td>
-                                    <td>
-                                        <a data-id="@item.Id" class="btn btn-info btn-xs details"><i class="fa fa-edit"></i> 查看</a>
-                                    </td>
-                                </tr>
-                            }
+            <tr>
+                <td>@(i+1)</td>
+                <td>@Html.DisplayFor(p => Model.data[i].Code)</td>
+                <td>@Html.DisplayFor(p => Model.data[i].Name)</td>
+                <td>@Html.DisplayFor(p => Model.data[i].TypeName)</td>
+                <td>@Html.DisplayFor(p => Model.data[i].InputTypeName)</td>
+                <td>@(Model.data[i].NotNull ? "是" : "否")</td>
+                <td>@Html.DisplayFor(p => Model.data[i].Categories)</td>
+                <td>@Html.DisplayFor(p => Model.data[i].StateName)</td>
+                <td>
+                    <a class="btn btn-info btn-xs" onclick="Index.AllocatePropertyValue(@Model.data[i].Id)"><i class="fa fa-edit"></i> 设置属性值</a>
+                    <a class="btn btn-primary btn-xs" onclick="Index.Edit(@Model.data[i].Id)"><i class="fa fa-edit"></i> 编辑</a>
+                    <a class="btn btn-danger btn-xs" onclick="Index.Delete(@Model.data[i].Id)"><i class="fa fa-edit"></i> 删除</a>
+                    <a class="btn btn-warning btn-xs" onclick="Index.Deactivate(@Model.data[i].Id)"><i class="fa fa-edit"></i> 停用</a>
+                </td>
+            </tr>}
                         }
                     </tbody>
                 </table>
@@ -114,44 +104,187 @@
     </div>
 </div>
 
+<!--Property Categories Modal Templates-->
+<div id="editPropertyCategoryModal" style="display:none;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <select class="editPropertyCategories" multiple="multiple" style="width: 100%;">
+                    @foreach (var item in categories)
+                    {
+                        var groupName = $"{item.Parent.Name}.{item.Name}";
+        <optgroup label="@groupName">
+            @foreach (var i in item.Children)
+            {
+<option value="@i.Id">@i.Name</option>}
+        </optgroup>}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Property Categories Modal Templates-->
+<!--Property Value Modal Templates-->
+<div id="allocatePropertyValueModal" style="display:none;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-toolbar">
+                <a class="btn btn-success createValue">
+                    添加属性值
+                </a>
+            </div>
+            <table class="table table-striped table-hover table-bordered dialogTable">
+                <thead>
+                    <tr role="row">
+                        <th>
+                            属性值ID
+                        </th>
+                        <th>
+                            属性值名称
+                        </th>
+                        <th>
+                            状态
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--End Property Value Modal Templates-->
+
 @section scripts{
+    <script src="~/assets/js/datatable/jquery.dataTables.js"></script>
+    <script src="~/assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="~/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="~/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="~/assets/js/select2/select2.js"></script>
     <script>
         var Index = (function ($) {
             var config = {
-                checkItemId: [],
+               // checkItemId: [],
+                oTable: null,
+                vTable:null,
             };
 
+            var PageTable = (function () {
+                return {
+                    Init: function () {
+                         config.oTable = $('#editabledatatable').dataTable({
+                            "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
+                            "oTableTools": {
+                                "aButtons": [
+                                    "print"
+                                ],
+                                "sSwfPath": "/admin/js/datatable/assets/swf/copy_csv_xls_pdf.swf"
+                            },
+                            "language": {
+                                "search": "",
+                                "sLengthMenu": "_MENU_",
+                            },
+                            "serverSide": true,
+                            "ajax": {
+                                "url": '@Url.Action("Search","ServiceProperty")',
+                                "type": "post",
+                                "data": function (data) {
+                                    data.pageIndex = (data.start / data.length) + 1;
+                                    data.length = $('#editabledatatable_length select').val();
+                                },
+                                "dataSrc": function (pageInfo) {
+                                    $('#editabledatatable_length select').val(pageInfo.length);
+                                    return pageInfo.data;
+                                }
+                            },
+                            "columns": [
+                                { "defaultContent": "", "orderable": false, "bSearchable": false },
+                                { "data": "code", "bSearchable": true, "width": "5%", },
+                                { "data": "name", "bSearchable": false, "width": "10%",},
+                                { "data": "typeName", "bSearchable": false, "width": "10%", },
+                                { "data": "inputTypeName", "bSearchable": false, "width": "10%", },
+                                { "data": "notNull", "bSearchable": false },
+                                { "data": "categories", "bSearchable": false },
+                                { "data": "stateName", "bSearchable": false, "width": "5%",},
+                                { "defaultContent": "", "orderable": false, "bSearchable": false },
+                            ],
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "data": null,
+                                    "width":"5%",
+                                },
+                                {
+                                    "targets": [5],
+                                    "data": "notNull",
+                                    "render": function (data, type, full) {
+                                        return !!data ? "是" : "否";
+                                    },
+                                    "width": "5%",
+                                },
+                                {
+                                    "targets": [6],
+                                    "data": "categories",
+                                    "render": function (data,type,full) {
+                                        var content = "";
+                                        if (full.type !== 2)
+                                            return content;
+                                        $.each(data, function (i, o) {
+                                            content += '<span class="label label-' + (o.category.status ? "primary" : "default") + '">' + o.category.name + '</span>&nbsp;';
+                                        });
+                                        return content;
+                                    },
+                                    "width": "15%",
+                                },
+                                {
+                                    "targets": [8],
+                                    "data": "id",
+                                    "render": function (data, type, full) {
+                                        var tags = "";
+                                        $.each(full.categories, function (i, o) {
+                                            if (o.category.status && o.category.parent.status && o.category.parent.parent.status) {
+                                                tags += o.categoryId+'_';
+                                            }
+                                        });
+
+                                        var setCategoriesBtn = full.type !== 2 ? "" : '<a class="btn btn-palegreen btn-xs" onclick="Index.EditPropertyCategory(' + data + ',\'' + tags + '\')"><i class="fa fa-wrench"></i> 设置关联分类</a>&nbsp;';
+                                        var setPropertyValueBtn = full.inputType === 1 ? "" : '<a class="btn btn-info btn-xs" onclick="Index.AllocatePropertyValue(' + data + ')"><i class="fa fa-wrench"></i> 设置属性值</a>&nbsp;';
+                                        return setCategoriesBtn + setPropertyValueBtn +
+                                            '<a class="btn btn-primary btn-xs" onclick="Index.Edit(' + data + ')"><i class="fa fa-edit"></i> 编辑</a>&nbsp;'+
+                                            '<a class="btn btn-danger btn-xs" onclick="Index.Delete(' + data + ')"><i class="fa fa-trash-o"></i> 删除</a>&nbsp;' +
+                                            '<a class="btn ' + (full.state == 1 ? "btn-warning" : "btn-success") + ' btn-xs" onclick="Index.Deactivate(' + data + ')"><i class="' + (full.state == 1 ? "fa fa-lock" : "fa fa-unlock") + '"></i> ' + (full.state == 1 ? "停用" : "启用")+'</a>&nbsp;';
+                                    },
+                                    "width": "25%",
+                                }
+                            ],
+                            "sPaginationType": "bootstrap",
+                            "aaSorting": [[1, 'asc']],
+                            "fnDrawCallback": function () {
+                                var api = this.api();
+                                var startIndex = api.context[0]._iDisplayStart;
+                                api.column(0).nodes().each(function (cell, i) {
+                                    cell.innerHTML = startIndex + i + 1;
+                                });
+                            },
+                        });
+                    },
+
+                };
+            })();
+
             return {
-                init: function (setting) {
-                    //拓展配置
+                Init: function (setting) {
                     if (!!setting) $.extend(config, setting);
-                    //添加 
-                    $('.create').on('click', Index.Create); 
-                    //编辑
-                    $('.edit').on('click', Index.Edit);
-                    //删除
-                    $('.delete').on('click', Index.Delete);
-                    //点选行 
-                    $('td>label>.text').on('click', function () {
-                        $(this).siblings('.checkItem').trigger('check');
-                    });
-                    $('.checkItem').on('change', function () {
-                        var currentId = $(this).data('id');
-                        var index = config.checkItemId.indexOf(currentId);
-                        if ($(this).is(':checked')) {
-                            if (index == -1)
-                                config.checkItemId.push(currentId);
-                        }
-                        else {
-                            if (index != -1)
-                                config.checkItemId.splice(index, 1);
-                        }
-                    });
+                    $('.create').on('click', Index.Create);
+                    PageTable.Init();
                 },
                 Create: function () {
                     bootbox.dialog({
                         loadPage: true,
-                        message: "/Admin/ServiceProperty/Create",
+                        message: "@Url.Action("Create","ServiceProperty")",
                         title: "添加服务属性",
                         className: "modal-darkorange",
                         buttons: {
@@ -169,11 +302,10 @@
                         }
                     });
                 },
-                Edit: function () {
-                    var id = $(this).data('id');
+                Edit: function (id) {
                     bootbox.dialog({
                         loadPage: true,
-                        message: "/Admin/ServiceProperty/Edit/" + id,
+                        message: '@Url.Action("Edit","ServiceProperty")/' +id,
                         title: "编辑服务属性",
                         className: "modal-darkorange",
                         buttons: {
@@ -191,11 +323,24 @@
                         }
                     });
                 },
-                Delete: function () {
-                    var id = $(this).data('id');
+                Details: function (id) {
                     bootbox.dialog({
                         loadPage: true,
-                        message: "/Admin/ServiceProperty/Delete/" + id,
+                        message: '@Url.Action("Details","ServiceProperty")/' + id,
+                        title: "服务属性详细信息",
+                        className: "modal-darkorange",
+                        buttons: {
+                            cancel: {
+                                label: "关闭",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Delete: function (id) {
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: '@Url.Action("Delete", "ServiceProperty")/' + id,
                         title: "删除服务属性",
                         className: "modal-darkorange",
                         buttons: {
@@ -213,14 +358,219 @@
                         }
                     });
                 },
-                EditPropertyCategory: function (e) {
+                Deactivate: function (id) {
+                    bootbox.confirm("确认切换此服务属性状态？", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '@Url.Action("Deactivate", "ServiceProperty")/' +id,
+                                success: function (operate) {
+                                    if (operate.state) {
+                                        bootbox.alert('服务属性状态已切换！');
+                                        config.oTable.fnDraw();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                },
+                EditPropertyCategory: function (id,tags) {
+                    bootbox.dialog({
+                        message: $("#editPropertyCategoryModal").html(),
+                        title: "设置关联类别",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "设置",
+                                className: "btn-blue",
+                                callback: function () {
+                                    var selectItems = $(".editPropertyCategories:last").select2('val');
+                                    $.ajax({
+                                        url: '@Url.Action("EditPropertyCategory", "ServiceProperty")',
+                                        type:'post',
+                                        dataType:'json',
+                                        data: { propertyId: id, tags: selectItems },
+                                        success: function (operate) {
+                                            if (operate.state) {
+                                                bootbox.alert('关联分类设置成功！');
+                                                config.oTable.fnDraw();
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            cancel: {
+                                label:"取消",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+
+                    var select2Setting = {
+                        placeholder: "选择分类",
+                        allowClear: true,
+                    };
+                    if (!!tags) {
+                        var selectedTags = tags.replaceAll('_',' ').trim().split(" ");
+                        $(".editPropertyCategories:last").val(selectedTags).select2(select2Setting);
+                    }
+                    else {
+                        $(".editPropertyCategories:last").select2(select2Setting);
+                    }
 
                 },
-                AllocatePropertyValue: function (e) {
+                AllocatePropertyValue: function (id) {
+                    bootbox.dialog({
+                        message: $("#allocatePropertyValueModal").html(),
+                        title: "设置属性值",
+                        className: "modal-darkorange",
+                        buttons: {
+                            cancel: {
+                                label:"关闭",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+
+                    config.vTable = $('.dialogTable:last').dataTable({
+                        "sDom": 't',
+                        "bFilter": false,
+                        "bPaginate": false,
+                        "bSort": false,
+                        "serverSide": true,
+                        "ajax": {
+                            "url": '@Url.Action("AllocatePropertyValue", "ServiceProperty")',
+                            "type": "post",
+                            "data": function (data) {
+                                data.search = id;
+                            },
+                            "dataSrc": function (pageInfo) {
+                                console.log(pageInfo);
+                                return pageInfo.data;
+                            }
+                        },
+                        "columns": [
+                            { "data": "code", },
+                            { "data": "name", },
+                            {"data":"stateName",},
+                            { "defaultContent": "", },
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": [3],
+                                "data": "id",
+                                "render": function (data) {
+                                    return '<a class="btn btn-primary btn-xs" onclick="Index.EditValue(' + data + ')"><i class="fa fa-edit"></i> 编辑</a>&nbsp;' +
+                                        '<a class="btn btn-danger btn-xs" onclick="Index.DeleteValue(' + data + ')"><i class="fa fa-trash-o"></i> 删除</a>&nbsp;';
+                                },
+                            }
+                        ],
+                    });
+
+                    var isEditing = null;
+
+                    $('.createValue').eq(1).click(function (e) {
+                        e.preventDefault();
+                        //var aiNew = config.vTable.fnAddData(['', '',1,
+                        //    '<a href="#" class="btn btn-success btn-xs save"><i class="fa fa-edit"></i> Save</a> <a href="#" class="btn btn-warning btn-xs cancel"><i class="fa fa-times"></i> Cancel</a>'
+                        //]);
+                        var aiNew = config.vTable.fnAddData([{ code: "", name:"", stateName: 1, id: 2 }]);
+                        var nRow = config.vTable.fnGetNodes(aiNew[0]);
+                        editRow(config.vTable, nRow);
+                        isEditing = nRow;
+                    });
+
+                    $('.dialogTable').on("click", 'a.delete', function (e) {
+                            e.preventDefault();
+
+                            if (confirm("Are You Sure To Delete This Row?") == false) {
+                                return;
+                            }
+
+                            var nRow = $(this).parents('tr')[0];
+                            config.vTable.fnDeleteRow(nRow);
+                            alert("Row Has Been Deleted!");
+                        });
+
+                    $('.dialogTable').on("click", 'a.cancel', function (e) {
+                            e.preventDefault();
+                            if ($(this).attr("data-mode") == "new") {
+                                var nRow = $(this).parents('tr')[0];
+                                config.vTable.fnDeleteRow(nRow);
+                            } else {
+                                restoreRow(config.vTable, isEditing);
+                                isEditing = null;
+                            }
+                        });
+
+                    $('.dialogTable').on("click", 'a.edit', function (e) {
+                            e.preventDefault();
+
+                            var nRow = $(this).parents('tr')[0];
+
+                            if (isEditing !== null && isEditing != nRow) {
+                                restoreRow(config.vTable, isEditing);
+                                editRow(config.vTable, nRow);
+                                isEditing = nRow;
+                            } else {
+                                editRow(config.vTable, nRow);
+                                isEditing = nRow;
+                            }
+                        });
+
+                    $('.dialogTable').on("click", 'a.save', function (e) {
+                            e.preventDefault();
+                            if (this.innerHTML.indexOf("Save") >= 0) {
+                                saveRow(config.vTable, isEditing);
+                                isEditing = null;
+                                //Some Code to Highlight Updated Row
+                            }
+                        });
+
+
+                    function restoreRow(vTable, nRow) {
+                            var aData = vTable.fnGetData(nRow);
+                            var jqTds = $('>td', nRow);
+
+                            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                                vTable.fnUpdate(aData[i], nRow, i, false);
+                            }
+
+                            vTable.fnDraw();
+                        }
+
+                    function editRow(vTable, nRow) {
+                        var aData = vTable.fnGetData(0);
+                        //var aData = vTable.fnGetData(nRow);
+                        //var jqTds = $('>td', nRow);
+                        var jqTds = $('>td', 0);
+                        jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData.code + '">';
+                        jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData.name + '">';
+                        jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData.stateName + '">';
+                        jqTds[3].innerHTML = '<a href="#" class="btn btn-success btn-xs save"><i class="fa fa-save"></i> Save</a> <a href="#" class="btn btn-warning btn-xs cancel"><i class="fa fa-times"></i> Cancel</a>';
+                    }
+
+                    function saveRow(vTable, nRow) {
+                            var jqInputs = $('input', nRow);
+                            vTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+                            vTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+                            vTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+                            vTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+                            vTable.fnUpdate('<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> Delete</a>', nRow, 4, false);
+                            vTable.fnDraw();
+                        }
+
+                    function cancelEditRow(vTable, nRow) {
+                            var jqInputs = $('input', nRow);
+                            vTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+                            vTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+                            vTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+                            vTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+                            vTable.fnUpdate('<a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> Delete</a>', nRow, 4, false);
+                            vTable.fnDraw();
+                        }
 
                 }
             };
         })(jQuery);
-        Index.init();
-    </script>
+        Index.Init();</script>
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using DorllyServiceManager.Areas.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -106,7 +106,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)
+        public async Task<IActionResult> EditPost(int? id, string[] permissionCheck)
         {
             if (!id.HasValue)
                 return NotFound();
@@ -117,6 +117,22 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 try
                 {
+                    _context.RolePermission.RemoveRange(roleToUpdate.RolePermissions);
+                    if (permissionCheck.Length > 0)
+                    {
+                        foreach (var item in permissionCheck)
+                        {
+                            if (int.TryParse(item, out int result))
+                            {
+                                RolePermission entity = new RolePermission
+                                {
+                                    RoleId = roleToUpdate.Id,
+                                    PermissionId = result
+                                };
+                                await _context.RolePermission.AddAsync(entity);
+                            }
+                        }
+                    }
                     await _roleManager.CommitAsync();
                     return RedirectToAction(nameof(Index));
                 }

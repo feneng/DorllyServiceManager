@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

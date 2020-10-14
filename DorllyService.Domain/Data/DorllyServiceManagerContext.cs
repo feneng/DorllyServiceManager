@@ -33,23 +33,24 @@ namespace DorllyService.Domain
         public DbSet<SystemSetting> SystemSetting { get; set; }
         public DbSet<RolePermission> RolePermission { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<CategoryProperties> CategoryProperties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().ToTable("User").HasIndex(u=>u.Account).IsUnique();
             modelBuilder.Entity<Service>().ToTable("Service");
-            modelBuilder.Entity<Role>().ToTable("Role");
+            modelBuilder.Entity<Role>().ToTable("Role").HasIndex(r=>r.Code).IsUnique();
             modelBuilder.Entity<SubSystem>().ToTable("SubSystem");
             modelBuilder.Entity<Appraise>().ToTable("Appraise");
             modelBuilder.Entity<Contract>().ToTable("Contract");
-            modelBuilder.Entity<Garden>().ToTable("Garden");
+            modelBuilder.Entity<Garden>().ToTable("Garden").HasIndex(g=>g.Name).IsUnique();
 
             modelBuilder.Entity<Module>().ToTable("Module");
             modelBuilder.Entity<Order>().ToTable("Order");
-            modelBuilder.Entity<Permission>().ToTable("Permission");
-            modelBuilder.Entity<PropertyValue>().ToTable("PropertyValue");
+            modelBuilder.Entity<Permission>().ToTable("Permission").HasIndex(p=>p.Code).IsUnique();
+            modelBuilder.Entity<PropertyValue>().ToTable("PropertyValue").HasIndex(p=>p.Code).IsUnique();
 
-            modelBuilder.Entity<ServiceCategory>().ToTable("ServiceCategory");
+            modelBuilder.Entity<ServiceCategory>().ToTable("ServiceCategory").HasIndex(sc=>sc.Code).IsUnique();
             modelBuilder.Entity<ServiceProperty>().ToTable("ServiceProperty");
             modelBuilder.Entity<ServiceSupplier>().ToTable("ServiceSupplier");
             modelBuilder.Entity<SupplierLevel>().ToTable("SupplierLevel");

@@ -1,8 +1,7 @@
 ﻿@model DorllyService.Domain.ServiceSupplier
 @{
     Layout = null;
-    ViewBag.PageCode = "服务商";
-    ViewBag.Title = $"删除{ViewBag.PageCode}";
+    ViewBag.Title = $"删除服务商";
 }
 
 <div class="row">
@@ -12,95 +11,81 @@
             <div class="form-title">
                 @(ViewBag.PageCode)基本信息
             </div>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="Code"></label>
-                    <input type="text" class="form-control" asp-for="Code" placeholder="编码">
-                    <span asp-validation-for="Code" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Code" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="Avatar"></label>
-                    <input type="file" class="form-control" asp-for="Avatar">
-                    <span asp-validation-for="Avatar" class="text-danger"></span>
+                    <input type="file" class="form-control" asp-for="Avatar" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="BelongGardenId"></label>
-                    <select asp-for="BelongGardenId" class="form-control" asp-items="ViewBag.Gardens">
-                        <option value="">-- 选择所属园区 --</option>
-                    </select>
-                    <span asp-validation-for="BelongGardenId" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="BelongGarden.Name" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="ChargePerson"></label>
-                    <input type="text" class="form-control" asp-for="ChargePerson">
-                    <span asp-validation-for="ChargePerson" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="ChargePerson" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="FullName"></label>
-                    <input type="text" class="form-control" asp-for="FullName" placeholder="全称">
-                    <span asp-validation-for="FullName" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="FullName" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="Abbreviation"></label>
-                    <input type="text" class="form-control" asp-for="Abbreviation" placeholder="简称">
-                    <span asp-validation-for="Abbreviation" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="Abbreviation" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="ServiceScope"></label>
-                    <input type="text" class="form-control" asp-for="ServiceScope">
-                    <span asp-validation-for="ServiceScope" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="ServiceScope" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="ContactPhone"></label>
-                    <input type="text" class="form-control" asp-for="ContactPhone">
-                    <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="ContactPhone" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="Email"></label>
-                    <input type="email" class="form-control" asp-for="Email">
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input type="email" class="form-control" asp-for="Email" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="WorkTel"></label>
-                    <input type="text" class="form-control" asp-for="WorkTel">
-                    <span asp-validation-for="WorkTel" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="WorkTel" readonly="readonly">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <label asp-for="SupplierFrom"></label>
-                    <input type="text" class="form-control" asp-for="SupplierFrom">
-                    <span asp-validation-for="SupplierFrom" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="SupplierFrom" readonly="readonly">
                 </div>
             </div>
         </form>

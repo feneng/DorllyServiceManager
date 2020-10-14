@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DorllyService.Common;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,35 +17,64 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
 
         public ServiceInfoController(IUserManager userManager,
             IServiceManager serviceManager,
-            DorllyServiceManagerContext context) : base(userManager)
+            IServiceCategoryManager serviceCategoryManager,
+            DorllyServiceManagerContext context) : base(userManager,serviceCategoryManager:serviceCategoryManager)
         {
             _serviceManager = serviceManager;
             _context = context;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageIndex=1,int? pageSize=10)
         {
-            var list = _serviceManager.GetIndexQuery();
-            return View(await list.ToListAsync());
+            var pageInfo = new PageInfo<Service>
+            {
+                length = pageSize.Value,
+                pageIndex = pageIndex.Value
+            };
+
+            pageInfo.data = await _serviceManager.GetPageListAsync(p => p, p => true, pageInfo,
+                _context.Set<Service>()
+                .Include(s => s.Category)
+                    .ThenInclude(c=>c.Parent)
+                        .ThenInclude(c=>c.Parent)
+                .Include(s=>s.UpdateUser));
+            
+            return View(pageInfo);
+        }
+
+        [SkipAdminAuthorize]
+        public async Task<IActionResult> Search(PageInfo<Service> jsonData)
+        {
+            var list = await _serviceManager.GetPageListAsync(s => s, s => true, jsonData,
+                _context.Set<Service>()
+                .Include(s => s.Category)
+                    .ThenInclude(c => c.Parent)
+                        .ThenInclude(c => c.Parent)
+                .Include(s => s.UpdateUser));
+            jsonData.data = list;
+            return Json(jsonData);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
             var service = new Service();
+            ViewBag.ServiceCategories = PopulateServiceCategoriesDropDownList(null);
             return View(service);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Code", "Name", "State", "Description")] Service service)
+            [Bind("Code", "Name", "State", "Description", "CategoryId")] Service service)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    service.UpdateDate = DateTime.Now;
+                    service.UpdateUserId = base.CurrentUser.Id;
                     await _serviceManager.AddEntityAsync(service);
                     await _serviceManager.CommitAsync();
                     return RedirectToAction(nameof(Index));
@@ -52,7 +82,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "创建失败:" + ex.Message);
+                ModelState.AddModelError("", "创建失败:" + ex.InnerException.Message);
             }
             return View(service);
         }
@@ -72,6 +102,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
 
             if (service != null)
             {
+                ViewBag.ServiceCategories = PopulateServiceCategoriesDropDownList(service.CategoryId);
                 return View(service);
             }
             return NotFound();
@@ -90,12 +121,14 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             {
                 try
                 {
+                    serviceToUpdate.UpdateDate = DateTime.Now;
+                    serviceToUpdate.UpdateUserId = base.CurrentUser.Id;
                     await _serviceManager.CommitAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException ex)
                 {
-                    ModelState.AddModelError("", "编辑服务信息失败");
+                    ModelState.AddModelError("", "编辑服务信息失败:"+ex.InnerException.Message);
                 }
             }
 
@@ -112,6 +145,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             var service = await _context.Service
                  .Include(s => s.Category)
                      .ThenInclude(c => c.Parent)
+                 .Include(s=>s.UpdateUser)
                  .AsNoTracking()
                  .FirstOrDefaultAsync(r => r.Id == id);
 

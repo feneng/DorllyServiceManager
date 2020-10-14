@@ -65,10 +65,11 @@
             <div class="form-group">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <div>
-                        <label>
-                            <input type="checkbox" asp-for="NotNull">
-                            <span class="text">必填</span>
-                        </label>
+                        <label asp-for="NotNull"></label>
+                        <select asp-for="NotNull" class="form-control">
+                            <option value="False">否</option>
+                            <option value="True">是</option>
+                        </select>
                     </div>
                 </div>
             </div>

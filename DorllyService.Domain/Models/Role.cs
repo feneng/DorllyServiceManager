@@ -8,6 +8,7 @@ namespace DorllyService.Domain
         public int Id { get; set; }
         [StringLength(24)]
         [Display(Name ="编码")]
+        [Required(ErrorMessage ="角色编码不能为空")]
         public string Code { get; set; }
         [StringLength(64)]
         [Display(Name = "角色名")]

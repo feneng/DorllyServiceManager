@@ -1,14 +1,14 @@
-﻿@model List<DorllyService.Domain.Permission>
-@{
-    ViewBag.Title = "权限列表";
-}
+﻿@using DorllyService.Common;
+@using DorllyService.Domain;
+@model PageInfo<Permission>
+@{ ViewBag.Title = "权限列表"; }
 
 @section styles{
     <environment include="Development">
-        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
-        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
     </environment>
 }
 
@@ -34,6 +34,18 @@
                     <a class="btn btn-success create">
                         添加权限
                     </a>
+                    <a class="btn btn-info detail">
+                        <i class="fa fa-info"></i>
+                        详情
+                    </a>
+                    <a class="btn btn-primary edit">
+                        <i class="fa fa-edit"></i>
+                        编辑
+                    </a>
+                    <a class="btn btn-danger delete">
+                        <i class="fa fa-trash-o"></i>
+                        删除
+                    </a>
                     <div class="btn-group pull-right">
                         <a class="btn btn-default" href="javascript:void(0);">其他操作</a>
                         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
@@ -55,53 +67,48 @@
                                 </label>
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Code)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Code)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Name)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Name)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Path)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Path)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Order)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Order)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Status)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Status)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Icon)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().BelongModuleId)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().BelongModuleId)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Type)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Type)
+                                @Html.DisplayNameFor(m => m.data.FirstOrDefault().Description)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Description)
-                            </th>
-                            <th>
-                                操作
-                            </th>
+
                         </tr>
                     </thead>
 
                     <tbody>
-                        @if (Model == null || !Model.Any())
+                        @if (Model.data == null || !Model.data.Any())
                         {
                             <tr>
-                                <td colspan="11">暂无数据</td>
+                                <td colspan="9">暂无数据</td>
                             </tr>
                         }
                         else
                         {
-                            foreach (var item in Model)
+                            foreach (var item in Model.data)
                             {
                                 <tr>
                                     <td>
                                         <label>
-                                            <input type="checkbox" class="checkboxes checkItem" data-id="@item.Id" />
+                                            <input type="checkbox" class="checkboxes" data-id="@item.Id" />
                                             <span class="text"></span>
                                         </label>
                                     </td>
@@ -110,14 +117,9 @@
                                     <td>@Html.DisplayFor(p => item.Path)</td>
                                     <td>@Html.DisplayFor(p => item.Order)</td>
                                     <td>@Html.DisplayFor(p => item.Status)</td>
-                                    <td>@Html.DisplayFor(p => item.Icon)</td>
-                                    <td>@Html.DisplayFor(p => item.BelongModuleId)</td>
+                                    <td>@Html.DisplayFor(p => item.BelongModule.Name)</td>
                                     <td>@Html.DisplayFor(p => item.Type)</td>
                                     <td>@Html.DisplayFor(p => item.Description)</td>
-                                    <td>
-                                        <a data-id="@item.Id" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i> 编辑</a>
-                                        <a data-id="@item.Id" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 删除</a>
-                                    </td>
                                 </tr>
                             }
                         }
@@ -129,147 +131,247 @@
 </div>
 
 @section scripts{
+    <script src="~/assets/js/datatable/jquery.dataTables.js"></script>
+    <script src="~/assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="~/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="~/assets/js/datatable/dataTables.bootstrap.min.js"></script>
     <script>
         var Index = (function ($) {
             var config = {
                 checkItemId: [],
-            };
+        };
 
+        var PageTable = (function () {
             return {
-                init: function (setting) {
-                    //extend page config
-                    if (!!setting) $.extend(config, setting);
-                    //create action 
-                    $('.create').on('click', Index.Create);
-                    //edit action 
-                    $('.edit').on('click', Index.Edit);
-                    //delete action  
-                    $('.delete').on('click', Index.Delete);
-                    //check all row 
-                    $('.group-checkable').on('click', function () {
-                        $('td>label>.text').trigger('click');
-                    });
-                    //check single row 
-                    $('td>label>.text').on('click', function (e) {
-                        $(this).siblings('.checkItem').trigger('check');
-                    });
-                    $('.checkItem').on('check', function () {
-                        var currentId = $(this).data('id');
-                        var index = config.checkItemId.indexOf(currentId);
-                        if (!$(this).is(':checked')) {
-                            if (index == -1)
-                                config.checkItemId.push(currentId);
+                Init: function () {
+                var oTable = $('#editabledatatable').dataTable({
+                    "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
+                    "oTableTools": {
+                        "aButtons": [
+                            "print"
+                        ],
+                        "sSwfPath": "/admin/js/datatable/assets/swf/copy_csv_xls_pdf.swf"
+                    },
+                    "language": {
+                        "search": "",
+                        "sLengthMenu": "_MENU_",
+                    },
+                    "serverSide": true,
+                    "ajax": {
+                        "url": "@Url.Action("Search","Permission")",
+                        "type": "post",
+                        "data": function (data) {
+                            data.pageIndex = (data.start / data.length) + 1;
+                            data.length = $('#editabledatatable_length select').val();
+                        },
+                        "dataSrc": function (pageInfo) {
+                            config.checkItemId = [];
+                            $('#editabledatatable_length select').val(pageInfo.length);
+                            console.log(pageInfo.data);
+                            return pageInfo.data;
                         }
-                        else {
-                            if (index != -1)
-                                config.checkItemId.splice(index, 1);
-                        }
-                    });
-                    //set permission role 
-                    $('body').on('click', '.alterPermissionRoleItem', function (e) {
-                        e.preventDefault();
-                        var $checkbox = $(this).siblings('input[type="checkbox"]');
-                        var checkedFlag = $checkbox.prop('checked');
-                        $checkbox.prop('checked', !checkedFlag);
-                        $(this).toggleClass('blue')
-                            .html(checkedFlag ? '<i class="fa fa-plus-square-o"></i> 添加' : '<i class="fa fa-trash-o"></i> 删除');
-                    });
-                },
-                Create: function () {
-                    bootbox.dialog({
-                        loadPage: true,
-                        message: "/Admin/Permission/Create",
-                        title: "添加权限",
-                        className: "modal-darkorange",
-                        buttons: {
-                            success: {
-                                label: "提交",
-                                className: "btn-blue",
-                                callback: function () {
-                                    $('#createform').submit();
-                                }
-                            },
-                            cancel: {
-                                label: "返回列表",
-                                className: "btn-danger",
+                    },
+                    "columns": [
+                        { "defaultContent": "", "orderable": false, "bSearchable": false },
+                        { "data": "code", "bSearchable": true },
+                        { "data": "name", "bSearchable": true },
+                        { "data": "path", "bSearchable": true },
+                        { "data": "order", "bSearchable": true },
+                        { "data": "stateName", "bSearchable": true },
+                        { "data": "belongModule.name", "bSearchable": true },
+                        { "data": "typeName", "bSearchable": true },
+                        { "data": "description", "bSearchable": false },
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "data": "id",
+                            "render": function (data, type, full) {
+                                return "<label><input type='checkbox' class='checkboxes' data-id='" + data + "' />" +
+                                    "<span class='text'></span></label>";
                             }
                         }
-                    });
-                },
-                Edit: function () {
-                    var id = $(this).data('id');
-                    bootbox.dialog({
-                        loadPage: true,
-                        message: "/Admin/Permission/Edit/" + id,
-                        title: "编辑权限",
-                        className: "modal-darkorange",
-                        buttons: {
-                            success: {
-                                label: "提交",
-                                className: "btn-blue",
-                                callback: function () {
-                                    $('#editform').submit();
-                                }
-                            },
-                            cancel: {
-                                label: "取消",
-                                className: "btn-danger",
-                            }
-                        }
-                    });
-                },
-                Delete: function () {
-                    var id = $(this).data('id');
-                    bootbox.dialog({
-                        loadPage: true,
-                        message: "/Admin/Permission/Delete/" + id,
-                        title: "删除权限",
-                        className: "modal-darkorange",
-                        buttons: {
-                            success: {
-                                label: "确认删除",
-                                className: "btn-danger",
-                                callback: function () {
-                                    $('#deleteform').submit();
-                                }
-                            },
-                            cancel: {
-                                label: "取消",
-                                className: "btn-default",
-                            }
-                        }
-                    });
-                },
-                EditPermissionRole: function (e) {
-                    e.preventDefault();
-                    if (config.checkItemId.length != 1) {
-                        bootbox.alert("只能编辑单条记录，请(只)选择一条！");
-                        return;
-                    }
-                    bootbox.dialog({
-                        loadPage: true,
-                        message: "/Admin/Permission/EditRole/" + config.checkItemId[0],
-                        title: "编辑权限角色",
-                        className: "modal-darkorange",
-                        buttons: {
-                            success: {
-                                label: "提交",
-                                className: "btn-blue",
-                                callback: function () {
-                                    $('#editform').submit();
-                                }
-                            },
-                            cancel: {
-                                label: "取消",
-                                className: "btn-danger",
-                            }
-                        }
-                    });
-                },
-            };
+                    ],
+                    "sPaginationType": "bootstrap",
+                    "aaSorting": [[1, 'asc']],
+                });
 
+                $('#editabledatatable .group-checkable').change(function (e) {
+                    var set = $(".checkboxes");
+                    var checked = $(this).is(":checked");
+                    $(set).each(function () {
+                        trCheckAction(this, checked);
+                    });
+                });
+                $('#editabledatatable').on('change', '.checkboxes', function () {
+                    var checked = $(this).is(":checked");
+                    trCheckAction(this, checked);
+                });
+                $('#editabledatatable tbody tr .checkboxes').change(function () {
+                    var checked = $(this).is(":checked");
+                    trCheckAction(this, checked);
+                });
+                function trCheckAction(obj, checked) {
+                    var currentId = $(obj).data('id');
+                    var isInArray = config.checkItemId.indexOf(currentId) != -1;
+                    $(obj).prop("checked", checked);
+                    if (checked) {
+                        $(obj).parents('tr').addClass("active");
+                        if (!isInArray)
+                            config.checkItemId.push(currentId);
+                    } else {
+                        $(obj).parents('tr').removeClass("active");
+                        if (isInArray)
+                            config.checkItemId.splice(config.checkItemId.indexOf(currentId), 1);
+                    }
+                }
+            }
+            };
+        })();
+
+        return {
+            Init: function (setting) {
+                //extend page config
+                if (!!setting) $.extend(config, setting);
+                //create action
+                $('.create').on('click', Index.Create);
+                //edit action
+                $('.edit').on('click', Index.Edit);
+                //delete action
+                $('.delete').on('click', Index.Delete);
+                //detail action
+                $('.detail').on('click', Index.Details);
+
+                PageTable.Init();
+
+                //set permission role
+                $('body').on('click', '.alterPermissionRoleItem', function (e) {
+                    e.preventDefault();
+                    var $checkbox = $(this).siblings('input[type="checkbox"]');
+                    var checkedFlag = $checkbox.prop('checked');
+                    $checkbox.prop('checked', !checkedFlag);
+                    $(this).toggleClass('blue')
+                        .html(checkedFlag ? '<i class="fa fa-plus-square-o"></i> 添加' : '<i class="fa fa-trash-o"></i> 删除');
+                });
+            },
+            Create: function () {
+                bootbox.dialog({
+                    loadPage: true,
+                    message: "@Url.Action("Create","Permission")",
+                    title: "添加权限",
+                    className: "modal-darkorange",
+                    buttons: {
+                        success: {
+                            label: "提交",
+                            className: "btn-blue",
+                            callback: function () {
+                                $('#createform').validate();
+                                $('#createform').submit();
+                            }
+                        },
+                        cancel: {
+                            label: "返回列表",
+                            className: "btn-danger",
+                        }
+                    }
+                });
+            },
+            Edit: function () {
+                if (config.checkItemId.length != 1) {
+                    bootbox.alert("只能编辑单条记录，请(只)选择一条！");
+                    return;
+                }
+                bootbox.dialog({
+                    loadPage: true,
+                    message: "@Url.Action("Edit","Permission")/" + config.checkItemId[0],
+                    title: "编辑权限",
+                    className: "modal-darkorange",
+                    buttons: {
+                        success: {
+                            label: "提交",
+                            className: "btn-blue",
+                            callback: function () {
+                                $('#editform').submit();
+                            }
+                        },
+                        cancel: {
+                            label: "取消",
+                            className: "btn-danger",
+                        }
+                    }
+                });
+            },
+            Details: function(){
+                if (config.checkItemId.length != 1) {
+                    bootbox.alert("只能查看单条记录，请(只)选择一条！");
+                    return;
+                }
+                bootbox.dialog({
+                    loadPage: true,
+                    message: "@Url.Action("Details","Permission")/" + config.checkItemId[0],
+                    title: "权限详情",
+                    className: "modal-darkorange",
+                    buttons: {
+                        cancel: {
+                            label: "关闭",
+                            className: "btn-danger",
+                        }
+                    }
+                });
+            },
+            Delete: function () {
+                if (config.checkItemId.length != 1) {
+                    bootbox.alert("只能删除单条记录，请(只)选择一条！");
+                    return;
+                }
+                bootbox.dialog({
+                    loadPage: true,
+                    message: "@Url.Action("Delete","Permission")/" + config.checkItemId[0],
+                    title: "删除权限",
+                    className: "modal-darkorange",
+                    buttons: {
+                        success: {
+                            label: "确认删除",
+                            className: "btn-danger",
+                            callback: function () {
+                                $('#deleteform').submit();
+                            }
+                        },
+                        cancel: {
+                            label: "取消",
+                            className: "btn-default",
+                        }
+                    }
+                });
+            },
+            EditPermissionRole: function (e) {
+                e.preventDefault();
+                if (config.checkItemId.length != 1) {
+                    bootbox.alert("只能编辑单条记录，请(只)选择一条！");
+                    return;
+                }
+                bootbox.dialog({
+                    loadPage: true,
+                    message: "@Url.Action("EditRole","Permission")/" + config.checkItemId[0],
+                    title: "编辑权限角色",
+                    className: "modal-darkorange",
+                    buttons: {
+                        success: {
+                            label: "提交",
+                            className: "btn-blue",
+                            callback: function () {
+                                $('#editform').submit();
+                            }
+                        },
+                        cancel: {
+                            label: "取消",
+                            className: "btn-danger",
+                        }
+                    }
+                });
+            },
+        };
         })(jQuery);
 
-        Index.init();
-    </script>
+        Index.Init();</script>
 }

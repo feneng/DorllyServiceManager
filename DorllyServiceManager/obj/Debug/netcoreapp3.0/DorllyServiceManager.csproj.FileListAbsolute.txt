@@ -281,9 +281,11 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Common.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Domain.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.IService.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Service.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Domain.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Common.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.IService.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/bin/Debug/netcoreapp3.0/DorllyService.Service.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.csprojAssemblyReference.cache
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.AssemblyInfoInputs.cache
@@ -382,3 +384,4 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyServiceManager/obj/Debug
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/DorllyServiceManager.genruntimeconfig.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/Debug/netcoreapp3.0/Razor/Areas/Admin/Views/Permission/Details.cshtml.g.cs

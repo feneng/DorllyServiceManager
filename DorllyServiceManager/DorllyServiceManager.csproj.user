@@ -15,10 +15,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <StartAction>Project</StartAction>
-    <EnvironmentVariables>
-      <Variable name="ASPNETCORE_ENVIRONMENT" value="Production" xmlns="" />
-    </EnvironmentVariables>
-    <LaunchUrl>https://localhost:5001/Admin/Home/Index</LaunchUrl>
+    <LaunchUrl>https://localhost:5001</LaunchUrl>
     <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+    <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
 </Project>

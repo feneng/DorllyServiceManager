@@ -1,5 +1,6 @@
 ﻿using System;
 using DorllyService.Domain;
+using DorllyService.IService;
 using Microsoft.Extensions.Logging;
 
 namespace DorllyService.Service

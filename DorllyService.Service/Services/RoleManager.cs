@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DorllyService.Domain;
+using DorllyService.IService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DorllyService.Common\DorllyService.Common.csproj" />
     <ProjectReference Include="..\DorllyService.Domain\DorllyService.Domain.csproj" />
+    <ProjectReference Include="..\DorllyService.IService\DorllyService.IService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +20,6 @@
     <Compile Remove="IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ServiceModels\" />
     <Folder Include="Services\" />
   </ItemGroup>
 </Project>

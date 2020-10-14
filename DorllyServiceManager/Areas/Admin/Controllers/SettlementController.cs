@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DorllyServiceManager.Areas.Admin.Controllers

@@ -1,6 +1,7 @@
 using System;
 using DorllyService.Domain;
 using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,12 @@ namespace DorllyServiceManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm";
+                });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 //管理员用户的cookie服务
@@ -66,14 +72,18 @@ namespace DorllyServiceManager
             services.AddTransient<IServiceOrderManager, ServiceOrderManager>();
             services.AddTransient<IServiceManager, ServiceManager>();
             services.AddTransient<IServicePropertyManager, ServicePropertyManager>();
-
+            services.AddTransient<IPropertyValueManager, PropertyValueManager>();
 
             if (Environment.IsDevelopment())
             {
+                //services.AddDbContext<DorllyServiceManagerContext>(options =>
+                //    options.UseLoggerFactory(DorllyServiceManagerContext.LogFactory)
+                //    .UseSqlite(Configuration.GetConnectionString("TheOtherSqlServiceConnection"),
+                //    b => b.MigrationsAssembly("DorllyServiceManager")));
                 services.AddDbContext<DorllyServiceManagerContext>(options =>
                     options.UseLoggerFactory(DorllyServiceManagerContext.LogFactory)
-                    .UseSqlite(Configuration.GetConnectionString("TheOtherSqlServiceConnection"),
-                    b=>b.MigrationsAssembly("DorllyServiceManager")));
+                    .UseSqlServer(Configuration.GetConnectionString("SqlServiceConnection"),
+                    b => b.MigrationsAssembly("DorllyServiceManager")));
             }
             else
             {
@@ -81,7 +91,7 @@ namespace DorllyServiceManager
                     options.UseSqlServer(Configuration.GetConnectionString("SqlServiceConnection"),
                     b => b.MigrationsAssembly("DorllyServiceManager")));
             }
-            
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,6 +122,7 @@ namespace DorllyServiceManager
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

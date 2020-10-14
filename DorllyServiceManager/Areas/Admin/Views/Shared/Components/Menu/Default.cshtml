@@ -14,7 +14,7 @@
             if (item.Children!=null)
             {
                 <li class="@(item.IsCheck?"open":"")">
-                    <a href="@item.Path" class="menu-dropdown">
+                    <a href="@Url.Content(item.Path)" class="menu-dropdown">
                         <i class="menu-icon  @item.Icon"></i>
                         <span class="menu-text"> @item.Name </span>
                         <i class="menu-expand"></i>
@@ -25,7 +25,7 @@
                             if (it.Children.Any())
                             {
                                 <li>
-                                    <a href="@it.Path" class="menu-dropdown">
+                                    <a href="@Url.Content(it.Path)" class="menu-dropdown">
                                         <i class="menu-icon @it.Icon"></i>
                                         <span class="menu-text"> @it.Name </span>
                                         <i class="menu-expand"></i>
@@ -34,7 +34,7 @@
                                         @foreach (var i in it.Children)
                                         {
                                             <li>
-                                                <a href="@i.Path">
+                                                <a href="@Url.Content(i.Path)">
                                                     <i class="menu-icon @i.Icon"></i>
                                                     <span class="menu-text">@i.Name</span>
                                                 </a>
@@ -46,7 +46,7 @@
                             else
                             {
                                 <li class="@(it.IsCheck?"active":"")">
-                                    <a href="@it.Path" >
+                                    <a href="@Url.Content(it.Path)">
                                         <span class="menu-text">@it.Name</span>
                                     </a>
                                 </li>
@@ -58,7 +58,7 @@
             else
             {
                 <li class="@(item.IsCheck?"active":"")">
-                    <a href="@item.Path">
+                    <a href="@Url.Content(item.Path)">
                         <i class="menu-icon  @item.Icon"></i>
                         <span class="menu-text"> @item.Name </span>
                     </a>

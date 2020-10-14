@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DorllyService.Common.Enums;
 
 namespace DorllyService.Domain
 {
@@ -16,5 +18,15 @@ namespace DorllyService.Domain
         public string Code { get; set; }
         [Display(Name = "状态")]
         public byte State { get; set; }
+
+        [NotMapped]
+        [Display(Name = "状态")]
+        public string StateName
+        {
+            get
+            {
+                return ((StateStatus)State).ToString();
+            }
+        }
     }
 }

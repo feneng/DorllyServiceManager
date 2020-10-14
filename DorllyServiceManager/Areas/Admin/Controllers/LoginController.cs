@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DorllyService.Common;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

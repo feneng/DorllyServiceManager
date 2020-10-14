@@ -1823,6 +1823,20 @@
         "runtime": {
           "bin/placeholder/DorllyService.Domain.dll": {}
         }
+      },
+      "DorllyService.IService/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "dependencies": {
+          "DorllyService.Common": "1.0.0",
+          "DorllyService.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DorllyService.IService.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DorllyService.IService.dll": {}
+        }
       }
     }
   },
@@ -6499,12 +6513,18 @@
       "type": "project",
       "path": "../DorllyService.Domain/DorllyService.Domain.csproj",
       "msbuildProject": "../DorllyService.Domain/DorllyService.Domain.csproj"
+    },
+    "DorllyService.IService/1.0.0": {
+      "type": "project",
+      "path": "../DorllyService.IService/DorllyService.IService.csproj",
+      "msbuildProject": "../DorllyService.IService/DorllyService.IService.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
       "DorllyService.Common >= 1.0.0",
       "DorllyService.Domain >= 1.0.0",
+      "DorllyService.IService >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 3.0.0",
       "Z.EntityFramework.Plus.EFCore >= 3.0.24"
     ]
@@ -6538,6 +6558,9 @@
             },
             "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj": {
               "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/DorllyService.Domain.csproj"
+            },
+            "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/DorllyService.IService.csproj": {
+              "projectPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/DorllyService.IService.csproj"
             }
           }
         }
@@ -6575,7 +6598,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.302/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
       }
     }
   }

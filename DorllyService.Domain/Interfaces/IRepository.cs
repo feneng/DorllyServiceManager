@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using DorllyService.Common;
 using DorllyService.Common.Interfaces;
 
 namespace DorllyService.Domain
@@ -201,6 +203,7 @@ namespace DorllyService.Domain
         /// <returns></returns>
         Task<List<T>> LoadEntityListAsync(Expression<Func<T, bool>> predicate, Expression<Func<T, string>> orderby, string asc, int pageIndex, int pageSize);
         Task<List<T>> LoadEntityListAsync<S>(Expression<Func<T, bool>> predicate, Expression<Func<T, S>> orderby, string asc, int pageIndex, int pageSize) where S:struct;
+        Task<List<TResult>> GetPageListAsync<TResult>(Expression<Func<T, TResult>> select, Expression<Func<T, bool>> predicate, PageInfo<T> pageInfo,IQueryable<T> querySource=null) where TResult :class,new();
 
         #region 求平均，求总计
         int? GetSum(Expression<Func<T, bool>> predicate, Expression<Func<T, int?>> sum);
@@ -251,6 +254,7 @@ namespace DorllyService.Domain
         /// <returns></returns>
         Task<List<T>> GetModeListlBySqlAsync(FormattableString sql);
 
+        
         /// <summary>
         /// 执行sql
         /// </summary>
@@ -262,5 +266,8 @@ namespace DorllyService.Domain
         /// 主从同步更换数据库连接
         /// </summary>
         void SqlMasterSlaveConn();
+
+        IQueryable<TResult> GetSelectList<TResult>(Expression<Func<T, TResult>> select,
+            Expression<Func<T, bool>> predicate, IQueryable<T> querySource = null) where TResult : class;
     }
 }

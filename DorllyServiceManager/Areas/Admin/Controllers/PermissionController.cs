@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DorllyService.Common;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using DorllyServiceManager.Areas.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,11 +25,23 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             _permissionManager = permissionManager;
         }
 
-        // GET: /<controller>/
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageIndex = 1, int? pageSize = 10)
         {
-            var list = await _permissionManager.LoadEntityAllAsync();
-            return View(list);
+            var pageInfo = new PageInfo<Permission>
+            {
+                length = pageSize.Value,
+                pageIndex = pageIndex.Value
+            };
+            await _permissionManager.GetPageListAsync(p => p, p=>true, pageInfo,_context.Set<Permission>().Include(p=>p.BelongModule));
+            return View(pageInfo);
+        }
+
+        [SkipAdminAuthorize]
+        public async Task<IActionResult> Search(PageInfo<Permission> jsonData)
+        {
+            var list = await _permissionManager.GetPageListAsync(g => g, g => true, jsonData, _context.Set<Permission>().Include(p => p.BelongModule));
+            jsonData.data = list;
+            return Json(jsonData);
         }
 
         [HttpGet]
@@ -166,6 +179,47 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                 }
             }
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var permission = await _permissionManager.LoadEntityAsNoTrackingAsync(p => p.Id == id.Value);
+            if (permission == null)
+            {
+                return NotFound();
+            }
+            return View(permission);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var permission = await _context.Permission.Include(p=>p.BelongModule)
+                .SingleOrDefaultAsync(g => g.Id == id.Value);
+
+            if (permission == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Modules = base.PopulateModuleDropDownList(permission.BelongModuleId);
+            return View(permission);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(int id)
+        {
+            var result = await _permissionManager.DelEntityAsync(g => g.Id == id);
+            await _permissionManager.CommitAsync();
             return RedirectToAction(nameof(Index));
         }
     }

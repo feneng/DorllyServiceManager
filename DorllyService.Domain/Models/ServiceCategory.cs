@@ -7,10 +7,11 @@ namespace DorllyService.Domain
     {
         public int Id { get; set; }
         [StringLength(64)]
-        [Display(Name="服务名")]
+        [Display(Name="服务分类名")]
         public string Name { get; set; }
         [StringLength(24)]
-        [Display(Name = "服务代码")]
+        [Required]
+        [Display(Name = "服务分类代码")]
         public string Code { get; set; }
         [Display(Name = "上级类别")]
         public int? ParentId { get; set; }

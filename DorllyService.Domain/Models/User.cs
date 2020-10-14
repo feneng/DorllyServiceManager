@@ -13,6 +13,7 @@ namespace DorllyService.Domain
         public string Name { get; set; }
         [StringLength(12)]
         [Display(Name = "账号")]
+        [Required]
         public string Account { get; set; }
         [StringLength(64)]
         public string Password { get; set; }

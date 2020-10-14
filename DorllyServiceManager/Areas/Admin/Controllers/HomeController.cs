@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +27,8 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
 
         public IActionResult Profile()
         {
+            ViewBag.UserName = CurrentUser.Name;
+            ViewBag.UserDescription = CurrentUser.Email;
             return View();
         }
     }

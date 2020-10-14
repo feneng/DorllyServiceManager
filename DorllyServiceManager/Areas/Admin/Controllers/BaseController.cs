@@ -1,6 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DorllyService.Common;
-using DorllyService.Service;
+using DorllyService.Domain;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,12 +21,14 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
         private readonly IModuleManager _moduleManager;
         private readonly ISubSystemManager _subSystemManager;
         private readonly IServiceCategoryManager _serviceCategoryManager;
+        private readonly IServicePropertyManager _servicePropertyManager;
 
         public BaseController(IUserManager userManager,
             IGardenManager gardenManager=null,
             IModuleManager moduleManager=null,
             ISubSystemManager subSystemManager=null,
-            IServiceCategoryManager serviceCategoryManager=null
+            IServiceCategoryManager serviceCategoryManager=null,
+            IServicePropertyManager servicePropertyManager = null
             )
         {
             _userManager = userManager;
@@ -29,6 +36,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             _moduleManager = moduleManager;
             _subSystemManager = subSystemManager;
             _serviceCategoryManager = serviceCategoryManager;
+            _servicePropertyManager = servicePropertyManager;
         }
 
         public Account CurrentUser
@@ -78,7 +86,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             return new SelectList(gardensQuery, "Id", "Name", selectedGarden);
         }
 
-        //加载模块Select列表
+        //加载模块Select列表 TODO:这里实际上是树形列表，需要改进显示样式
         protected SelectList PopulateModuleDropDownList(object selectedModule = null)
         {
             var modulesQuery = _moduleManager.GetSelectListQuery();
@@ -92,11 +100,42 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             return new SelectList(systemQuery, "Id", "Name", selectedSubSystem);
         }
 
-        //加载服务分类Select列表
-        protected SelectList PopulateServiceCategoryDropDownList(object selectedCategry = null)
+        //加载服务分类Select列表  TODO:这里实际上是树形列表，需要改进显示样式
+        protected SelectList PopulateServiceCategoriesDropDownList(object selectedCategory = null)
         {
             var categoryQuery = _serviceCategoryManager.GetSelectListQuery();
-            return new SelectList(categoryQuery, "Id", "Name", selectedCategry);
+            return new SelectList(categoryQuery, "Id", "Name", selectedCategory);
+        }
+
+        /// <summary>
+        /// 为 Select2 提供数据
+        /// </summary>
+        /// <param name="selectedCategories"></param>
+        /// <returns></returns>
+        protected async Task<IActionResult> GetServiceCategoriesForSelect2(int? propertyId = null)
+        {
+            var list = _serviceCategoryManager.GetSelectList<dynamic>(sc => new { id = sc.Id, text = sc.Name },
+                sc => sc.Status);
+            if (!propertyId.HasValue)
+            {
+                return Json(new { data = list});
+            }
+            var property =await _servicePropertyManager.FindEntityAsync(propertyId.Value);
+            var selectedCategories = property.Categories.Select(c => c.CategoryId);
+            
+            return Json(new { data = list, tags = selectedCategories });
+        }
+
+        /// <summary>
+        /// 加载时 Select2 数据
+        /// 只取中类
+        /// </summary>
+        /// <returns></returns>
+        protected IQueryable<ServiceCategory> GetServiceCategoriesForSelect2(IQueryable<ServiceCategory> querySource)
+        {
+            var list = _serviceCategoryManager.GetSelectList(sc =>sc,
+                sc => sc.Status&&sc.Parent.Status && sc.Level == 2, querySource);
+            return list;
         }
     }
 }

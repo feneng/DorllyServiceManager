@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DorllyService.Domain;
+using DorllyService.IService;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DorllyService.Service
@@ -17,9 +21,8 @@ namespace DorllyService.Service
             _context = context;
         }
 
-        public IQueryable<ServiceProperty> GetIndexQuery()
-        {
-            return _context.ServiceProperty;
+        public override async Task<ServiceProperty> LoadEntityAsync(Expression<Func<ServiceProperty, bool>> predicate) {
+           return  await _context.Set<ServiceProperty>().Include(sp=>sp.Categories).Where(predicate).SingleOrDefaultAsync();
         }
     }
 }

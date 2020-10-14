@@ -1,14 +1,14 @@
-﻿@model List<DorllyService.Domain.ServiceSupplier>
-@{
-    ViewBag.Title = "服务商列表";
-}
+﻿@using DorllyService.Common;
+@using DorllyService.Domain;
+@model PageInfo<ServiceSupplier>
+@{ ViewBag.Title = "服务商列表"; }
 
 @section styles{
     <environment include="Development">
-        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
-        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
     </environment>
 }
 
@@ -43,7 +43,7 @@
                     <a class="btn btn-danger delete">
                         删除
                     </a>
-                    <a class="btn btn-info scan">
+                    <a class="btn btn-info details">
                         查看
                     </a>
                     <div class="btn-group pull-right">
@@ -66,47 +66,43 @@
                                 </label>
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().BelongGarden)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().BelongGarden)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().FullName)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().FullName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().ChargePerson)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().ChargePerson)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().ServiceScope)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().ServiceScope)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().ChargePerson)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().ContactPhone)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().ContactPhone)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Email)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().Email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(p => p.FirstOrDefault().SupplierFrom)
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().SupplierFrom)
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        @if (Model == null || Model.Count == 0)
+                        @if (Model.data == null || Model.data.Count == 0)
                         {
                             <tr>
-                                <td colspan="10">暂无数据</td>
+                                <td colspan="8">暂无数据</td>
                             </tr>
                         }
                         else
                         {
-                            foreach (var item in Model)
+                            foreach (var item in Model.data)
                             {
                                 <tr>
                                     <td>
                                         <label>
-                                            <input type="checkbox" class="checkboxes checkItem" data-id="@item.Id" value="1" />
+                                            <input type="checkbox" class="checkboxes" data-id="@item.Id" value="1" />
                                             <span class="text"></span>
                                         </label>
                                     </td>
@@ -114,7 +110,6 @@
                                     <td>@Html.DisplayFor(u => item.FullName)</td>
                                     <td>@Html.DisplayFor(u => item.ChargePerson)</td>
                                     <td>@Html.DisplayFor(u => item.ServiceScope)</td>
-                                    <td>@Html.DisplayFor(u => item.ChargePerson)</td>
                                     <td>@Html.DisplayFor(u => item.ContactPhone)</td>
                                     <td>@Html.DisplayFor(u => item.Email)</td>
                                     <td>@Html.DisplayFor(u => item.SupplierFrom)</td>
@@ -129,42 +124,118 @@
 </div>
 
 @section scripts{
-    <script>var Index = (function ($) {
+    <script src="~/assets/js/datatable/jquery.dataTables.js"></script>
+    <script src="~/assets/js/datatable/ZeroClipboard.js"></script>
+    <script src="~/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="~/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script>
+        var Index = (function ($) {
             var config = {
                 checkItemId: [],
+                oTable:null,
             };
 
+            var PageTable = (function () {
+                return {
+                    Init: function () {
+                        config.oTable = $('#simpledatatable').dataTable({
+                            "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
+                            "oTableTools": {
+                                "aButtons": [
+                                    "print"
+                                ],
+                                "sSwfPath": "/admin/js/datatable/assets/swf/copy_csv_xls_pdf.swf"
+                            },
+                            "language": {
+                                "search": "",
+                                "sLengthMenu": "_MENU_",
+                            },
+                            "serverSide": true,
+                            "ajax": {
+                                "url": '@Url.Action("Search","ServiceProvider")',
+                                "type": "post",
+                                "data": function (data) {
+                                    data.pageIndex = (data.start / data.length) + 1;
+                                    data.length = $('#simpledatatable_length select').val();
+                                },
+                                "dataSrc": function (pageInfo) {
+                                    $('#simpledatatable_length select').val(pageInfo.length);
+                                    return pageInfo.data;
+                                }
+                            },
+                            "columns": [
+                                { "defaultContent": "", "orderable": false, "bSearchable": false },
+                                { "data": "belongGarden.name", "bSearchable": true,  },
+                                { "data": "fullName", "bSearchable": false, },
+                                { "data": "chargePerson", "bSearchable": false, },
+                                { "data": "serviceScope", "bSearchable": false, },
+                                { "data": "contactPhone", "bSearchable": false },
+                                { "data": "email", "bSearchable": false },
+                                { "data": "supplierFrom", "bSearchable": false,},
+                            ],
+                            "columnDefs": [
+                                {
+                                    "targets": [0],
+                                    "data": "id",
+                                    "render": function (data, type, full) {
+                                        return "<label><input type='checkbox' class='checkboxes' data-id='" + data + "' />" +
+                                            "<span class='text'></span></label>";
+                                    }
+                                }
+                            ],
+                            "sPaginationType": "bootstrap",
+                            "aaSorting": [[1, 'asc']],
+                        });
+
+                        $('#simpledatatable .group-checkable').change(function (e) {
+                            var set = $(".checkboxes");
+                            var checked = $(this).is(":checked");
+                            $(set).each(function () {
+                                trCheckAction(this, checked);
+                            });
+                        });
+                        $('#simpledatatable').on('change', '.checkboxes', function () {
+                            var checked = $(this).is(":checked");
+                            trCheckAction(this, checked);
+                        });
+                        $('#simpledatatable tbody tr .checkboxes').change(function () {
+                            var checked = $(this).is(":checked");
+                            trCheckAction(this, checked);
+                        });
+                        function trCheckAction(obj, checked) {
+                            var currentId = $(obj).data('id');
+                            var isInArray = config.checkItemId.indexOf(currentId) != -1;
+                            $(obj).prop("checked", checked);
+                            if (checked) {
+                                $(obj).parents('tr').addClass("active");
+                                if (!isInArray)
+                                    config.checkItemId.push(currentId);
+                            } else {
+                                $(obj).parents('tr').removeClass("active");
+                                if (isInArray)
+                                    config.checkItemId.splice(config.checkItemId.indexOf(currentId), 1);
+                            }
+                        }
+                    },
+
+                };
+            })();
+
             return {
-                init: function (setting) {
+                Init: function (setting) {
                     //拓展配置
                     if (!!setting) $.extend(config, setting);
-                    //添加
                     $('.create').on('click', Index.Create);
-                    //编辑
                     $('.edit').on('click', Index.Edit);
-                    //删除
+                    $('.approve').on('click', Index.Approve);
                     $('.delete').on('click', Index.Delete);
-                    //点选行
-                    $('td>label>.text').on('click', function () {
-                        $(this).siblings('.checkItem').trigger('check');
-                    });
-                    $('.checkItem').on('check', function () {
-                        var currentId = $(this).data('id');
-                        var index = config.checkItemId.indexOf(currentId);
-                        if ($(this).is(':checked')) {
-                            if (index == -1)
-                                config.checkItemId.push(currentId);
-                        }
-                        else {
-                            if (index != -1)
-                                config.checkItemId.splice(index, 1);
-                        }
-                    });
+                    $('.details').on('click', Index.Details);
+                    PageTable.Init();
                 },
                 Create: function () {
                     bootbox.dialog({
                         loadPage: true,
-                        message: "/Admin/ServiceProvider/Create",
+                        message: "@Url.Action("Create", "ServiceProvider")",
                         title: "添加服务商",
                         className: "modal-darkorange",
                         buttons: {
@@ -183,9 +254,13 @@
                     });
                 },
                 Edit: function () {
+                    if (config.checkItemId.length != 1) {
+                        bootbox.alert("只能编辑单条记录，请(只)选择一条！");
+                        return;
+                    }
                     bootbox.dialog({
                         loadPage: true,
-                        message: "/Admin/ServiceProvider/Edit/" + config.checkItemId[0],
+                        message: "@Url.Action("Edit", "ServiceProvider")/" + config.checkItemId[0],
                         title: "编辑服务商",
                         className: "modal-darkorange",
                         buttons: {
@@ -205,11 +280,12 @@
                 },
                 Delete: function () {
                     if (config.checkItemId != 1) {
-
+                        bootbox.alert("只能删除单条记录，请(只)选择一条！");
+                        return;
                     }
                     bootbox.dialog({
                         loadPage: true,
-                        message: "/Admin/ServiceProvider/Delete/" + config.checkItemId[0],
+                        message: "@Url.Action("Delete", "ServiceProvider")/" + config.checkItemId[0],
                         title: "删除服务商",
                         className: "modal-darkorange",
                         buttons: {
@@ -226,10 +302,46 @@
                             }
                         }
                     });
+                },
+                Details: function () {
+                    if (config.checkItemId != 1) {
+                        bootbox.alert("只能查看单条记录，请(只)选择一条！");
+                        return;
+                    }
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: "@Url.Action("Details", "ServiceProvider")/" + config.checkItemId[0],
+                        title: "服务商信息",
+                        className: "modal-darkorange",
+                        buttons: {
+                            cancel: {
+                                label: "关闭",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+                },
+                Approve: function () {
+                    if (config.checkItemId != 1) {
+                        bootbox.alert("只能审核单条记录，请(只)选择一条！");
+                        return;
+                    }
+                    bootbox.confirm("审核通过此供应商信息？", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "@Url.Action("Approve", "ServiceProvider")/"+ config.checkItemId[0],
+                                success: function (msg) {
+                                    if (msg.state) {
+                                        bootbox.alert('审核成功！');
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
             };
 
         })(jQuery);
 
-        Index.init();</script>
+        Index.Init();</script>
 }

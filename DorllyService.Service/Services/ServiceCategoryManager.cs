@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DorllyService.Common.Extensions;
 using DorllyService.Domain;
+using DorllyService.IService;
 using Microsoft.Extensions.Logging;
 
 namespace DorllyService.Service
@@ -26,7 +27,6 @@ namespace DorllyService.Service
         public IQueryable<ServiceCategory> GetSelectListQuery()
         {
             var query = from g in _context.ServiceCategory
-                        orderby g.Id
                         where g.Status
                         select g;
             return query;

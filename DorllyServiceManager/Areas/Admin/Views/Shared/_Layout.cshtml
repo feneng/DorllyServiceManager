@@ -4,38 +4,36 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    <meta name="description" content="login page" />
+
+    <meta name="description" content="@ViewBag.Title" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="~/admin/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/assets/img/favicon.png" type="image/x-icon">
 
     <!--Basic Styles-->
-    <link href="~/admin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
-    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/css/weather-icons.min.css" rel="stylesheet" />
 
-    <!--Extend styles-->
-    <link href="~/admin/css/demo.min.css" rel="stylesheet" />
-    <link href="~/admin/css/animate.min.css" rel="stylesheet" />
+    <!--Beyond styles-->
+    <link id="beyond-link" href="/assets/css/beyond.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/demo.min.css" rel="stylesheet" />
+    <link href="~/assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="~/assets/css/animate.min.css" rel="stylesheet" />
     <link id="skin-link" href="" rel="stylesheet" type="text/css" />
-    <link id="beyond-link" href="" rel="stylesheet" />
-    @*<environment include="Development">
-            <link id="beyond-link" href="~/admin/css/beyond.css" rel="stylesheet" />
-        </environment>
-        <environment exclude="Development">
-            <link id="beyond-link" href="~/admin/css/beyond.css" rel="stylesheet" />
-        </environment>*@
     @RenderSection("styles", required: false)
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
-    <environment include="Development">
-        <script src="~/admin/js/skins.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/admin/js/skins.min.js"></script>
-    </environment>
-    <!--[if lt IE 8]>
-    <meta http-equiv="refresh" content="0;url=ie.html" />
-    <![endif]-->
+    @*<environment include="Development">
+            <script src="~/assets/js/skins.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="~/assets/js/skins.min.js"></script>
+        </environment>*@
+    <script src="~/assets/js/skins.js"></script>
+
+
 </head>
 <!--Head Ends-->
 <!--Body-->
@@ -43,28 +41,12 @@
     @RenderBody()
 
     <!--Basic Scripts-->
-    <script src="~/admin/js/jquery-2.0.3.min.js"></script>
-    <script src="~/admin/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!--Extend Scripts-->
-    <environment include="Development">
-        <script src="~/Admin/js/datatable/jquery.dataTables.min.js"></script>
-        <script src="~/Admin/js/datatable/ZeroClipboard.js"></script>
-        <script src="~/Admin/js/datatable/dataTables.tableTools.min.js"></script>
-        <script src="~/Admin/js/datatable/dataTables.bootstrap.min.js"></script>
-        <script src="~/Admin/js/datatable/datatables-init.js"></script>
-        <script src="~/Admin/js/beyond.js"></script>
-        <script src="~/Admin/js/bootbox/bootbox.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/Admin/js/datatable/jquery.dataTables.min.js"></script>
-        <script src="~/Admin/js/datatable/ZeroClipboard.js"></script>
-        <script src="~/Admin/js/datatable/dataTables.tableTools.min.js"></script>
-        <script src="~/Admin/js/datatable/dataTables.bootstrap.min.js"></script>
-        <script src="~/Admin/js/beyond.min.js"></script>
-        <script src="~/Admin/js/bootbox/bootbox.js"></script>
-
-    </environment>
+    <script src="~/assets/js/beyond.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 <!--Body Ends-->

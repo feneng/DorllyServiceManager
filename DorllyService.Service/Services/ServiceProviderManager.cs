@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DorllyService.Domain;
+using DorllyService.IService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

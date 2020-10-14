@@ -9,17 +9,21 @@ namespace DorllyService.Domain
     {
         public int Id { get; set; }
         [StringLength(24)]
-        [Display(Name = "属性编号")]
+        [Display(Name = "编号")]
         public string Code { get; set; }
         [StringLength(64)]
         [Display(Name = "属性名称")]
         public string Name { get; set; }
+        [Display(Name = "属性类型")]
         public int Type { get; set; }
+        [Display(Name = "填写类型")]
         public int InputType { get; set; }
-        [Display(Name = "是否必填")]
+        [Display(Name = "必填")]
         public bool NotNull { get; set; }
+        [Display(Name = "状态")]
         public byte State { get; set; }
 
+        [Display(Name = "关联分类")]
         public virtual ICollection<CategoryProperties> Categories { get; set; }
         [NotMapped]
         [Display(Name = "属性类型")]

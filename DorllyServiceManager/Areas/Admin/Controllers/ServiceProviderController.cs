@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using DorllyService.Common;
 using DorllyService.Domain;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,12 +21,29 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             _serviceProviderManager = serviceProviderManager;
             _context = context;
         }
-        // GET: /<controller>/
+
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexAsync(int? pageIndex = 1, int? pageSize = 10)
         {
-            var query = await _serviceProviderManager.LoadEntityAllAsync();
-            return View(query);
+            var pageInfo = new PageInfo<ServiceSupplier>
+            {
+                length = pageSize.Value,
+                pageIndex = pageIndex.Value
+            };
+
+            pageInfo.data = await _serviceProviderManager.GetPageListAsync(sp => sp, sp => true, pageInfo,
+                _context.Set<ServiceSupplier>()
+                    .Include(sp => sp.BelongGarden));
+            return View(pageInfo);
+        }
+
+        [SkipAdminAuthorize]
+        public async Task<IActionResult> Search(PageInfo<ServiceSupplier> jsonData)
+        {
+            jsonData.data = await _serviceProviderManager.GetPageListAsync(sp => sp, sp => true, jsonData,
+                _context.Set<ServiceSupplier>()
+                    .Include(sp => sp.BelongGarden));
+            return Json(jsonData);
         }
 
         [HttpGet]
@@ -63,7 +79,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "创建失败:" + ex.Message);
+                ModelState.AddModelError("", "创建失败:" + ex.InnerException.Message);
             }
             return View(supplier);
         }
@@ -96,8 +112,9 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                 return NotFound();
 
             var supplierToUpdate = await _serviceProviderManager.FindEntityAsync(id.Value);
-            if (await TryUpdateModelAsync(supplierToUpdate, "",
-                 s=> s.Code, s =>s.FullName, s => s.Abbreviation, s => s.WorkTel))
+            if (await TryUpdateModelAsync(supplierToUpdate, string.Empty,
+                 s=> s.Code, s =>s.FullName, s => s.Abbreviation, s => s.WorkTel,s=>s.SupplierFrom,s=>s.BelongGardenId,
+                 s=>s.Avatar,s=>s.Email,s=>s.ContactPhone,s=>s.ChargePerson,s=>s.ServiceScope ))
             {
                 try
                 {
@@ -106,7 +123,7 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
                 }
                 catch (DbUpdateException)
                 {
-                    ModelState.AddModelError("", "编辑权限信息失败");
+                    ModelState.AddModelError("", "编辑服务商信息失败");
                 }
             }
 
@@ -149,6 +166,22 @@ namespace DorllyServiceManager.Areas.Admin.Controllers
 
             ViewBag.Gardens = base.PopulateGardenDropDownList(supplier.BelongGarden);
             return View(supplier);
+        }
+
+        public async Task<IActionResult> Approve(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+            var supplier = await _serviceProviderManager.FindEntityAsync(id.Value);
+            if (supplier==null)
+            {
+                return NotFound();
+            }
+            supplier.ApproveState = 1;
+            await _serviceProviderManager.CommitAsync();
+            return Json(new { state = true });
         }
 
         [HttpPost, ActionName("Delete")]

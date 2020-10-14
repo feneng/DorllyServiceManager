@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DorllyService.Service;
+using DorllyService.IService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace DorllyServiceManager.Areas.Admin.Components
 
             var uri = $"/{RouteData.Values["controller"]}/{RouteData.Values["action"]}";
             PopulateMenuData(account.Modules, uri);
-            return View("Default", account.Modules);
+            return View("Default", account.Modules.OrderBy(m=>m.Order));
         }
 
         private void PopulateMenuData(IEnumerable<Module> modules, string uri)
