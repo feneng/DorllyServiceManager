@@ -14,7 +14,7 @@
         "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/feneng/.nuget/NuGet/NuGet.Config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -102,7 +102,7 @@
         "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/feneng/.nuget/NuGet/NuGet.Config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -174,7 +174,7 @@
         "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/feneng/.nuget/NuGet/NuGet.Config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -231,7 +231,7 @@
         "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/feneng/.nuget/NuGet/NuGet.Config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -301,7 +301,7 @@
         "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyServiceManager/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/feneng/.nuget/NuGet/NuGet.Config"
+          "/Users/feneng/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

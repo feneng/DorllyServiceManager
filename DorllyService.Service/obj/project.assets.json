@@ -6542,7 +6542,7 @@
       "outputPath": "/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/feneng/.nuget/NuGet/NuGet.Config"
+        "/Users/feneng/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"

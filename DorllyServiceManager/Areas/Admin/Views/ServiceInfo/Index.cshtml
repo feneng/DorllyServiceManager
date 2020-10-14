@@ -1,0 +1,345 @@
+﻿@using DorllyService.Common;
+@using DorllyService.Domain;
+@model PageInfo<Service>
+@{ ViewBag.Title = "服务列表"; }
+
+@section styles{
+    <environment include="Development">
+        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/Admin/css/dataTables.bootstrap.css" rel="stylesheet" />
+    </environment>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@ViewBag.Title</span>
+                <div class="widget-buttons">
+                    <a href="#" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="#" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="#" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="table-toolbar">
+                    <a class="btn btn-success create">
+                        添加服务
+                    </a>
+                    <a class="btn btn-info detail">
+                        <i class="fa fa-info"></i>
+                        详情
+                    </a>
+                    <a class="btn btn-primary edit">
+                        <i class="fa fa-edit"></i>
+                        编辑
+                    </a>
+                    <a class="btn btn-danger delete">
+                        <i class="fa fa-trash-o"></i>
+                        删除
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">其他操作</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);" onclick="">空留位</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="editabledatatable">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                <label>
+                                    <input type="checkbox" class="group-checkable">
+                                    <span class="text"></span>
+                                </label>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Code)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Category)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().State)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().UpdateDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().UpdateUser)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(p => p.data.FirstOrDefault().Description)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.data == null || !Model.data.Any())
+                        {
+                            <tr>
+                                <td colspan="7">暂无数据</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.data)
+                            {
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input type="checkbox" class="checkboxes" data-id="@item.Id" />
+                                            <span class="text"></span>
+                                        </label>
+                                    </td>
+                                    <td>@Html.DisplayFor(p => item.Code)</td>
+                                    <td>@Html.DisplayFor(p => item.Name)</td>
+                                    <td>@Html.DisplayFor(p => item.Category.Name)</td>
+                                    <td>@Html.DisplayFor(p => item.StateName)</td>
+                                    <td>@Html.DisplayFor(p => item.UpdateDate)</td>
+                                    <td>@Html.DisplayFor(p => item.UpdateUser.Name)</td>
+                                    <td>@Html.DisplayFor(p => item.Description)</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+    var Index = (function ($) {
+       var config = {
+                checkItemId: [],
+       };
+
+        var PageTable = (function () {
+                return {
+                    Init: function () {
+                        var oTable = $('#editabledatatable').dataTable({
+                        "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
+                        "oTableTools": {
+                            "aButtons": [
+                                "print"
+                            ],
+                            "sSwfPath": "/admin/js/datatable/assets/swf/copy_csv_xls_pdf.swf"
+                        },
+                        "language": {
+                            "search": "",
+                            "sLengthMenu": "_MENU_",
+                        },
+                        "serverSide": true,
+                        "ajax": {
+                            "url": '@Url.Action("Search","ServiceInfo")',
+                            "type": "post",
+                            "data": function (data) {
+                                data.pageIndex = (data.start / data.length) + 1;
+                                data.length = $('#editabledatatable_length select').val();
+                            },
+                            "dataSrc": function (pageInfo) {
+                                config.checkItemId = [];
+                                $('#editabledatatable_length select').val(pageInfo.length);
+                                return pageInfo.data;
+                            }
+                        },
+                        "columns": [
+                            { "defaultContent": "", "orderable": false, "bSearchable": false },
+                            { "data": "code", "bSearchable": true },
+                            { "data": "name", "bSearchable": true },
+                            { "data": "category.name", "bSearchable": true },
+                            { "data": "stateName", "bSearchable": true },
+                            { "data": "updateDate", "bSearchable": true },
+                            { "data": "updateUser.name", "bSearchable": true },
+                            { "data": "description", "bSearchable": true },
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": [0],
+                                "data": "id",
+                                "render": function (data, type, full) {
+                                    return "<label><input type='checkbox' class='checkboxes' data-id='" + data + "' />" +
+                                        "<span class='text'></span></label>";
+                                }
+                            },
+                            {
+                                "targets": [3],
+                                "data": "category",
+                                "render": function (data, type, full) {
+                                    var parentCategoryName = "";
+                                    var grandpaCategoryName = "";
+                                    if (full.category.parent != null)
+                                    {
+                                        parentCategoryName = full.category.parent.name + "-";
+                                        if (full.category.parent.parent != null)
+                                            grandpaCategoryName = full.category.parent.parent.name + "-";
+                                    }
+                                    return grandpaCategoryName + parentCategoryName + full.category.name;
+                                }
+                            }
+                        ],
+                        "sPaginationType": "bootstrap",
+                        "aaSorting": [[1, 'asc']],
+                        });
+
+                        $('#editabledatatable .group-checkable').change(function (e) {
+                            var set = $(".checkboxes");
+                            var checked = $(this).is(":checked");
+                            $(set).each(function () {
+                                trCheckAction(this, checked);
+                            });
+                        });
+                        $('#editabledatatable').on('change', '.checkboxes', function () {
+                            var checked = $(this).is(":checked");
+                            trCheckAction(this, checked);
+                        });
+                        $('#editabledatatable tbody tr .checkboxes').change(function () {
+                            var checked = $(this).is(":checked");
+                            trCheckAction(this, checked);
+                        });
+                        function trCheckAction(obj, checked) {
+                            var currentId = $(obj).data('id');
+                            var isInArray = config.checkItemId.indexOf(currentId) != -1;
+                            $(obj).prop("checked", checked);
+                            if (checked) {
+                                $(obj).parents('tr').addClass("active");
+                                if (!isInArray)
+                                    config.checkItemId.push(currentId);
+                            } else {
+                                $(obj).parents('tr').removeClass("active");
+                                if (isInArray)
+                                    config.checkItemId.splice(config.checkItemId.indexOf(currentId), 1);
+                            }
+                        }
+                    }
+                };
+        })();
+
+            return {
+                Init: function (setting) {
+                    //extend setting
+                    if (!!setting) $.extend(config, setting);
+                    //add action
+                    $('.create').on('click', Index.Create);
+                    //edit action
+                    $('.edit').on('click', Index.Edit);
+                    //delete action
+                    $('.delete').on('click', Index.Delete);
+                    //detail action
+                    $('.detail').on('click', Index.Details);
+                    PageTable.Init();
+                },
+                Create: function () {
+                    bootbox.dialog({
+                        loadPage: true,
+                        message:'@Url.Action("Create","ServiceInfo")',
+                        title: "添加服务",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#createform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "返回列表",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Edit: function () {
+                    if (config.checkItemId.length != 1) {
+                        bootbox.alert("只能编辑单条记录，请(只)选择一条！");
+                        return;
+                    }
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: '@Url.Action("Edit","ServiceInfo")/' + config.checkItemId[0],
+                        title: "编辑服务",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "提交",
+                                className: "btn-blue",
+                                callback: function () {
+                                    $('#editform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Details: function () {
+                    if (config.checkItemId.length != 1) {
+                        bootbox.alert("只能查看单条记录，请(只)选择一条！");
+                        return;
+                    }
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: '@Url.Action("Details","ServiceInfo")/' + config.checkItemId[0],
+                        title: "服务详细信息",
+                        className: "modal-darkorange",
+                        buttons: {
+                            cancel: {
+                                label: "关闭",
+                                className: "btn-danger",
+                            }
+                        }
+                    });
+                },
+                Delete: function () {
+                    if (config.checkItemId.length != 1) {
+                        bootbox.alert("只能编辑单条记录，请(只)选择一条！");
+                        return;
+                    }
+                    bootbox.dialog({
+                        loadPage: true,
+                        message: '@Url.Action("Delete","ServiceInfo")/' + config.checkItemId[0],
+                        title: "删除服务",
+                        className: "modal-darkorange",
+                        buttons: {
+                            success: {
+                                label: "确认删除",
+                                className: "btn-danger",
+                                callback: function () {
+                                    $('#deleteform').submit();
+                                }
+                            },
+                            cancel: {
+                                label: "取消",
+                                className: "btn-default",
+                            }
+                        }
+                    });
+                }
+            };
+
+        })(jQuery);
+
+    Index.Init();
+    </script>
+}

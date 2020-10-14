@@ -1,0 +1,67 @@
+﻿@using DorllyServiceManager.Areas.Admin.ViewModels;
+@model List<PermissionRoleData>
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form role="form" method="post" asp-area="Admin" asp-controller="Permission" asp-action="EditRole" id="editform">
+            <div class="form-group">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <input type="hidden" name="permissionId" value="@Model[0].PermissionId" />
+                    <table class="table table-striped table-bordered table-hover" id="editFormTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => Model.FirstOrDefault().RoleName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(m => Model.FirstOrDefault().RoleCode)
+                                </th>
+                                <th class="hidden-xs">
+                                    @Html.DisplayNameFor(m => Model.FirstOrDefault().Status)
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if (!item.Status) continue;
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(m => item.RoleName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => item.RoleCode)
+                                    </td>
+                                    <td class="hidden-xs">
+                                        @Html.DisplayFor(m => item.Status)
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" value="@item.RoleId" @(item.Assigned ? "checked=checked" : "") name="RoleCheck" style="display:none" />
+                                        @if (item.Assigned)
+                                        {
+                                            <a href="#" class="btn btn-default btn-xs alterPermissionRoleItem">
+                                                <i class="fa fa-trash-o"></i> 删除
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" class="btn btn-default btn-xs blue alterPermissionRoleItem">
+                                                <i class="fa fa-plus-square-o"></i> 添加
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>InitiateEditFormTable.init();</script>
