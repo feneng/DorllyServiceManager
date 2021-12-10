@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DorllyService.Domain\DorllyService.Domain.csproj" />
+    <ProjectReference Include="..\DorllyService.Common\DorllyService.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceModels\" />
+  </ItemGroup>
+</Project>

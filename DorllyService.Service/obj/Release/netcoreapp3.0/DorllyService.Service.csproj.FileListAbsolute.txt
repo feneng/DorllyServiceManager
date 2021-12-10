@@ -1,0 +1,16 @@
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Service.deps.json
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Service.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Service.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Common.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Domain.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Common.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.Domain.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.csprojAssemblyReference.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.AssemblyInfoInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.AssemblyInfo.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.csproj.CoreCompileInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.csproj.CopyComplete
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Release/netcoreapp3.0/DorllyService.Service.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.IService.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Release/netcoreapp3.0/DorllyService.IService.pdb

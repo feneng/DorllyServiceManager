@@ -1,0 +1,15 @@
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.IService.deps.json
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.IService.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.IService.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.Common.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.Domain.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.Domain.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/bin/Debug/netcoreapp3.0/DorllyService.Common.pdb
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.csproj.AssemblyReference.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.GeneratedMSBuildEditorConfig.editorconfig
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.AssemblyInfoInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.AssemblyInfo.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.csproj.CoreCompileInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.csproj.CopyComplete
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.dll
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.IService/obj/Debug/netcoreapp3.0/DorllyService.IService.pdb
