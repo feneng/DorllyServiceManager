@@ -3,6 +3,11 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyService.Service/bin/Debu
 C:/Users/feneng/source/repos/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.csprojAssemblyReference.cache
 C:/Users/feneng/source/repos/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.AssemblyInfoInputs.cache
 C:/Users/feneng/source/repos/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.AssemblyInfo.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.csproj.AssemblyReference.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.GeneratedMSBuildEditorConfig.editorconfig
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.AssemblyInfoInputs.cache
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.AssemblyInfo.cs
+/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.csproj.CoreCompileInputs.cache
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Debug/netcoreapp3.0/DorllyService.Service.deps.json
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Debug/netcoreapp3.0/DorllyService.Service.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Debug/netcoreapp3.0/DorllyService.Service.pdb
@@ -12,10 +17,6 @@ C:/Users/feneng/source/repos/DorllyServiceManager/DorllyService.Service/obj/Debu
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Debug/netcoreapp3.0/DorllyService.Common.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Debug/netcoreapp3.0/DorllyService.Domain.pdb
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/bin/Debug/netcoreapp3.0/DorllyService.IService.pdb
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.csprojAssemblyReference.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.AssemblyInfoInputs.cache
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.AssemblyInfo.cs
-/Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.csproj.CoreCompileInputs.cache
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.csproj.CopyComplete
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.dll
 /Users/feneng/Documents/projects/DorllyServiceManager/DorllyService.Service/obj/Debug/netcoreapp3.0/DorllyService.Service.pdb

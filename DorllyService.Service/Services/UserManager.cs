@@ -202,5 +202,20 @@ namespace DorllyService.Service
                 .AsNoTracking()
                 .SingleOrDefaultAsync();
         }
+
+        IService.Account IUserManager.Login(string account, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        IService.Account IUserManager.GetAccountByUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        IService.Account IUserManager.GetAccountByCookie()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
